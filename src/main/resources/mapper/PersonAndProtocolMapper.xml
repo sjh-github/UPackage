@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wwdlb.hongruan.mapper.PersonAndProtocolMapper">
+  <resultMap id="BaseResultMap" type="com.wwdlb.hongruan.model.PersonAndProtocol">
+    <id column="Email" jdbcType="VARCHAR" property="email" />
+    <result column="ProtocolID" jdbcType="INTEGER" property="protocolid" />
+    <result column="TaskID" jdbcType="INTEGER" property="taskid" />
+    <result column="StartTime" jdbcType="VARCHAR" property="starttime" />
+    <result column="EndTime" jdbcType="VARCHAR" property="endtime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    Email, ProtocolID, TaskID, StartTime, EndTime
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from personandprotocol
+    where Email = #{email,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from personandprotocol
+    where Email = #{email,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.wwdlb.hongruan.model.PersonAndProtocol">
+    insert into personandprotocol (Email, ProtocolID, TaskID, 
+      StartTime, EndTime)
+    values (#{email,jdbcType=VARCHAR}, #{protocolid,jdbcType=INTEGER}, #{taskid,jdbcType=INTEGER}, 
+      #{starttime,jdbcType=VARCHAR}, #{endtime,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.wwdlb.hongruan.model.PersonAndProtocol">
+    insert into personandprotocol
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="email != null">
+        Email,
+      </if>
+      <if test="protocolid != null">
+        ProtocolID,
+      </if>
+      <if test="taskid != null">
+        TaskID,
+      </if>
+      <if test="starttime != null">
+        StartTime,
+      </if>
+      <if test="endtime != null">
+        EndTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="protocolid != null">
+        #{protocolid,jdbcType=INTEGER},
+      </if>
+      <if test="taskid != null">
+        #{taskid,jdbcType=INTEGER},
+      </if>
+      <if test="starttime != null">
+        #{starttime,jdbcType=VARCHAR},
+      </if>
+      <if test="endtime != null">
+        #{endtime,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wwdlb.hongruan.model.PersonAndProtocol">
+    update personandprotocol
+    <set>
+      <if test="protocolid != null">
+        ProtocolID = #{protocolid,jdbcType=INTEGER},
+      </if>
+      <if test="taskid != null">
+        TaskID = #{taskid,jdbcType=INTEGER},
+      </if>
+      <if test="starttime != null">
+        StartTime = #{starttime,jdbcType=VARCHAR},
+      </if>
+      <if test="endtime != null">
+        EndTime = #{endtime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where Email = #{email,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wwdlb.hongruan.model.PersonAndProtocol">
+    update personandprotocol
+    set ProtocolID = #{protocolid,jdbcType=INTEGER},
+      TaskID = #{taskid,jdbcType=INTEGER},
+      StartTime = #{starttime,jdbcType=VARCHAR},
+      EndTime = #{endtime,jdbcType=VARCHAR}
+    where Email = #{email,jdbcType=VARCHAR}
+  </update>
+</mapper>

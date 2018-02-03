@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wwdlb.hongruan.mapper.ReceiveTask_CompanyMapper">
+  <resultMap id="BaseResultMap" type="com.wwdlb.hongruan.model.ReceiveTask_Company">
+    <id column="CompanyID" jdbcType="INTEGER" property="companyid" />
+    <result column="CompanyName" jdbcType="VARCHAR" property="companyname" />
+    <result column="CompanySummary" jdbcType="VARCHAR" property="companysummary" />
+    <result column="HaveChecked" jdbcType="CHAR" property="havechecked" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    CompanyID, CompanyName, CompanySummary, HaveChecked
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from receivetask_company
+    where CompanyID = #{companyid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from receivetask_company
+    where CompanyID = #{companyid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.wwdlb.hongruan.model.ReceiveTask_Company">
+    insert into receivetask_company (CompanyID, CompanyName, CompanySummary, 
+      HaveChecked)
+    values (#{companyid,jdbcType=INTEGER}, #{companyname,jdbcType=VARCHAR}, #{companysummary,jdbcType=VARCHAR}, 
+      #{havechecked,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.wwdlb.hongruan.model.ReceiveTask_Company">
+    insert into receivetask_company
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="companyid != null">
+        CompanyID,
+      </if>
+      <if test="companyname != null">
+        CompanyName,
+      </if>
+      <if test="companysummary != null">
+        CompanySummary,
+      </if>
+      <if test="havechecked != null">
+        HaveChecked,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="companyid != null">
+        #{companyid,jdbcType=INTEGER},
+      </if>
+      <if test="companyname != null">
+        #{companyname,jdbcType=VARCHAR},
+      </if>
+      <if test="companysummary != null">
+        #{companysummary,jdbcType=VARCHAR},
+      </if>
+      <if test="havechecked != null">
+        #{havechecked,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wwdlb.hongruan.model.ReceiveTask_Company">
+    update receivetask_company
+    <set>
+      <if test="companyname != null">
+        CompanyName = #{companyname,jdbcType=VARCHAR},
+      </if>
+      <if test="companysummary != null">
+        CompanySummary = #{companysummary,jdbcType=VARCHAR},
+      </if>
+      <if test="havechecked != null">
+        HaveChecked = #{havechecked,jdbcType=CHAR},
+      </if>
+    </set>
+    where CompanyID = #{companyid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wwdlb.hongruan.model.ReceiveTask_Company">
+    update receivetask_company
+    set CompanyName = #{companyname,jdbcType=VARCHAR},
+      CompanySummary = #{companysummary,jdbcType=VARCHAR},
+      HaveChecked = #{havechecked,jdbcType=CHAR}
+    where CompanyID = #{companyid,jdbcType=INTEGER}
+  </update>
+</mapper>

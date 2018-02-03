@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wwdlb.hongruan.mapper.SuperAdministratorMapper">
+  <resultMap id="BaseResultMap" type="com.wwdlb.hongruan.model.SuperAdministrator">
+    <id column="Email" jdbcType="VARCHAR" property="email" />
+    <result column="Password" jdbcType="VARCHAR" property="password" />
+    <result column="Name" jdbcType="VARCHAR" property="name" />
+    <result column="Gender" jdbcType="INTEGER" property="gender" />
+    <result column="BirthYear" jdbcType="INTEGER" property="birthyear" />
+    <result column="BirthMonth" jdbcType="INTEGER" property="birthmonth" />
+    <result column="BirthDay" jdbcType="INTEGER" property="birthday" />
+    <result column="IDCard" jdbcType="CHAR" property="idcard" />
+    <result column="Phone" jdbcType="VARCHAR" property="phone" />
+    <result column="IDFile" jdbcType="VARCHAR" property="idfile" />
+    <result column="HaveChecked" jdbcType="CHAR" property="havechecked" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.wwdlb.hongruan.model.SuperAdministrator">
+    <result column="PhotoData" jdbcType="BINARY" property="photodata" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    Email, Password, Name, Gender, BirthYear, BirthMonth, BirthDay, IDCard, Phone, IDFile, 
+    HaveChecked
+  </sql>
+  <sql id="Blob_Column_List">
+    PhotoData
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from superadministrator
+    where Email = #{email,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from superadministrator
+    where Email = #{email,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.wwdlb.hongruan.model.SuperAdministrator">
+    insert into superadministrator (Email, Password, Name, 
+      Gender, BirthYear, BirthMonth, 
+      BirthDay, IDCard, Phone, 
+      IDFile, HaveChecked, PhotoData
+      )
+    values (#{email,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{gender,jdbcType=INTEGER}, #{birthyear,jdbcType=INTEGER}, #{birthmonth,jdbcType=INTEGER}, 
+      #{birthday,jdbcType=INTEGER}, #{idcard,jdbcType=CHAR}, #{phone,jdbcType=VARCHAR}, 
+      #{idfile,jdbcType=VARCHAR}, #{havechecked,jdbcType=CHAR}, #{photodata,jdbcType=BINARY}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.wwdlb.hongruan.model.SuperAdministrator">
+    insert into superadministrator
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="email != null">
+        Email,
+      </if>
+      <if test="password != null">
+        Password,
+      </if>
+      <if test="name != null">
+        Name,
+      </if>
+      <if test="gender != null">
+        Gender,
+      </if>
+      <if test="birthyear != null">
+        BirthYear,
+      </if>
+      <if test="birthmonth != null">
+        BirthMonth,
+      </if>
+      <if test="birthday != null">
+        BirthDay,
+      </if>
+      <if test="idcard != null">
+        IDCard,
+      </if>
+      <if test="phone != null">
+        Phone,
+      </if>
+      <if test="idfile != null">
+        IDFile,
+      </if>
+      <if test="havechecked != null">
+        HaveChecked,
+      </if>
+      <if test="photodata != null">
+        PhotoData,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null">
+        #{gender,jdbcType=INTEGER},
+      </if>
+      <if test="birthyear != null">
+        #{birthyear,jdbcType=INTEGER},
+      </if>
+      <if test="birthmonth != null">
+        #{birthmonth,jdbcType=INTEGER},
+      </if>
+      <if test="birthday != null">
+        #{birthday,jdbcType=INTEGER},
+      </if>
+      <if test="idcard != null">
+        #{idcard,jdbcType=CHAR},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="idfile != null">
+        #{idfile,jdbcType=VARCHAR},
+      </if>
+      <if test="havechecked != null">
+        #{havechecked,jdbcType=CHAR},
+      </if>
+      <if test="photodata != null">
+        #{photodata,jdbcType=BINARY},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wwdlb.hongruan.model.SuperAdministrator">
+    update superadministrator
+    <set>
+      <if test="password != null">
+        Password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        Name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null">
+        Gender = #{gender,jdbcType=INTEGER},
+      </if>
+      <if test="birthyear != null">
+        BirthYear = #{birthyear,jdbcType=INTEGER},
+      </if>
+      <if test="birthmonth != null">
+        BirthMonth = #{birthmonth,jdbcType=INTEGER},
+      </if>
+      <if test="birthday != null">
+        BirthDay = #{birthday,jdbcType=INTEGER},
+      </if>
+      <if test="idcard != null">
+        IDCard = #{idcard,jdbcType=CHAR},
+      </if>
+      <if test="phone != null">
+        Phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="idfile != null">
+        IDFile = #{idfile,jdbcType=VARCHAR},
+      </if>
+      <if test="havechecked != null">
+        HaveChecked = #{havechecked,jdbcType=CHAR},
+      </if>
+      <if test="photodata != null">
+        PhotoData = #{photodata,jdbcType=BINARY},
+      </if>
+    </set>
+    where Email = #{email,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.wwdlb.hongruan.model.SuperAdministrator">
+    update superadministrator
+    set Password = #{password,jdbcType=VARCHAR},
+      Name = #{name,jdbcType=VARCHAR},
+      Gender = #{gender,jdbcType=INTEGER},
+      BirthYear = #{birthyear,jdbcType=INTEGER},
+      BirthMonth = #{birthmonth,jdbcType=INTEGER},
+      BirthDay = #{birthday,jdbcType=INTEGER},
+      IDCard = #{idcard,jdbcType=CHAR},
+      Phone = #{phone,jdbcType=VARCHAR},
+      IDFile = #{idfile,jdbcType=VARCHAR},
+      HaveChecked = #{havechecked,jdbcType=CHAR},
+      PhotoData = #{photodata,jdbcType=BINARY}
+    where Email = #{email,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wwdlb.hongruan.model.SuperAdministrator">
+    update superadministrator
+    set Password = #{password,jdbcType=VARCHAR},
+      Name = #{name,jdbcType=VARCHAR},
+      Gender = #{gender,jdbcType=INTEGER},
+      BirthYear = #{birthyear,jdbcType=INTEGER},
+      BirthMonth = #{birthmonth,jdbcType=INTEGER},
+      BirthDay = #{birthday,jdbcType=INTEGER},
+      IDCard = #{idcard,jdbcType=CHAR},
+      Phone = #{phone,jdbcType=VARCHAR},
+      IDFile = #{idfile,jdbcType=VARCHAR},
+      HaveChecked = #{havechecked,jdbcType=CHAR}
+    where Email = #{email,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wwdlb.hongruan.mapper.PhasePlanMapper">
+  <resultMap id="BaseResultMap" type="com.wwdlb.hongruan.model.PhasePlan">
+    <id column="PhasePlanID" jdbcType="INTEGER" property="phaseplanid" />
+    <result column="Content" jdbcType="VARCHAR" property="content" />
+    <result column="HaveFinished" jdbcType="CHAR" property="havefinished" />
+    <result column="FinishTime" jdbcType="VARCHAR" property="finishtime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    PhasePlanID, Content, HaveFinished, FinishTime
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from phaseplan
+    where PhasePlanID = #{phaseplanid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from phaseplan
+    where PhasePlanID = #{phaseplanid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.wwdlb.hongruan.model.PhasePlan">
+    insert into phaseplan (PhasePlanID, Content, HaveFinished, 
+      FinishTime)
+    values (#{phaseplanid,jdbcType=INTEGER}, #{content,jdbcType=VARCHAR}, #{havefinished,jdbcType=CHAR}, 
+      #{finishtime,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.wwdlb.hongruan.model.PhasePlan">
+    insert into phaseplan
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="phaseplanid != null">
+        PhasePlanID,
+      </if>
+      <if test="content != null">
+        Content,
+      </if>
+      <if test="havefinished != null">
+        HaveFinished,
+      </if>
+      <if test="finishtime != null">
+        FinishTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="phaseplanid != null">
+        #{phaseplanid,jdbcType=INTEGER},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="havefinished != null">
+        #{havefinished,jdbcType=CHAR},
+      </if>
+      <if test="finishtime != null">
+        #{finishtime,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wwdlb.hongruan.model.PhasePlan">
+    update phaseplan
+    <set>
+      <if test="content != null">
+        Content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="havefinished != null">
+        HaveFinished = #{havefinished,jdbcType=CHAR},
+      </if>
+      <if test="finishtime != null">
+        FinishTime = #{finishtime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where PhasePlanID = #{phaseplanid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wwdlb.hongruan.model.PhasePlan">
+    update phaseplan
+    set Content = #{content,jdbcType=VARCHAR},
+      HaveFinished = #{havefinished,jdbcType=CHAR},
+      FinishTime = #{finishtime,jdbcType=VARCHAR}
+    where PhasePlanID = #{phaseplanid,jdbcType=INTEGER}
+  </update>
+</mapper>

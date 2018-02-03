@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wwdlb.hongruan.mapper.TaskAndPhasePlanMapper">
+  <resultMap id="BaseResultMap" type="com.wwdlb.hongruan.model.TaskAndPhasePlan">
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="TaskID" jdbcType="INTEGER" property="taskid" />
+    <result column="PhasePlanID" jdbcType="INTEGER" property="phaseplanid" />
+    <result column="PhaseNum" jdbcType="INTEGER" property="phasenum" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, TaskID, PhasePlanID, PhaseNum
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from taskandphaseplan
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from taskandphaseplan
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.wwdlb.hongruan.model.TaskAndPhasePlan">
+    insert into taskandphaseplan (ID, TaskID, PhasePlanID, 
+      PhaseNum)
+    values (#{id,jdbcType=INTEGER}, #{taskid,jdbcType=INTEGER}, #{phaseplanid,jdbcType=INTEGER}, 
+      #{phasenum,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.wwdlb.hongruan.model.TaskAndPhasePlan">
+    insert into taskandphaseplan
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="taskid != null">
+        TaskID,
+      </if>
+      <if test="phaseplanid != null">
+        PhasePlanID,
+      </if>
+      <if test="phasenum != null">
+        PhaseNum,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="taskid != null">
+        #{taskid,jdbcType=INTEGER},
+      </if>
+      <if test="phaseplanid != null">
+        #{phaseplanid,jdbcType=INTEGER},
+      </if>
+      <if test="phasenum != null">
+        #{phasenum,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wwdlb.hongruan.model.TaskAndPhasePlan">
+    update taskandphaseplan
+    <set>
+      <if test="taskid != null">
+        TaskID = #{taskid,jdbcType=INTEGER},
+      </if>
+      <if test="phaseplanid != null">
+        PhasePlanID = #{phaseplanid,jdbcType=INTEGER},
+      </if>
+      <if test="phasenum != null">
+        PhaseNum = #{phasenum,jdbcType=INTEGER},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wwdlb.hongruan.model.TaskAndPhasePlan">
+    update taskandphaseplan
+    set TaskID = #{taskid,jdbcType=INTEGER},
+      PhasePlanID = #{phaseplanid,jdbcType=INTEGER},
+      PhaseNum = #{phasenum,jdbcType=INTEGER}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
