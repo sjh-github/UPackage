@@ -3,13 +3,13 @@ package com.wwdlb.hongruan.mapper;
 import com.wwdlb.hongruan.model.ReceiveTask_Company;
 
 public interface ReceiveTask_CompanyMapper {
-    int deleteByPrimaryKey(Integer companyid);
+    int deleteByPrimaryKey(String companyemail);
 
     int insert(ReceiveTask_Company record);
 
     int insertSelective(ReceiveTask_Company record);
 
-    ReceiveTask_Company selectByPrimaryKey(Integer companyid);
+    ReceiveTask_Company selectByPrimaryKey(String companyemail);
 
     int updateByPrimaryKeySelective(ReceiveTask_Company record);
 

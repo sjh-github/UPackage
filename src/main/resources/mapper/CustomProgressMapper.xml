@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wwdlb.hongruan.mapper.CustomProgressMapper">
+  <resultMap id="BaseResultMap" type="com.wwdlb.hongruan.model.CustomProgress">
+    <id column="CustomProgressID" jdbcType="INTEGER" property="customprogressid" />
+    <result column="Remark" jdbcType="VARCHAR" property="remark" />
+    <result column="HaveFinished" jdbcType="CHAR" property="havefinished" />
+    <result column="FinishTime" jdbcType="VARCHAR" property="finishtime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    CustomProgressID, Remark, HaveFinished, FinishTime
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from customprogress
+    where CustomProgressID = #{customprogressid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from customprogress
+    where CustomProgressID = #{customprogressid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.wwdlb.hongruan.model.CustomProgress"   useGeneratedKeys="true" keyProperty="customprogressid">
+    insert into customprogress (CustomProgressID, Remark, HaveFinished, 
+      FinishTime)
+    values (#{customprogressid,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}, #{havefinished,jdbcType=CHAR}, 
+      #{finishtime,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.wwdlb.hongruan.model.CustomProgress">
+    insert into customprogress
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="customprogressid != null">
+        CustomProgressID,
+      </if>
+      <if test="remark != null">
+        Remark,
+      </if>
+      <if test="havefinished != null">
+        HaveFinished,
+      </if>
+      <if test="finishtime != null">
+        FinishTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="customprogressid != null">
+        #{customprogressid,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="havefinished != null">
+        #{havefinished,jdbcType=CHAR},
+      </if>
+      <if test="finishtime != null">
+        #{finishtime,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wwdlb.hongruan.model.CustomProgress">
+    update customprogress
+    <set>
+      <if test="remark != null">
+        Remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="havefinished != null">
+        HaveFinished = #{havefinished,jdbcType=CHAR},
+      </if>
+      <if test="finishtime != null">
+        FinishTime = #{finishtime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where CustomProgressID = #{customprogressid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wwdlb.hongruan.model.CustomProgress">
+    update customprogress
+    set Remark = #{remark,jdbcType=VARCHAR},
+      HaveFinished = #{havefinished,jdbcType=CHAR},
+      FinishTime = #{finishtime,jdbcType=VARCHAR}
+    where CustomProgressID = #{customprogressid,jdbcType=INTEGER}
+  </update>
+</mapper>

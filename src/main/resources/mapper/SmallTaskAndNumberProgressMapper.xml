@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wwdlb.hongruan.mapper.SmallTaskAndNumberProgressMapper">
+  <resultMap id="BaseResultMap" type="com.wwdlb.hongruan.model.SmallTaskAndNumberProgress">
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="SmallTaskID" jdbcType="INTEGER" property="smalltaskid" />
+    <result column="NumberProgress" jdbcType="INTEGER" property="numberprogress" />
+    <result column="FinishedNumber" jdbcType="INTEGER" property="finishednumber" />
+    <result column="UpdateTime" jdbcType="VARCHAR" property="updatetime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, SmallTaskID, NumberProgress, FinishedNumber, UpdateTime
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from smalltaskandnumberprogress
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from smalltaskandnumberprogress
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.wwdlb.hongruan.model.SmallTaskAndNumberProgress">
+    insert into smalltaskandnumberprogress (ID, SmallTaskID, NumberProgress, 
+      FinishedNumber, UpdateTime)
+    values (#{id,jdbcType=INTEGER}, #{smalltaskid,jdbcType=INTEGER}, #{numberprogress,jdbcType=INTEGER}, 
+      #{finishednumber,jdbcType=INTEGER}, #{updatetime,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.wwdlb.hongruan.model.SmallTaskAndNumberProgress">
+    insert into smalltaskandnumberprogress
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="smalltaskid != null">
+        SmallTaskID,
+      </if>
+      <if test="numberprogress != null">
+        NumberProgress,
+      </if>
+      <if test="finishednumber != null">
+        FinishedNumber,
+      </if>
+      <if test="updatetime != null">
+        UpdateTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="smalltaskid != null">
+        #{smalltaskid,jdbcType=INTEGER},
+      </if>
+      <if test="numberprogress != null">
+        #{numberprogress,jdbcType=INTEGER},
+      </if>
+      <if test="finishednumber != null">
+        #{finishednumber,jdbcType=INTEGER},
+      </if>
+      <if test="updatetime != null">
+        #{updatetime,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wwdlb.hongruan.model.SmallTaskAndNumberProgress">
+    update smalltaskandnumberprogress
+    <set>
+      <if test="smalltaskid != null">
+        SmallTaskID = #{smalltaskid,jdbcType=INTEGER},
+      </if>
+      <if test="numberprogress != null">
+        NumberProgress = #{numberprogress,jdbcType=INTEGER},
+      </if>
+      <if test="finishednumber != null">
+        FinishedNumber = #{finishednumber,jdbcType=INTEGER},
+      </if>
+      <if test="updatetime != null">
+        UpdateTime = #{updatetime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wwdlb.hongruan.model.SmallTaskAndNumberProgress">
+    update smalltaskandnumberprogress
+    set SmallTaskID = #{smalltaskid,jdbcType=INTEGER},
+      NumberProgress = #{numberprogress,jdbcType=INTEGER},
+      FinishedNumber = #{finishednumber,jdbcType=INTEGER},
+      UpdateTime = #{updatetime,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

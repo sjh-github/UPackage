@@ -1,71 +1,71 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.wwdlb.hongruan.mapper.PersonAndTaskMapper">
-  <resultMap id="BaseResultMap" type="com.wwdlb.hongruan.model.PersonAndTask">
+<mapper namespace="com.wwdlb.hongruan.mapper.TaskAndSmallTaskMapper">
+  <resultMap id="BaseResultMap" type="com.wwdlb.hongruan.model.TaskAndSmallTask">
     <id column="ID" jdbcType="INTEGER" property="id" />
-    <result column="Email" jdbcType="VARCHAR" property="email" />
     <result column="TaskID" jdbcType="INTEGER" property="taskid" />
+    <result column="SmallTaskID" jdbcType="INTEGER" property="smalltaskid" />
   </resultMap>
   <sql id="Base_Column_List">
-    ID, Email, TaskID
+    ID, TaskID, SmallTaskID
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from personandtask
+    from taskandsmalltask
     where ID = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from personandtask
+    delete from taskandsmalltask
     where ID = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.wwdlb.hongruan.model.PersonAndTask">
-    insert into personandtask (ID, Email, TaskID
+  <insert id="insert" parameterType="com.wwdlb.hongruan.model.TaskAndSmallTask">
+    insert into taskandsmalltask (ID, TaskID, SmallTaskID
       )
-    values (#{id,jdbcType=INTEGER}, #{email,jdbcType=VARCHAR}, #{taskid,jdbcType=INTEGER}
+    values (#{id,jdbcType=INTEGER}, #{taskid,jdbcType=INTEGER}, #{smalltaskid,jdbcType=INTEGER}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.wwdlb.hongruan.model.PersonAndTask">
-    insert into personandtask
+  <insert id="insertSelective" parameterType="com.wwdlb.hongruan.model.TaskAndSmallTask">
+    insert into taskandsmalltask
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         ID,
       </if>
-      <if test="email != null">
-        Email,
-      </if>
       <if test="taskid != null">
         TaskID,
+      </if>
+      <if test="smalltaskid != null">
+        SmallTaskID,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="email != null">
-        #{email,jdbcType=VARCHAR},
-      </if>
       <if test="taskid != null">
         #{taskid,jdbcType=INTEGER},
       </if>
+      <if test="smalltaskid != null">
+        #{smalltaskid,jdbcType=INTEGER},
+      </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.wwdlb.hongruan.model.PersonAndTask">
-    update personandtask
+  <update id="updateByPrimaryKeySelective" parameterType="com.wwdlb.hongruan.model.TaskAndSmallTask">
+    update taskandsmalltask
     <set>
-      <if test="email != null">
-        Email = #{email,jdbcType=VARCHAR},
-      </if>
       <if test="taskid != null">
         TaskID = #{taskid,jdbcType=INTEGER},
+      </if>
+      <if test="smalltaskid != null">
+        SmallTaskID = #{smalltaskid,jdbcType=INTEGER},
       </if>
     </set>
     where ID = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.wwdlb.hongruan.model.PersonAndTask">
-    update personandtask
-    set Email = #{email,jdbcType=VARCHAR},
-      TaskID = #{taskid,jdbcType=INTEGER}
+  <update id="updateByPrimaryKey" parameterType="com.wwdlb.hongruan.model.TaskAndSmallTask">
+    update taskandsmalltask
+    set TaskID = #{taskid,jdbcType=INTEGER},
+      SmallTaskID = #{smalltaskid,jdbcType=INTEGER}
     where ID = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

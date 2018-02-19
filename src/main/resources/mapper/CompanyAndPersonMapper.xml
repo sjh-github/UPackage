@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wwdlb.hongruan.mapper.CompanyAndPersonMapper">
+  <resultMap id="BaseResultMap" type="com.wwdlb.hongruan.model.CompanyAndPerson">
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="CompanyEmail" jdbcType="VARCHAR" property="companyemail" />
+    <result column="Email" jdbcType="VARCHAR" property="email" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, CompanyEmail, Email
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from companyandperson
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from companyandperson
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.wwdlb.hongruan.model.CompanyAndPerson">
+    insert into companyandperson (ID, CompanyEmail, Email
+      )
+    values (#{id,jdbcType=INTEGER}, #{companyemail,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.wwdlb.hongruan.model.CompanyAndPerson">
+    insert into companyandperson
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="companyemail != null">
+        CompanyEmail,
+      </if>
+      <if test="email != null">
+        Email,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="companyemail != null">
+        #{companyemail,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wwdlb.hongruan.model.CompanyAndPerson">
+    update companyandperson
+    <set>
+      <if test="companyemail != null">
+        CompanyEmail = #{companyemail,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        Email = #{email,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wwdlb.hongruan.model.CompanyAndPerson">
+    update companyandperson
+    set CompanyEmail = #{companyemail,jdbcType=VARCHAR},
+      Email = #{email,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
