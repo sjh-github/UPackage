@@ -19,7 +19,7 @@ public class LoginAction {
      * @param password 密码
      * @return -1:该邮箱不存在，-2:密码错误，1：登陆成功
      */
-    @GetMapping(value = "/receiveTaskPersonal/{email}")
+    @PostMapping(value = "/receiveTaskPersonal/{email}")
     public int loginReceiveTaskPersonal(@PathVariable String email, @RequestParam String password) {
         return loginServiceImpl.loginReceiveTaskPersonal(email, password);
     }
@@ -30,7 +30,7 @@ public class LoginAction {
      * @param password 密码
      * @return -1:该邮箱不存在，-2:密码错误，1：登陆成功
      */
-    @GetMapping(value = "/provideTaskPersonal/{email}")
+    @PostMapping(value = "/provideTaskPersonal/{email}")
     public int loginProvideTaskPersonal(@PathVariable String email, @RequestParam String password) {
         return loginServiceImpl.loginProvideTaskPersonal(email, password);
     }

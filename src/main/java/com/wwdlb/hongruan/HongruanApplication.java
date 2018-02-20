@@ -6,6 +6,7 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+
 @MapperScan(basePackages = "com.wwdlb.hongruan")
 @EnableAutoConfiguration
 @SpringBootApplication
@@ -15,4 +16,5 @@ public class HongruanApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(HongruanApplication.class, args);
 	}
+
 }

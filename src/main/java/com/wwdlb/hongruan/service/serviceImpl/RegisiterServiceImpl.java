@@ -2,7 +2,6 @@ package com.wwdlb.hongruan.service.serviceImpl;
 
 import com.wwdlb.hongruan.mapper.ReceiveTask_PersonalMapper;
 import com.wwdlb.hongruan.model.ReceiveTask_Personal;
-import com.wwdlb.hongruan.service.RegisiterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -42,7 +41,7 @@ public class RegisiterServiceImpl {
     public boolean regisiterReceiveTaskPersonal(String email, String password, String name,
                                              String gender, Integer birthyear, Integer birthmonth,
                                              Integer birthday, String idcard, String phone,
-                                             MultipartFile multipartFile, byte[] photodata) {
+                                             MultipartFile multipartFile, String photodata) {
         //查找该邮箱是否已被注册
         ReceiveTask_Personal receiveTask_personal = receiveTask_personalMapper.selectByPrimaryKey(email);
         if (receiveTask_personal == null) {

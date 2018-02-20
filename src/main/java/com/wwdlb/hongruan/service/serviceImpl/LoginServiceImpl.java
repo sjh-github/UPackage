@@ -4,7 +4,6 @@ import com.wwdlb.hongruan.mapper.ProvideTask_PersonalMapper;
 import com.wwdlb.hongruan.mapper.ReceiveTask_PersonalMapper;
 import com.wwdlb.hongruan.model.ProvideTask_Personal;
 import com.wwdlb.hongruan.model.ReceiveTask_Personal;
-import com.wwdlb.hongruan.service.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

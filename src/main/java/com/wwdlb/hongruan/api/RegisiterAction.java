@@ -37,7 +37,7 @@ public class RegisiterAction {
                                                @RequestParam Integer birthyear, @RequestParam Integer birthmonth,
                                                @RequestParam Integer birthday, @RequestParam String idcard,
                                                @RequestParam String phone, @RequestParam MultipartFile multipartFile,
-                                               @RequestParam(required = false) byte[] photodata) {
+                                               @RequestParam(required = false) String photodata) {
         return regisiterServiceImpl.regisiterReceiveTaskPersonal(email, password, name, gender, birthyear,
                     birthmonth, birthday, idcard, phone, multipartFile, photodata);
     }

@@ -15,29 +15,29 @@ import javax.servlet.http.HttpServletRequest;
 
 @Aspect
 @Component
-public class APILoggerAspect {
-    private Logger logger = LoggerFactory.getLogger(String.valueOf(APILoggerAspect.this));
+public class WEBLoggerAspect {
+    private Logger logger = LoggerFactory.getLogger(String.valueOf(WEBLoggerAspect.this));
 
-    @Pointcut("execution(public * com.wwdlb.hongruan..api..*.*(..))")
-    public void apiLog(){}
+    @Pointcut("execution(public * com.wwdlb.hongruan..web..*.*(..))")
+    public void webLog(){}
 
-    @Before("apiLog()")
+    @Before("webLog()")
     public void doBefore(JoinPoint joinPoint) {
         // 接收到请求，记录请求内容
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         HttpServletRequest request = attributes.getRequest();
 
         // 记录下请求内容
-        logger.info("API.URL : " + request.getRequestURL().toString());
-        logger.info("API.HTTP_METHOD : " + request.getMethod());
-        logger.info("API.IP : " + request.getRemoteAddr());
-        logger.info("API.CLASS_METHOD : " + joinPoint.getSignature().getDeclaringTypeName() + "." + joinPoint.getSignature().getName());
-        //logger.info("API.ARGS : " + Arrays.toString(joinPoint.getArgs()));
+        logger.info("WEB.URL : " + request.getRequestURL().toString());
+        logger.info("WEB.HTTP_METHOD : " + request.getMethod());
+        logger.info("WEB.IP : " + request.getRemoteAddr());
+        logger.info("WEB.CLASS_METHOD : " + joinPoint.getSignature().getDeclaringTypeName() + "." + joinPoint.getSignature().getName());
+        //logger.info("WEB.ARGS : " + Arrays.toString(joinPoint.getArgs()));
     }
 
-    @AfterReturning(returning = "ret", pointcut = "apiLog()")
+    @AfterReturning(returning = "ret", pointcut = "webLog()")
     public void doAfterReturning(Object ret) {
         // 处理完请求，返回内容
-        logger.info("API.RESPONSE : " + ret);
+        logger.info("WEB.RESPONSE : " + ret);
     }
 }
