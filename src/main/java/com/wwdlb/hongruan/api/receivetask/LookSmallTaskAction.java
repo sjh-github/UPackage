@@ -6,6 +6,7 @@ import com.wwdlb.hongruan.service.serviceImpl.LookSmallTaskServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
@@ -23,10 +24,10 @@ public class LookSmallTaskAction {
     /**
      * 根据接包人邮箱查找所有小任务
      * @param email 接包人邮箱
-     * @return 小任务列表
+     * @return null:无小任务，非null:小任务列表
      */
-    @GetMapping(value = "/{email}/smallTask")
-    public ArrayList<SmallTask> lookAllSmallTaskByEmail(@PathVariable String email) {
+    @GetMapping(value = "/api/smallTask")
+    public ArrayList<SmallTask> lookAllSmallTaskByEmail(@RequestParam String email) {
         return lookSmallTaskServiceImpl.findAllSmallTaskByEmail(email);
     }
 

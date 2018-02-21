@@ -26,7 +26,7 @@ public class ProvideSmallTaskAction {
      * @param customProgressArrayList 自定义指标ArrayList（可空,按照第一步，第二步...顺序）
      * @return true:发布成功
      */
-    @PostMapping(value = "/smallTask")
+    @PostMapping(value = "/api/smallTask")
     public boolean provideSmallTask(@RequestParam String taskName, @RequestParam String smallTaskName,
                                     @RequestParam String smallTaskDetail, @RequestParam String receiveSmallTaskEmail,
                                     @RequestParam(required = false) Integer numberProgress,

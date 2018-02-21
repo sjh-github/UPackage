@@ -2,6 +2,8 @@ package com.wwdlb.hongruan.service.serviceImpl;
 
 import com.wwdlb.hongruan.mapper.ReceiveTask_PersonalMapper;
 import com.wwdlb.hongruan.model.ReceiveTask_Personal;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -9,12 +11,15 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
+import java.util.Date;
 
 /**
  * 注册服务接口实例
  */
 @Service
 public class RegisiterServiceImpl {
+
+    private Logger logger = LoggerFactory.getLogger(String.valueOf(RegisiterServiceImpl.this));
 
     @Value("${my.receiveTaskPersonalPhotoFileAddress}")
     private String receiveTaskPersonalPhotoFileAddress;
@@ -54,9 +59,25 @@ public class RegisiterServiceImpl {
             } else {
                 receiveTask_personal.setGender(1);
             }
+            if (birthyear > (new Date().getYear())) {
+                logger.error("出生年份不合法");
+                throw new RuntimeException("出生年份不合法");
+            }
             receiveTask_personal.setBirthyear(birthyear);
+            if (birthmonth < 1 || birthmonth > 12) {
+                logger.error("出生月份不合法");
+                throw new RuntimeException("出生月份不合法");
+            }
             receiveTask_personal.setBirthmonth(birthmonth);
+            if (birthday < 1 || birthday > 31) {
+                logger.error("出生日期不合法");
+                throw new RuntimeException("出生日期不合法");
+            }
             receiveTask_personal.setBirthday(birthday);
+            if (idcard.length() != 18) {
+                logger.error("身份证号码不合法");
+                throw new RuntimeException("身份证号码不合法");
+            }
             receiveTask_personal.setIdcard(idcard);
             receiveTask_personal.setPhone(phone);
             //文件上传
@@ -78,6 +99,9 @@ public class RegisiterServiceImpl {
                     }
                 }).start();
                 receiveTask_personal.setIdfile(receiveTaskPersonalPhotoFileAddress + email + fileLastName);
+            } else {
+                logger.error("未选择照片");
+                throw new RuntimeException("未选择照片");
             }
             receiveTask_personal.setPhotodata(photodata);
             receiveTask_personal.setHavechecked("F");

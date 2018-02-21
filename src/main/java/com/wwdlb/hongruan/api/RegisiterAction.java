@@ -31,7 +31,7 @@ public class RegisiterAction {
      * @param photodata 面部数据（可不提供）
      * @return true:注册成功，false:该邮箱已经被注册
      */
-    @PostMapping(value = "/receiveTaskPersonal")
+    @PostMapping(value = "/api/receiveTaskPersonal")
     public boolean regisiterReceiveTaskPersonal(@RequestParam String email, @RequestParam String password,
                                                @RequestParam String name, @RequestParam String gender,
                                                @RequestParam Integer birthyear, @RequestParam Integer birthmonth,

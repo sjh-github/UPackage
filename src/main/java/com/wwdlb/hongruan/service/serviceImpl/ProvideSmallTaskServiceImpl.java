@@ -3,6 +3,8 @@ package com.wwdlb.hongruan.service.serviceImpl;
 import com.wwdlb.hongruan.mapper.*;
 import com.wwdlb.hongruan.model.*;
 import com.wwdlb.hongruan.service.ProvideSmallTaskService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,6 +20,8 @@ import java.util.Map;
  */
 @Service
 public class ProvideSmallTaskServiceImpl /*implements ProvideSmallTaskService*/ {
+
+    private Logger logger = LoggerFactory.getLogger(String.valueOf(ProvideSmallTaskServiceImpl.this));
 
     @Autowired
     private TaskAndSmallTaskMapper taskAndSmallTaskMapper;
@@ -69,6 +73,10 @@ public class ProvideSmallTaskServiceImpl /*implements ProvideSmallTaskService*/ 
         personAndSmallTaskMapper.insert(personAndSmallTask);
         //创建小任务与数量指标关联
         if (numberProgress != null) {
+            if (numberProgress <= 0) {
+                logger.error("numberProgress should be bigger than 0");
+                throw new RuntimeException("numberProgress should be bigger than 0");
+            }
             SmallTaskAndNumberProgress smallTaskAndNumberProgress = new SmallTaskAndNumberProgress(smallTaskID,
                     numberProgress, 0, simpleDateFormat.format(date));
             smallTaskAndNumberProgressMapper.insert(smallTaskAndNumberProgress);

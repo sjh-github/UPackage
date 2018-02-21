@@ -18,11 +18,11 @@ public class LookAllPersonController {
     /**
      * pageHelper分页查询
      * @param page 当前页（从第一页开始）
-     * @param limit 每页显示数量
+     * @param per_page 每页显示数量
      * @return 包含目标信息及辅助信息
      */
-    @GetMapping("/receiveTaskPersonal")
-    public PageInfo<ReceiveTask_Personal> findAllByPage(@RequestParam int page, @RequestParam int limit) {
-        return lookAllReceiveTaskPersonServiceImpl.findAllReceiveTaskPersonByPage(page, limit);
+    @GetMapping("/web/receiveTaskPersonal")
+    public PageInfo<ReceiveTask_Personal> findAllByPage(@RequestParam int page, @RequestParam int per_page) {
+        return lookAllReceiveTaskPersonServiceImpl.findAllReceiveTaskPersonByPage(page, per_page);
     }
 }
