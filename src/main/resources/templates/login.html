@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+		<title>登陆</title>
+		<meta content="虹软外包" name="keywords"/>
+		<meta content="虹软外包" name="description"/>
+		<meta http-equiv="Cache-Control" content="max-age=180"/>
+		<meta name="apple-mobile-web-app-capable" content="yes"/>
+		<meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+		<meta name="format-detection" content="telephone=no"/>
+		<meta http-equiv="x-dns-prefetch-control" content="on"/>
+		<link href="../static/css/basestyle.css" th:href="@{/css/basestyle.css}" rel="stylesheet" type="text/css" />
+		<link href="../static/css/mc.css" th:href="@{/css/mc.css}" rel="stylesheet" type="text/css" />
+		<link href="../static/css/user_center.css" th:href="@{/css/user_center.css}" rel="stylesheet" type="text/css" />
+		<script src="../static/js/jquery-1.8.3.min.js" th:href="@{/js/jquery-1.8.3.min.js}" ></script>
+		<link href="../static/css/font-awesome.min.css" th:href="@{/css/font-awesome.min.css}" rel="stylesheet" type="text/css"/>
+		<script type="text/javascript">
+			function checkemail() {
+			    var form1 = document.getElementById("form1");
+				var phone = form1.telphone.value;
+				var pattern = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
+				var divphone = document.getElementById("divphone");
+				if(!pattern.test(phone)){
+					divphone.innerHTML='<font class="tips_false">邮箱不符合标准！</font>';
+					return false;
+				} else {
+					divphone.innerHTML = "";
+					return true;
+				}
+			}
+		</script>
+	</head>
+	<body>
+		<div class="login-head">
+		  <div class="wrap">
+			<div class="logo">
+				<a href="index.html"></a>
+			</div>
+			<div class="txt">智能外包管理平台！</div>
+		  </div>
+		</div>
+		<div class="login-body">
+		  <div class="loginbox">
+			  <form role="form" th:action="@{/login/{job}(job=${job})}" action="index.html" method="post" id="form1">
+				  <div class="tit">
+					<span>登陆</span>
+					<a href="register.html" th:href="@{/web/registerPage}">还没有账号？立即注册</a>
+				  </div>
+				  <div class="input-group">
+					<span class="input-group-addon"><i class="fa fa-user"></i></span>
+					<input type="tel" name="telphone" onblur="checkemail()" required="required" placeholder="邮箱" class="form-control"/>
+				  </div>
+				  <span class="tips" id="divphone"></span>
+				  <div class="input-group">
+					<span class="input-group-addon"><i class="fa fa-unlock-alt"></i></span>
+					<input type="password" name="password" maxlength="20" placeholder="请输入密码" class="form-control"  required="required"/>
+				  </div>
+				  <div class="checkbox-group">
+					<a href="login_chage_psw.html" th:href="@{/web/findPswPage}" class="forget-pdw">忘记密码</a>
+					<label class="icon-checkbox">
+						<input type="checkbox" checked="" name="autolanding" value="1"/>记住我
+					</label>
+				  </div>
+				  <div class="login-box-btn">
+					<input type="submit" style="width: 320px" class="btn-login" value="登 录" name="btn" onclick="checkemail()"/>
+				  </div>
+			</form>
+		  </div>
+		</div>
+		<div class="login-foot">Arcsoft 虹软</div>
+	</body>
+</html>    
