@@ -56,16 +56,19 @@ public class ProvideSmallTaskServiceImpl /*implements ProvideSmallTaskService*/ 
      */
     @Transactional
     //@Override
-    public boolean provideSmallTask(String taskName, String smallTaskName, String smallTaskDetail, String receiveSmallTaskEmail,
+    public boolean provideSmallTask(String taskName, String smallTaskName, String smallTaskDetail, String endTime, String receiveSmallTaskEmail,
                                     Integer numberProgress, ArrayList<String> customProgressArrayList) {
+        int taskID = taskMapper.selectIDByTaskName(taskName);
+        if (taskID <= 0) {
+            return false;
+        }
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date date = new Date();
         //新建小任务
-        SmallTask smallTask = new SmallTask(smallTaskName, smallTaskDetail, "F", simpleDateFormat.format(date));
+        SmallTask smallTask = new SmallTask(smallTaskName, smallTaskDetail, endTime, "F", simpleDateFormat.format(date));
         smallTaskMapper.insert(smallTask);
         //创建任务与小任务关联
         int smallTaskID = smallTask.getSmalltaskid();
-        int taskID = taskMapper.selectIDByTaskName(taskName);
         TaskAndSmallTask taskAndSmallTask = new TaskAndSmallTask(taskID, smallTaskID);
         taskAndSmallTaskMapper.insert(taskAndSmallTask);
         //创建外包人员与小任务关联

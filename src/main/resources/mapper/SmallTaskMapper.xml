@@ -5,11 +5,12 @@
     <id column="SmallTaskID" jdbcType="INTEGER" property="smalltaskid" />
     <result column="SmallTaskName" jdbcType="VARCHAR" property="smalltaskname" />
     <result column="SmallTaskDetail" jdbcType="VARCHAR" property="smalltaskdetail" />
+    <result column="EndTime" jdbcType="VARCHAR" property="endtime" />
     <result column="HaveFinished" jdbcType="CHAR" property="havefinished" />
     <result column="FinishTime" jdbcType="VARCHAR" property="finishtime" />
   </resultMap>
   <sql id="Base_Column_List">
-    SmallTaskID, SmallTaskName, SmallTaskDetail, HaveFinished, FinishTime
+    SmallTaskID, SmallTaskName, SmallTaskDetail, EndTime, HaveFinished, FinishTime
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -21,11 +22,13 @@
     delete from smalltask
     where SmallTaskID = #{smalltaskid,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.wwdlb.hongruan.model.SmallTask"  useGeneratedKeys="true" keyProperty="smalltaskid">
+  <insert id="insert" parameterType="com.wwdlb.hongruan.model.SmallTask" useGeneratedKeys="true" keyProperty="smalltaskid">
     insert into smalltask (SmallTaskID, SmallTaskName, SmallTaskDetail, 
-      HaveFinished, FinishTime)
+      EndTime, HaveFinished, FinishTime
+      )
     values (#{smalltaskid,jdbcType=INTEGER}, #{smalltaskname,jdbcType=VARCHAR}, #{smalltaskdetail,jdbcType=VARCHAR}, 
-      #{havefinished,jdbcType=CHAR}, #{finishtime,jdbcType=VARCHAR})
+      #{endtime,jdbcType=VARCHAR}, #{havefinished,jdbcType=CHAR}, #{finishtime,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.wwdlb.hongruan.model.SmallTask">
     insert into smalltask
@@ -38,6 +41,9 @@
       </if>
       <if test="smalltaskdetail != null">
         SmallTaskDetail,
+      </if>
+      <if test="endtime != null">
+        EndTime,
       </if>
       <if test="havefinished != null">
         HaveFinished,
@@ -56,6 +62,9 @@
       <if test="smalltaskdetail != null">
         #{smalltaskdetail,jdbcType=VARCHAR},
       </if>
+      <if test="endtime != null">
+        #{endtime,jdbcType=VARCHAR},
+      </if>
       <if test="havefinished != null">
         #{havefinished,jdbcType=CHAR},
       </if>
@@ -73,6 +82,9 @@
       <if test="smalltaskdetail != null">
         SmallTaskDetail = #{smalltaskdetail,jdbcType=VARCHAR},
       </if>
+      <if test="endtime != null">
+        EndTime = #{endtime,jdbcType=VARCHAR},
+      </if>
       <if test="havefinished != null">
         HaveFinished = #{havefinished,jdbcType=CHAR},
       </if>
@@ -86,6 +98,7 @@
     update smalltask
     set SmallTaskName = #{smalltaskname,jdbcType=VARCHAR},
       SmallTaskDetail = #{smalltaskdetail,jdbcType=VARCHAR},
+      EndTime = #{endtime,jdbcType=VARCHAR},
       HaveFinished = #{havefinished,jdbcType=CHAR},
       FinishTime = #{finishtime,jdbcType=VARCHAR}
     where SmallTaskID = #{smalltaskid,jdbcType=INTEGER}

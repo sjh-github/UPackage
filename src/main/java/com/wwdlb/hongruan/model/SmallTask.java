@@ -7,6 +7,8 @@ public class SmallTask {
 
     private String smalltaskdetail;
 
+    private String endtime;
+
     private String havefinished;
 
     private String finishtime;
@@ -35,6 +37,14 @@ public class SmallTask {
         this.smalltaskdetail = smalltaskdetail == null ? null : smalltaskdetail.trim();
     }
 
+    public String getEndtime() {
+        return endtime;
+    }
+
+    public void setEndtime(String endtime) {
+        this.endtime = endtime == null ? null : endtime.trim();
+    }
+
     public String getHavefinished() {
         return havefinished;
     }
@@ -54,9 +64,10 @@ public class SmallTask {
     public SmallTask() {
     }
 
-    public SmallTask(String smalltaskname, String smalltaskdetail, String havefinished, String finishtime) {
+    public SmallTask(String smalltaskname, String smalltaskdetail, String endtime, String havefinished, String finishtime) {
         this.smalltaskname = smalltaskname;
         this.smalltaskdetail = smalltaskdetail;
+        this.endtime = endtime;
         this.havefinished = havefinished;
         this.finishtime = finishtime;
     }

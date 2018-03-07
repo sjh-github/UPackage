@@ -20,6 +20,11 @@
     from task
     where TaskID = #{taskid,jdbcType=INTEGER}
   </select>
+  <select id="getAllTask" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from task
+  </select>
   <select id="selectIDByTaskName" parameterType="java.lang.String" resultType="java.lang.Integer">
     SELECT taskid from task
     where TaskName = #{taskname,jdbcType=VARCHAR}
