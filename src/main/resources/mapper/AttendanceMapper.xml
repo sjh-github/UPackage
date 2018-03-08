@@ -36,6 +36,13 @@
     select COUNT(*) from attendance
     where email = #{email} and signInTime like #{nowTime}
   </select>
+  <select id="selectHaveRunningTaskEmailTodayHaveSigned" resultType="java.lang.String">
+    select email from attendance
+    where signintime like #{nowTime} and email in
+    <foreach collection="haveRunningSmallTaskPersonEmailList" index="index" item="item" open="(" separator="," close=")">
+      #{item}
+    </foreach>
+  </select>
   <insert id="insertSelective" parameterType="com.wwdlb.hongruan.model.Attendance">
     insert into attendance
     <trim prefix="(" suffix=")" suffixOverrides=",">

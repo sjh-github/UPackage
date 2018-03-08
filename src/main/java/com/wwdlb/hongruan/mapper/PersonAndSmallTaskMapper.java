@@ -18,4 +18,5 @@ public interface PersonAndSmallTaskMapper {
     int updateByPrimaryKey(PersonAndSmallTask record);
 
     ArrayList<Integer> selectSmallTaskIDByEmail(String email);
+
 }

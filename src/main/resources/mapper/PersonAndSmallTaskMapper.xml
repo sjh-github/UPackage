@@ -19,6 +19,10 @@
     SELECT smalltaskid from personandsmalltask
     WHERE email = #{email}
   </select>
+  <select id="selectHaveRunningSmallTaskNumByEmail" parameterType="java.lang.String" resultType="java.lang.Integer">
+    select count(*) from personandsmalltask
+    where
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from personandsmalltask
     where ID = #{id,jdbcType=INTEGER}

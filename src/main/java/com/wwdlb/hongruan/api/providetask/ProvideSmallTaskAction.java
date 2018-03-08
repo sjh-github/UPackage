@@ -21,12 +21,13 @@ public class ProvideSmallTaskAction {
      * @param taskName 任务名称
      * @param smallTaskName 小任务名称
      * @param smallTaskDetail 小任务详情
+     * @param endTime 截止日期
      * @param receiveSmallTaskEmail 指定接包人邮箱
      * @param numberProgress 数量指标（可空）
      * @param customProgressArrayList 自定义指标ArrayList（可空,按照第一步，第二步...顺序）
      * @return true:发布成功
      */
-        @PostMapping(value = "/api/smallTask")
+    @PostMapping(value = "/api/smallTask")
     public boolean provideSmallTask(@RequestParam String taskName, @RequestParam String smallTaskName,
                                     @RequestParam String smallTaskDetail, @RequestParam String endTime,
                                     @RequestParam String receiveSmallTaskEmail,

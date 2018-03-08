@@ -19,7 +19,7 @@ public class ReceiveSmallTaskPersonManageAction {
 
     /**
      * 人员审视
-     * @return 接包人员列表及其小任务数量
+     * @return 接包人员列表及其正在进行的小任务数量
      */
     @GetMapping(value = "/api/receiveSmallTask")
     public ArrayList<ReceivePersonAndSmallTaskNumPojo> receiveSmallTaskSurvey() {
