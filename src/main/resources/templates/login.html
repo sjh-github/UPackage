@@ -36,21 +36,21 @@
 		<div class="login-head">
 		  <div class="wrap">
 			<div class="logo">
-				<a href="index.html"></a>
+				<a href="receiveTaskPersonalIndex.html" th:href="@{/web/loginPage}"></a>
 			</div>
 			<div class="txt">智能外包管理平台！</div>
 		  </div>
 		</div>
 		<div class="login-body">
 		  <div class="loginbox">
-			  <form role="form" th:action="@{/login/{job}(job=${job})}" action="index.html" method="post" id="form1">
+			  <form role="form" th:action="@{/web/login}" action="receiveTaskPersonalIndex.html" method="post" id="form1">
 				  <div class="tit">
 					<span>登陆</span>
 					<a href="register.html" th:href="@{/web/registerPage}">还没有账号？立即注册</a>
 				  </div>
 				  <div class="input-group">
 					<span class="input-group-addon"><i class="fa fa-user"></i></span>
-					<input type="tel" name="telphone" onblur="checkemail()" required="required" placeholder="邮箱" class="form-control"/>
+					<input type="tel" name="email" onblur="checkemail()" required="required" placeholder="邮箱" class="form-control"/>
 				  </div>
 				  <span class="tips" id="divphone"></span>
 				  <div class="input-group">

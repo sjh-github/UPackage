@@ -18,4 +18,6 @@ public interface ReceiveTask_PersonalMapper {
     int updateByPrimaryKey(ReceiveTask_Personal record);
 
     List<ReceiveTask_Personal> selectAll();
+
+    int getNumOfAll();
 }

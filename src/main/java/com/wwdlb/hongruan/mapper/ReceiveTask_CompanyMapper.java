@@ -14,4 +14,6 @@ public interface ReceiveTask_CompanyMapper {
     int updateByPrimaryKeySelective(ReceiveTask_Company record);
 
     int updateByPrimaryKey(ReceiveTask_Company record);
+
+    int getNumOfAll();
 }

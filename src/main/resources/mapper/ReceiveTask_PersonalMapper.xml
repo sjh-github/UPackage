@@ -28,6 +28,9 @@
   <select id="selectAll" resultMap="BaseResultMap">
     SELECT * from receivetask_personal
   </select>
+  <select id="getNumOfAll" resultType="java.lang.Integer">
+    SELECT count(*) from receivetask_personal
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from receivetask_personal
     where Email = #{email,jdbcType=VARCHAR}
