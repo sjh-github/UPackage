@@ -2,7 +2,7 @@ package com.wwdlb.hongruan.api.receivetask;
 
 
 import com.wwdlb.hongruan.model.SmallTask;
-import com.wwdlb.hongruan.service.serviceImpl.LookSmallTaskServiceImpl;
+import com.wwdlb.hongruan.service.serviceImpl.receivetaskpersonal.LookSmallTaskServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;

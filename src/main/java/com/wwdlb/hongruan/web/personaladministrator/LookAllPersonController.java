@@ -2,7 +2,7 @@ package com.wwdlb.hongruan.web.personaladministrator;
 
 import com.github.pagehelper.PageInfo;
 import com.wwdlb.hongruan.model.ReceiveTask_Personal;
-import com.wwdlb.hongruan.service.serviceImpl.LookAllReceiveTaskPersonServiceImpl;
+import com.wwdlb.hongruan.service.serviceImpl.providetaskpersonal.LookAllReceiveTaskPersonServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;

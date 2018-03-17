@@ -1,7 +1,7 @@
 package com.wwdlb.hongruan.api.providetask;
 
 import com.wwdlb.hongruan.pojo.ReceivePersonAndSmallTaskNumPojo;
-import com.wwdlb.hongruan.service.serviceImpl.ReceiveSmallTaskPersonManageServiceImpl;
+import com.wwdlb.hongruan.service.serviceImpl.providetaskpersonal.ReceiveSmallTaskPersonManageServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;

@@ -1,8 +1,7 @@
-package com.wwdlb.hongruan.service.serviceImpl;
+package com.wwdlb.hongruan.service.serviceImpl.providetaskpersonal;
 
 import com.wwdlb.hongruan.mapper.*;
 import com.wwdlb.hongruan.model.*;
-import com.wwdlb.hongruan.service.ProvideSmallTaskService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,8 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * 发布小任务服务实例

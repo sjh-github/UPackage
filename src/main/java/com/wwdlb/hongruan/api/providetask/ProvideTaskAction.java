@@ -1,6 +1,6 @@
 package com.wwdlb.hongruan.api.providetask;
 
-import com.wwdlb.hongruan.service.serviceImpl.ProvideTaskServiceImpl;
+import com.wwdlb.hongruan.service.serviceImpl.providetaskpersonal.ProvideTaskServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;

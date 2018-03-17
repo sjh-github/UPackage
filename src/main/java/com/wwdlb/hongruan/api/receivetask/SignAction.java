@@ -1,6 +1,6 @@
 package com.wwdlb.hongruan.api.receivetask;
 
-import com.wwdlb.hongruan.service.serviceImpl.AttendanceServiceImpl;
+import com.wwdlb.hongruan.service.serviceImpl.receivetaskpersonal.AttendanceServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;

@@ -1,8 +1,7 @@
-package com.wwdlb.hongruan.service.serviceImpl;
+package com.wwdlb.hongruan.service.serviceImpl.providetaskpersonal;
 
 import com.wwdlb.hongruan.mapper.TaskMapper;
 import com.wwdlb.hongruan.model.Task;
-import com.wwdlb.hongruan.service.ProvideTaskService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

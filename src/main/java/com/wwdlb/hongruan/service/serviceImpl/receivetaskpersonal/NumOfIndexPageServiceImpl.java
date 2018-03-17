@@ -1,4 +1,4 @@
-package com.wwdlb.hongruan.service.serviceImpl;
+package com.wwdlb.hongruan.service.serviceImpl.receivetaskpersonal;
 
 import com.wwdlb.hongruan.mapper.ReceiveTask_CompanyMapper;
 import com.wwdlb.hongruan.mapper.ReceiveTask_PersonalMapper;
@@ -40,5 +40,13 @@ public class NumOfIndexPageServiceImpl {
      */
     public int getNumOfFinishedSmallTask() {
         return smallTaskMapper.getNumOfSmallTaskByState("T");
+    }
+
+    /**
+     * 获取所有已发布小任务个数
+     * @return 已发布小任务个数
+     */
+    public int getNumOfSmallTask() {
+        return smallTaskMapper.getNumOfSmallTaskByState("T") + smallTaskMapper.getNumOfSmallTaskByState("F");
     }
 }

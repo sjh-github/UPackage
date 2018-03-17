@@ -2,6 +2,8 @@ package com.wwdlb.hongruan.mapper;
 
 import com.wwdlb.hongruan.model.SmallTask;
 
+import java.util.ArrayList;
+
 public interface SmallTaskMapper {
     int deleteByPrimaryKey(Integer smalltaskid);
 
