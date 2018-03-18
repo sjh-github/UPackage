@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+  <title>修改个人资料</title>
+  <meta content="虹软外包" name="keywords"/>
+  <meta content="虹软外包" name="description"/>
+  <meta name="apple-mobile-web-app-capable" content="yes"/>
+  <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+  <meta name="format-detection" content="telephone=no"/>
+  <link href="../static/css/basestyle.css" th:href="@{/css/basestyle.css}" rel="stylesheet" type="text/css" />
+  <link href="../static/css/mc.css" th:href="@{/css/mc.css}" rel="stylesheet" type="text/css" />
+  <link href="../static/css/user_center.css" th:href="@{/css/user_center.css}" rel="stylesheet" type="text/css" />
+  <script src="../static/js/jquery-1.8.3.min.js" th:href="@{/js/jquery-1.8.3.min.js}" ></script>
+  <link href="../static/css/font-awesome.min.css" th:href="@{/css/font-awesome.min.css}" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div class="topper">
+  <div class="wrap cl">
+    <div class="t-left">您好，欢迎来到虹软外包管理平台！</div>
+    <div class="t-right">
+      <ul class="cl">
+        <li class="user-list">
+          <div class="top-user"><a href="desHome.html"><img src="upload/userhd.jpg"/><span>飞翔的土豆</span><i class="fa fa-caret-down"></i></a></div>
+          <div class="pop-dwon">
+            <a href="u_index.html"><i class="fa fa-user-o"></i>个人主页</a>
+            <a href="u_xiaoxi.html"><i class="fa fa-commenting-o"></i>我的消息</a>
+            <a href="u_workList1.html"><i class="fa fa-image"></i>我的任务</a>
+            <a href="login.html" class="last"><i class="fa fa-power-off"></i>退出登录</a>
+          </div>
+        </li>
+        <li><a href="#">帮助中心</a></li>
+        <li><a href="#">联系我们</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+    $(function () {
+        var setTime;
+        $(".user-list").hover(function () {
+			var _this = $(this); 
+            setTime = setTimeout(function () {
+				_this.addClass("hover");
+				$(".top-user i").removeClass("fa-caret-down").addClass("fa-caret-up");
+                $(".user-list .pop-dwon").slideDown(300);
+            }, 300);
+        }, function () {
+			var _this = $(this);
+            if (setTime) {
+                clearTimeout(setTime);
+            }
+            $(".user-list .pop-dwon").hide();
+			_this.removeClass("hover");
+			$(".top-user i").removeClass("fa-caret-up").addClass("fa-caret-down");
+        });
+    });
+</script>
+<div class="head">
+  <div class="wrap cl">
+    <div class="logo"><a href="index1.html"></a></div>
+    <div class="hd-r">
+      <div class="menu">
+        <ul class="cl">
+          <li class="active"><a href="u_index.html">个人中心<p>U-Center</p></a></li>
+          <li><a href="workList.html">任务<p>Task</p></a></li>
+          <li><a href="index1.html">首页<p>Index</p></a></li>
+        </ul>
+      </div>
+      <div class="search">
+        <input type="txt" class="ipt-sea" placeholder="请输入任务名称" />
+        <a href="javascript:;">搜索</a>
+      </div>
+      <div class="num">
+        <span>接包人员：<em>7,657</em>人</span>
+        <span>接包公司：<em>524</em>家</span>
+        <span>已完成项目：<em>15,517</em>项</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="centers_m">
+  <!--left-->
+  <div class="centers_ml">
+    <!--头像-->
+    <div class="center_header">
+      <a href="u_ziliao.html"><img src="images/touxiang.png"/></a>
+      <div class="u-name"><span>飞翔的土豆</span></div>
+      <div class="u-lx-dj"><span><i class="fa fa-mortar-board"></i></span><span class="vip-grade"><i class="fa fa-vimeo"></i><em>23</em></span></div>
+      <div class="u-area"><span>浙江</span>，<span>杭州</span></div>
+    </div>
+    <div class="u-safe-btn">
+      <a href="u_ziliao.html"><i class="fa fa-vcard"></i>个人资料</a>
+      <a href="u_safe.html"><i class="fa fa-get-pocket"></i>账户安全</a>
+    </div>
+    <div class="centers_listm">
+      <!--分类开始-->
+      <div class="listbox">
+        <div class="centers_listm_one_in"><i class="fa fa-photo"></i><span>我的任务</span><b></b></div>
+        <div class="gjszmdm">
+          <a href="u_workList1.html" class="center_in_self"><span>进行中</span></a>
+          <a href="u_workList1.html" class="center_in_self"><span>已完成</span></a>
+        </div >
+      </div>
+
+      <div class="listbox">
+        <div class="centers_listm_one_in"><i class="fa fa-commenting"></i><span>我的消息</span><b></b></div>
+        <div class="gjszmdm">
+          <a href="u_xiaoxi.html" class="center_in_self"><span>系统消息</span></a>
+        </div >
+      </div>
+    </div>
+  </div>
+<script type="text/javascript">
+	$(function(){
+		$(".centers_listm_one_in").click(function(){
+			$(this).next(".gjszmdm").slideToggle().siblings("gjszmdm").slideUp()
+			$(this).children("b").toggleClass("active")
+			});
+	})
+</script>
+  <!--right-->
+  <div class="centers_mr">
+    <div class="centers_r_items">
+      <div class="items-tit">
+        <a class="tit-name active">账户信息</a>
+      </div>
+      <div class="items-con">
+        <div class="public_m1">
+          <div class="public_m2">绑定手机</div>
+          <!--提示信息-->
+          <div class="tip_notem">
+            <ul>
+              <li>1. 绑定手机后可直接通过短信接受安全验证等重要操作。</li>
+              <li>2. 更改手机时，请通过安全验证后重新输入新手机号码绑定。</li>
+              <li>3. 收到安全验证码后，请在30分钟内完成验证。</li>
+            </ul>
+          </div>
+          <div class="public_m4">
+            <p>
+              <em>绑定手机号码：</em>
+              <input type="text" class="u-ipt-txt"/>
+              <input type="button" id="btnsj" class="btn_mfyzm" value="获取验证码" style=" border:1px solid #c8c8c8; height:29px; margin-left:6px"/>
+            </p>
+            <p>
+              <em>收到的验证码：</em>
+              <input type="text" class="u-ipt-txt" style="width:100px"/>
+            </p>
+            <a href="#" class="public_m3">立即绑定</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <div class="clearfiexd"></div>
+</div>
+<!--footer-->
+<div class="footer">
+  <div class="ft-menu">
+    <div class="wrap hide">
+      <dl>
+        <dt><i class="fa fa-compass"></i>虹软技术</dt>
+        <dd>
+          <a href="#">防抖技术</a>
+          <a href="#">人脸技术</a>
+          <a href="#">HDR技术</a>
+          <a href="#">手势识别技术</a>
+          <a href="#">全景技术</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt><i class="fa fa-mortar-board"></i>接包人员</dt>
+        <dd>
+          <a href="#">上传作品</a>
+          <a href="#">查看需求</a>
+          <a href="#">立即加入</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt><i class="fa fa-institution"></i>接包公司</dt>
+        <dd>
+          <a href="#">查看需求</a>
+          <a href="#">发布作品</a>
+          <a href="#">公司简介</a>
+          <a href="#">立即加入</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt><i class="fa fa-get-pocket"></i>虹软官网</dt>
+        <dd>
+          <a href="http://www.arcsoft.com.cn/">虹软中国</a>
+          <a href="#">英文官网</a>
+          <a href="#">虹软微博</a>
+        </dd>
+      </dl>
+    </div>
+  </div>
+
+  <div class="ft-cop">
+    <p>2018 虹软版权所有 <a href="#">浙ICP备11037259号-3</a> 联系电话：0527-88390110  邮箱：110@hongruan.com</p>
+  </div>
+</div>
+</body>
+</html>    
+            
+                    
+          
+	   	
+                
+            
+            
+            			  
+    
+           
+       	
+				     
+             		
+            
+           
+        
+    			 
+        	
+       
+            
+            
+            
+            
+    	
+                         
+       
+                                                     
+                            
+					      
+                
+        
+       	
+					     
+           
+            
+             
+        	
+					
+            
+            
+                
+                           
+                
+
+        
+                
+                        
+                
+                
+                    	
+               
+             
+                 
+                
+                
+                
+                
+                
+            
+                  
+        
+    	
+    
+			
+
+                
+    

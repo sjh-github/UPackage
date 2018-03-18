@@ -1,6 +1,5 @@
 package com.wwdlb.hongruan.web.receivetaskpersonal;
 
-import com.wwdlb.hongruan.model.SmallTask;
 import com.wwdlb.hongruan.service.serviceImpl.LoginServiceImpl;
 import com.wwdlb.hongruan.service.serviceImpl.receivetaskpersonal.LookAllSmallTaskByEmailServiceImpl;
 import com.wwdlb.hongruan.service.serviceImpl.receivetaskpersonal.NumOfIndexPageServiceImpl;
