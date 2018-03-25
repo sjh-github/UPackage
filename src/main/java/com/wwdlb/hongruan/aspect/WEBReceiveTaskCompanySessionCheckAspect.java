@@ -27,6 +27,10 @@ public class WEBReceiveTaskCompanySessionCheckAspect {
         HttpServletResponse response = attributes.getResponse();
         HttpSession httpSession = request.getSession();
         try {
+            response.setHeader("Cache-Control","no-cache"); //不对页面进行缓存，再次访问时将从服务器重新获取最新版本
+            response.setHeader("Cache-Control","no-store"); //任何情况下都不缓存页面
+            response.setDateHeader("Expires", 0); //使缓存过期
+            response.setHeader("Pragma","no-cache"); //HTTP 1.0 向后兼容
             String role = (String) httpSession.getAttribute("role");
             if (role == null) {
                 response.sendRedirect("loginPage");

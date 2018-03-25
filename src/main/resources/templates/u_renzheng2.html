@@ -22,7 +22,7 @@
     <div class="t-right">
       <ul class="cl">
         <li class="user-list">
-          <div class="top-user"><a href="desHome.html"><img src="upload/userhd.jpg"/><span>飞翔的土豆</span><i class="fa fa-caret-down"></i></a></div>
+          <div class="top-user"><a href="u_index.html"><img src="../static/images/logo.jpg"/><span>飞翔的土豆</span><i class="fa fa-caret-down"></i></a></div>
           <div class="pop-dwon">
             <a href="u_index.html"><i class="fa fa-user-o"></i>个人主页</a>
             <a href="u_xiaoxi.html"><i class="fa fa-commenting-o"></i>我的消息</a>
@@ -59,18 +59,18 @@
 </script>
 <div class="head">
   <div class="wrap cl">
-    <div class="logo"><a href="index1.html"></a></div>
+    <div class="logo"><a href="u_renzheng2.html"></a></div>
     <div class="hd-r">
       <div class="menu">
         <ul class="cl">
           <li class="active"><a href="u_index.html">个人中心<p>U-Center</p></a></li>
           <li><a href="workList.html">任务<p>Task</p></a></li>
-          <li><a href="index1.html">首页<p>Index</p></a></li>
+          <li><a href="receiveTaskPersonalIndex.html">首页<p>Index</p></a></li>
         </ul>
       </div>
       <div class="search">
-        <input type="txt" class="ipt-sea" placeholder="请输入任务名称" />
-        <a href="javascript:;">搜索</a>
+        <input type="text" class="ipt-sea" placeholder="请输入任务名称" />
+        <a href="javascript:">搜索</a>
       </div>
       <div class="num">
         <span>接包人员：<em>7,657</em>人</span>
@@ -86,7 +86,7 @@
   <div class="centers_ml">
     <!--头像-->
     <div class="center_header">
-      <a href="u_ziliao.html"><img src="images/touxiang.png"/></a>
+      <a href="u_ziliao.html"><img src="../static/images/logo.jpg"/></a>
       <div class="u-name"><span>飞翔的土豆</span></div>
       <div class="u-lx-dj"><span><i class="fa fa-mortar-board"></i></span><span class="vip-grade"><i class="fa fa-vimeo"></i><em>23</em></span></div>
       <div class="u-area"><span>浙江</span>，<span>杭州</span></div>
@@ -100,9 +100,9 @@
       <div class="listbox">
         <div class="centers_listm_one_in"><i class="fa fa-photo"></i><span>我的任务</span><b></b></div>
         <div class="gjszmdm">
-          <a href="u_workList1.html" class="center_in_self"><span>进行中</span></a>
-          <a href="u_workList1.html" class="center_in_self"><span>已完成</span></a>
-        </div >
+          <a href="u_workList1.html" th:href="@{/web/smallTaskIndexRunningPage}" class="center_in_self"><span>进行中</span></a>
+          <a href="u_workList1.html" th:href="@{/web/smallTaskIndexFinishedPage}" class="center_in_self"><span>已完成</span></a>
+        </div>
       </div>
 
       <div class="listbox">
@@ -148,7 +148,8 @@
               <span class="fla-upload-btn">
                 <input type="file" id="file1" name=""/>
                 <div id="idcard1" style="background:#CCCCCC; float:left;">
-                  <img src="images/touxiang.png" onload='if (this.width>200 || this.height>250) if (this.width/this.height>200/250) this.width=200; else this.height=250;' /></div>
+                  <img src="images/touxiang.png" onload='if (this.width>200 || this.height>250) if (this.width/this.height>200/250) this.width=200; else this.height=250;' />
+                </div>
                </span>
             </p>
             <p>
@@ -156,7 +157,8 @@
             <span class="fla-upload-btn">
                 <input type="file" id="file3" name=""/>
                 <div id="idcard3" style="background:#CCCCCC; float:left;">
-                  <img src="images/touxiang.png" onload='if (this.width>200 || this.height>250) if (this.width/this.height>200/250) this.width=200; else this.height=250;' /></div>
+                  <img src="images/touxiang.png" onload='if (this.width>200 || this.height>250) if (this.width/this.height>200/250) this.width=200; else this.height=250;' />
+                </div>
                </span>
           </p>
             <p>
@@ -164,7 +166,8 @@
               <span class="fla-upload-btn">
                 <input type="file" id="file4" name=""/>
                 <div id="idcard4" style="background:#CCCCCC; float:left;">
-                  <img src="images/touxiang.png" onload='if (this.width>200 || this.height>250) if (this.width/this.height>200/250) this.width=200; else this.height=250;' /></div>
+                  <img src="images/touxiang.png" onload='if (this.width>200 || this.height>250) if (this.width/this.height>200/250) this.width=200; else this.height=250;' />
+                </div>
                </span>
             </p>
 
@@ -241,71 +244,4 @@
     }
 </script>
 </body>
-</html>    
-            
-                    
-          
-	   	
-                
-            
-            
-            			  
-    
-           
-       	
-				     
-             		
-            
-           
-        
-    			 
-        	
-       
-            
-            
-            
-            
-    	
-                         
-       
-                                                     
-                            
-					      
-                
-        
-       	
-					     
-           
-            
-             
-        	
-					
-            
-            
-                
-                           
-                
-
-        
-                
-                        
-                
-                
-                    	
-               
-             
-                 
-                
-                
-                
-                
-                
-            
-                  
-        
-    	
-    
-			
-
-                
-    
+</html>

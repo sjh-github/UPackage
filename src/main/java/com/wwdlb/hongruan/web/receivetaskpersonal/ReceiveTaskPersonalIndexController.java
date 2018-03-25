@@ -1,5 +1,6 @@
 package com.wwdlb.hongruan.web.receivetaskpersonal;
 
+import com.wwdlb.hongruan.service.serviceImpl.GetNameByEmailServiceImpl;
 import com.wwdlb.hongruan.service.serviceImpl.LoginServiceImpl;
 import com.wwdlb.hongruan.service.serviceImpl.receivetaskpersonal.LookAllSmallTaskByEmailServiceImpl;
 import com.wwdlb.hongruan.service.serviceImpl.receivetaskpersonal.NumOfIndexPageServiceImpl;
@@ -23,6 +24,9 @@ public class ReceiveTaskPersonalIndexController {
     @Autowired
     private LookAllSmallTaskByEmailServiceImpl lookAllSmallTaskByEmailServiceImpl;
 
+    @Autowired
+    private GetNameByEmailServiceImpl getNameByEmailServiceImpl;
+
     @GetMapping(value = "/web/indexPage/receiveTaskPersonal")
     public String receiveTaskPersonalIndexPage(HttpServletRequest httpServletRequest, ModelMap modelMap) {
         httpSession = httpServletRequest.getSession();
@@ -30,19 +34,12 @@ public class ReceiveTaskPersonalIndexController {
             String role = (String) httpSession.getAttribute("role");
             if (role.equals(LoginServiceImpl.ReceiveTaskPersonal)) {
                 String email = (String) httpSession.getAttribute("email");
-                if (email != null) {
-                    modelMap.addAttribute("email", email);
-                    /*ArrayList<SmallTask> smallTaskArrayList = lookAllSmallTaskByEmailServiceImpl.lookAllSmallTaskByEmail(email);
-                    modelMap.addAttribute("smallTaskArrayList", smallTaskArrayList);*/
-                }
-                int numOfReceiveTaskPersonal = numOfIndexPageServiceImpl.getNumOfReceiveTaskPersonal();
-                int numOfReceiveTaskCompany = numOfIndexPageServiceImpl.getNumOfReceiveTaskCompany();
-                int numOfHaveFinishedSmallTask = numOfIndexPageServiceImpl.getNumOfFinishedSmallTask();
-                int numOfSmallTask = numOfIndexPageServiceImpl.getNumOfSmallTask();
-                modelMap.addAttribute("numOfReceiveTaskPersonal", numOfReceiveTaskPersonal);
-                modelMap.addAttribute("numOfReceiveTaskCompany", numOfReceiveTaskCompany);
-                modelMap.addAttribute("numOfHaveFinishedSmallTask", numOfHaveFinishedSmallTask);
-                modelMap.addAttribute("numOfSmallTask", numOfSmallTask);
+                modelMap.addAttribute("email", email);
+                modelMap.addAttribute("name", getNameByEmailServiceImpl.getReceiveTaskPersonalNameByEmail(email));
+                modelMap.addAttribute("numOfReceiveTaskPersonal", numOfIndexPageServiceImpl.getNumOfReceiveTaskPersonal());
+                modelMap.addAttribute("numOfReceiveTaskCompany", numOfIndexPageServiceImpl.getNumOfReceiveTaskCompany());
+                modelMap.addAttribute("numOfHaveFinishedSmallTask", numOfIndexPageServiceImpl.getNumOfFinishedSmallTask());
+                modelMap.addAttribute("numOfSmallTask", numOfIndexPageServiceImpl.getNumOfSmallTask());
                 return "receiveTaskPersonalIndex";
             } else {
                 return "redirect:/web/loginPage";

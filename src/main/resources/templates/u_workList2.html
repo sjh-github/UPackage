@@ -3,7 +3,7 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
-  <title>个人中心</title>
+  <title>个人中心进行中任务</title>
   <meta content="虹软外包" name="keywords"/>
   <meta content="虹软外包" name="description"/>
   <meta name="apple-mobile-web-app-capable" content="yes"/>
@@ -16,34 +16,34 @@
   <link href="../static/css/font-awesome.min.css" th:href="@{/css/font-awesome.min.css}" rel="stylesheet" type="text/css"/>
 </head>
 <body>
-    <div class="topper">
-      <div class="wrap cl">
-        <div class="t-left">您好，欢迎来到虹软外包管理平台！</div>
-        <div class="t-right">
-          <ul class="cl">
-            <li class="user-list">
-              <div class="top-user">
-                <a href="u_index.html" th:href="@{/web/uIndexPage}">
-                  <img src="../static/images/logo.jpg" th:src="@{/web/receiveTaskPersonalImage}"/>
-                  <span th:text="${name}">飞翔的土豆</span>
-                  <i class="fa fa-caret-down"></i>
-                </a>
-              </div>
-              <div class="pop-dwon">
-                <a href="u_index.html" th:href="@{/web/uIndexPage}"><i class="fa fa-user-o"></i>个人主页</a>
-                <a href="u_xiaoxi.html" th:href="@{/web/syswtemNoticePage}"><i class="fa fa-commenting-o"></i>我的消息</a>
-                <a href="u_workList1.html" th:href="@{/web/personalCenter/smallTaskPage}"><i class="fa fa-image"></i>我的任务</a>
-                <a href="login.html" class="last" th:href="@{/web/logout}">
-                  <i class="fa fa-power-off"></i>退出登录
-                </a>
-              </div>
-            </li>
-            <li><a href="#">帮助中心</a></li>
-            <li><a href="#">联系我们</a></li>
-          </ul>
-        </div>
-      </div>
+<div class="topper">
+  <div class="wrap cl">
+    <div class="t-left">您好，欢迎来到虹软外包管理平台！</div>
+    <div class="t-right">
+      <ul class="cl">
+        <li class="user-list">
+          <div class="top-user">
+            <a href="u_index.html" th:href="@{/web/uIndexPage}">
+              <img src="../static/images/logo.jpg" th:src="@{/web/receiveTaskPersonalImage}"/>
+              <span th:text="${name}">飞翔的土豆</span>
+              <i class="fa fa-caret-down"></i>
+            </a>
+          </div>
+          <div class="pop-dwon">
+            <a href="u_index.html" th:href="@{/web/uIndexPage}"><i class="fa fa-user-o"></i>个人主页</a>
+            <a href="u_xiaoxi.html" th:href="@{/web/syswtemNoticePage}"><i class="fa fa-commenting-o"></i>我的消息</a>
+            <a href="u_workList1.html" th:href="@{/web/personalCenter/smallTaskPage}"><i class="fa fa-image"></i>我的任务</a>
+            <a href="login.html" class="last" th:href="@{/web/logout}">
+              <i class="fa fa-power-off"></i>退出登录
+            </a>
+          </div>
+        </li>
+        <li><a href="#">帮助中心</a></li>
+        <li><a href="#">联系我们</a></li>
+      </ul>
     </div>
+  </div>
+</div>
 <script type="text/javascript">
     $(function () {
         var setTime;
@@ -67,7 +67,7 @@
 </script>
 <div class="head">
   <div class="wrap cl">
-    <div class="logo"><a href="u_index.html" th:href="@{/web/uIndexPage}"></a></div>
+    <div class="logo"><a href="u_workList1.html" th:href="@{/web/smallTaskIndexFinishedPage}"></a></div>
     <div class="hd-r">
       <div class="menu">
         <ul class="cl">
@@ -99,11 +99,11 @@
       </a>
       <div class="u-name"><span th:text="${name}">飞翔的土豆</span></div>
       <div class="u-lx-dj">
-        <!--<span>
+        <span>
           <i class="fa fa-mortar-board"></i>
-        </span>-->
+        </span>
         <span class="vip-grade">
-          <!--<i class="fa fa-vimeo"></i>-->
+          <i class="fa fa-vimeo"></i>
           <em th:text="${age}">23</em>
         </span>
       </div>
@@ -119,14 +119,12 @@
         <div class="centers_listm_one_in"><i class="fa fa-photo"></i><span>我的任务</span><b></b></div>
         <div class="gjszmdm">
           <a href="u_workList1.html" th:href="@{/web/smallTaskIndexRunningPage}" class="center_in_self"><span>进行中</span></a>
-          <a href="u_workList1.html" th:href="@{/web/smallTaskIndexFinishedPage}" class="center_in_self"><span>已完成</span></a>
+          <a href="u_workList1.html" th:href="@{/web/smallTaskIndexFinishedPage}" class="center_in_self"><span style="color: red">已完成</span></a>
         </div>
       </div>
 
       <div class="listbox">
-        <div class="centers_listm_one_in"><i class="fa fa-commenting"></i>
-          <span>我的消息</span>
-        </div>
+        <div class="centers_listm_one_in"><i class="fa fa-commenting"></i><span>我的消息</span><b></b></div>
         <div class="gjszmdm">
           <a href="u_xiaoxi.html" th:href="@{/web/systemNoticePage}" class="center_in_self">
             <span>系统消息</span>
@@ -138,7 +136,7 @@
 <script type="text/javascript">
 	$(function(){
 		$(".centers_listm_one_in").click(function(){
-			$(this).next(".gjszmdm").slideToggle().siblings("gjszmdm").slideUp()
+			$(this).next(".gjszmdm").slideToggle().siblings("gjszmdm").slideUp();
 			$(this).children("b").toggleClass("active")
 			});
 	})
@@ -147,39 +145,7 @@
   <div class="centers_mr">
     <div class="centers_r_items">
       <div class="items-tit">
-        <a class="tit-name active">用户信息</a>
-      </div>
-      <div class="items-con">
-        <div class="zhxxbox">
-          <div class="list wcd">
-            <div class="tab"><p>资料完成度</p></div>
-<script>
-	$(function(){
-		$('#myStat').circliful();
-	});
-</script>
-            <div id="myStat" data-dimension="60" data-text="85%" data-info="New Clients" data-width="10" data-fontsize="12" data-percent="85" data-fgcolor="#ff6561" data-bgcolor="#eee" data-fill="#FFF" class="circliful" style="width:60px; margin-left:45px;"></div>
-          </div>
-          <div class="list jcxx">
-            <div class="tab">注册邮箱：<span th:text="${email}">111111@qq.com</span></div>
-            <div class="tab">账户名称：<span th:text="${name}">飞翔的土豆</span><a href="u_renzheng1.html" class="edit">[个人信息未认证]</a></div>
-            <div class="tab safe">认证等级：
-              <span class="safe-tiao">
-                <s style="width:70%;"></s>
-              </span>
-              <em>高</em>
-              <a href="u_ziliao.html" th:href="@{/web/changePersonalInformationPage}" class="edit">[完善资料]</a>
-            </div>
-          </div>
-          <div class="clearfiexd"></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="centers_r_items">
-      <div class="items-tit">
-        <a class="tit-name active">最新任务</a>
-        <a href="workList.html" th:href="@{/web/smallTaskAllPage}">查看更多 >></a>
+        <a class="tit-name active">全部作品</a>
       </div>
       <div class="items-con">
         <div class="ind-tuku u-c">
@@ -192,14 +158,17 @@
               </div>
             </li>
           </ul>
-      </div>
-    </div>
+          <div class="listPage">
+            <div class="pageBtn">
+              <span class="disabled"><i class="fa fa-caret-left"></i>上一页</span><span class="current">1</span><a href="#">2</a><a href="#">3</a><a href="#">4</a><span>...</span><a href="#">32</a><a href="#">下一页<i class="fa fa-caret-right"></i></a>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
   <div class="clearfiexd"></div>
-
-
+</div>
 <!--footer-->
 <div class="footer">
   <div class="ft-menu">

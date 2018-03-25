@@ -24,19 +24,21 @@
             <ul class="cl">
               <li class="user-list">
                 <div class="top-user">
-                  <a href="desHome.html">
-                    <img src="" th:src="@{/web/receiveTaskPersonalImage}"/>
-                    <span th:text="${email}">飞翔的土豆</span>
+                  <a href="u_index.html" th:href="@{/web/uIndexPage}">
+                    <img src="../static/images/logo.jpg" th:src="@{/web/receiveTaskPersonalImage}"/>
+                    <span th:text="${name}">飞翔的土豆</span>
                     <i class="fa fa-caret-down"></i>
                   </a>
                 </div>
                 <div class="pop-dwon">
-                  <a href="desHome.html"><i class="fa fa-user-o"></i>个人主页</a>
-                  <a href="u_xiaoxi_list.html"><i class="fa fa-commenting-o"></i>我的消息</a>
+                  <a href="u_index.html" th:href="@{/web/uIndexPage}"><i class="fa fa-user-o"></i>个人主页</a>
+                  <a href="u_xiaoxi.html" th:href="@{/web/systemNoticePage}"><i class="fa fa-commenting-o"></i>我的消息</a>
                   <a href="u_user_list.html"><i class="fa fa-heart-o"></i>我的关注</a>
                   <a href="u_works_list.html"><i class="fa fa-image"></i>我的作品</a>
                   <a href="u_needs_list.html"><i class="fa fa-image"></i>我的需求</a>
-                  <a href="javascript:;" th:href="@{/web/logout}" class="last"><i class="fa fa-power-off"></i>退出登录</a>
+                  <a href="login.html" th:href="@{/web/logout}" class="last">
+                    <i class="fa fa-power-off"></i>退出登录
+                  </a>
                 </div>
               </li>
               <li><a href="help.html">帮助中心</a></li>
@@ -51,13 +53,13 @@
           <div class="hd-r">
             <div class="menu">
               <ul class="cl">
-                <li><a href="u_index.html">个人中心<p>U-Center</p></a></li>
-                <li><a href="workList.html">任务<p>Task</p></a></li>
-                <li class="active"><a href="index1.html">首页<p>Index</p></a></li>
+                <li><a href="u_index.html" th:href="@{/web/uIndexPage}">个人中心<p>U-Center</p></a></li>
+                <li><a href="workList.html" th:href="@{/web/smallTaskAllPage}">任务<p>Task</p></a></li>
+                <li class="active"><a href="receiveTaskPersonalIndex.html" th:href="@{/web/indexPage/receiveTaskPersonal}">首页<p>Index</p></a></li>
               </ul>
             </div>
             <div class="search">
-              <input type="txt" class="ipt-sea" placeholder="请输入任务名称" />
+              <input type="text" class="ipt-sea" placeholder="请输入任务名称" />
               <a href="javascript:;">搜索</a>
             </div>
             <div class="num">
@@ -106,12 +108,12 @@
       <div class="ind-con cl ind-tuku">
         <ul>
           <li>
-            <div class="img"><a href="workInfo.html"><img src="images/title1.jpg" /></a></div>
+            <div class="img"><a href="workInfo.html"><img src="../static/images/title1.jpg" /></a></div>
             <div class="info">
               <div class="name">收集水果图片</div>
               <div class="sort"><s>安全级：</s><span>Ⅲ级</span><i>-</i><s>优先级：</s><span>Ⅰ级</span><div class="sc">还剩13小时截止！</div></div>
               <div class="author">
-                <img src="upload/userhd.jpg" />虹软研发部
+                <img src="../static/images/logo.jpg" />虹软研发部
               </div>
             </div>
           </li>

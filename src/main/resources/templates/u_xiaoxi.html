@@ -3,7 +3,7 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
-  <title>u安全</title>
+  <title>系统消息</title>
   <meta content="虹软外包" name="keywords"/>
   <meta content="虹软外包" name="description"/>
   <meta name="apple-mobile-web-app-capable" content="yes"/>
@@ -16,26 +16,34 @@
   <link href="../static/css/font-awesome.min.css" th:href="@{/css/font-awesome.min.css}" rel="stylesheet" type="text/css"/>
 </head>
 <body>
-<div class="topper">
-  <div class="wrap cl">
-    <div class="t-left">您好，欢迎来到虹软外包管理平台！</div>
-    <div class="t-right">
-      <ul class="cl">
-        <li class="user-list">
-          <div class="top-user"><a href="desHome.html"><img src="upload/userhd.jpg"/><span>飞翔的土豆</span><i class="fa fa-caret-down"></i></a></div>
-          <div class="pop-dwon">
-            <a href="u_index.html"><i class="fa fa-user-o"></i>个人主页</a>
-            <a href="u_xiaoxi.html"><i class="fa fa-commenting-o"></i>我的消息</a>
-            <a href="u_workList1.html"><i class="fa fa-image"></i>我的任务</a>
-            <a href="login.html" class="last"><i class="fa fa-power-off"></i>退出登录</a>
-          </div>
-        </li>
-        <li><a href="#">帮助中心</a></li>
-        <li><a href="#">联系我们</a></li>
-      </ul>
+  <div class="header">
+    <div class="topper">
+      <div class="wrap cl">
+        <div class="t-left">您好，欢迎来到虹软外包管理平台！</div>
+        <div class="t-right">
+          <ul class="cl">
+            <li class="user-list">
+              <div class="top-user">
+                <a href="u_index.html" th:href="@{/web/uIndexPage}">
+                  <img src="../static/images/logo.jpg" th:src="@{/web/receiveTaskPersonalImage}"/>
+                  <span th:text="${name}">飞翔的土豆</span>
+                  <i class="fa fa-caret-down"></i>
+                </a>
+              </div>
+              <div class="pop-dwon">
+                <a href="u_index.html" th:href="@{/web/uIndexPage}"><i class="fa fa-user-o"></i>个人主页</a>
+                <a href="u_xiaoxi.html" th:href="@{/web/systemNoticePage}"><i class="fa fa-commenting-o"></i>我的消息</a>
+                <a href="u_workList1.html"><i class="fa fa-image"></i>我的任务</a>
+                <a href="login.html" th:href="@{/web/logout}" class="last"><i class="fa fa-power-off"></i>退出登录</a>
+              </div>
+            </li>
+            <li><a href="#">帮助中心</a></li>
+            <li><a href="#">联系我们</a></li>
+          </ul>
+        </div>
+      </div>
     </div>
   </div>
-</div>
 <script type="text/javascript">
     $(function () {
         var setTime;
@@ -59,23 +67,23 @@
 </script>
 <div class="head">
   <div class="wrap cl">
-    <div class="logo"><a href="index1.html"></a></div>
+    <div class="logo"><a href="u_xiaoxi.html" th:href="@{/web/systemNoticePage}"></a></div>
     <div class="hd-r">
       <div class="menu">
         <ul class="cl">
-          <li class="active"><a href="u_index.html">个人中心<p>U-Center</p></a></li>
-          <li><a href="workList.html">任务<p>Task</p></a></li>
-          <li><a href="index1.html">首页<p>Index</p></a></li>
+          <li class="active"><a href="u_index.html" th:href="@{/web/uIndexPage}">个人中心<p>U-Center</p></a></li>
+          <li><a href="workList.html" th:href="@{/web/smallTaskAllPage}">任务<p>Task</p></a></li>
+          <li><a href="receiveTaskPersonalIndex.html" th:href="@{/web/indexPage/receiveTaskPersonal}">首页<p>Index</p></a></li>
         </ul>
       </div>
       <div class="search">
-        <input type="txt" class="ipt-sea" placeholder="请输入任务名称" />
-        <a href="javascript:;">搜索</a>
+        <input type="text" class="ipt-sea" placeholder="请输入任务名称" />
+        <a href="javascript:">搜索</a>
       </div>
       <div class="num">
-        <span>接包人员：<em>7,657</em>人</span>
-        <span>接包公司：<em>524</em>家</span>
-        <span>已完成项目：<em>15,517</em>项</span>
+        <span>接包人员：<em th:text="${numOfReceiveTaskPersonal}">7,657</em>人</span>
+        <span>接包公司：<em th:text="${numOfReceiveTaskCompany}">524</em>家</span>
+        <span>已完成项目：<em th:text="${numOfHaveFinishedSmallTask}">15,517</em>项</span>
       </div>
     </div>
   </div>
@@ -86,29 +94,39 @@
   <div class="centers_ml">
     <!--头像-->
     <div class="center_header">
-      <a href="u_ziliao.html"><img src="images/touxiang.png"/></a>
-      <div class="u-name"><span>飞翔的土豆</span></div>
-      <div class="u-lx-dj"><span><i class="fa fa-mortar-board"></i></span><span class="vip-grade"><i class="fa fa-vimeo"></i><em>23</em></span></div>
+      <a href="u_ziliao.html" th:href="@{/web/changePersonalInformationPage}"><img src="../static/images/logo.jpg" th:src="@{/web/receiveTaskPersonalImage}" /></a>
+      <div class="u-name"><span th:text="${name}">飞翔的土豆</span></div>
+      <div class="u-lx-dj">
+        <span>
+          <i class="fa fa-mortar-board"></i>
+        </span>
+        <span class="vip-grade">
+          <i class="fa fa-vimeo"></i>
+          <em th:text="${age}">23</em>
+        </span>
+      </div>
       <div class="u-area"><span>浙江</span>，<span>杭州</span></div>
     </div>
     <div class="u-safe-btn">
-      <a href="u_ziliao.html"><i class="fa fa-vcard"></i>个人资料</a>
-      <a href="u_safe.html"><i class="fa fa-get-pocket"></i>账户安全</a>
+      <a href="u_ziliao.html" th:href="@{/web/changePersonalInformationPage}"><i class="fa fa-vcard"></i>个人资料</a>
+      <a href="u_safe.html" th:href="@{/web/countSecurityPage}"><i class="fa fa-get-pocket"></i>账户安全</a>
     </div>
     <div class="centers_listm">
       <!--分类开始-->
       <div class="listbox">
         <div class="centers_listm_one_in"><i class="fa fa-photo"></i><span>我的任务</span><b></b></div>
         <div class="gjszmdm">
-          <a href="u_workList1.html" class="center_in_self"><span>进行中</span></a>
-          <a href="u_workList1.html" class="center_in_self"><span>已完成</span></a>
-        </div >
+          <a href="u_workList1.html" th:href="@{/web/smallTaskIndexRunningPage}" class="center_in_self"><span>进行中</span></a>
+          <a href="u_workList1.html" th:href="@{/web/smallTaskIndexFinishedPage}" class="center_in_self"><span>已完成</span></a>
+        </div>
       </div>
 
       <div class="listbox">
         <div class="centers_listm_one_in"><i class="fa fa-commenting"></i><span>我的消息</span><b></b></div>
         <div class="gjszmdm">
-          <a href="u_xiaoxi.html" class="center_in_self"><span>系统消息</span></a>
+          <a href="u_xiaoxi.html" class="center_in_self" th:href="@{/web/systemNoticePage}">
+            <span class="active" style="color: red">系统消息</span>
+          </a>
         </div >
       </div>
     </div>
@@ -116,7 +134,7 @@
 <script type="text/javascript">
 	$(function(){
 		$(".centers_listm_one_in").click(function(){
-			$(this).next(".gjszmdm").slideToggle().siblings("gjszmdm").slideUp()
+			$(this).next(".gjszmdm").slideToggle().siblings("gjszmdm").slideUp();
 			$(this).children("b").toggleClass("active")
 			});
 	})
@@ -142,7 +160,11 @@
                 <th class="olist4">操作</th>
               </tr>
               <tr>
-                <td><input type="checkbox"/></td>
+                <td>
+                  <label>
+                  <input type="checkbox"/>
+                  </label>
+                </td>
                 <td><a href="desHome.html">系统</a></td>
                 <td>
                   <div class="xiaoxi-txt">
@@ -209,71 +231,4 @@
   </div>
 </div>
 </body>
-</html>    
-            
-                    
-          
-	   	
-                
-            
-            
-            			  
-    
-           
-       	
-				     
-             		
-            
-           
-        
-    			 
-        	
-       
-            
-            
-            
-            
-    	
-                         
-       
-                                                     
-                            
-					      
-                
-        
-       	
-					     
-           
-            
-             
-        	
-					
-            
-            
-                
-                           
-                
-
-        
-                
-                        
-                
-                
-                    	
-               
-             
-                 
-                
-                
-                
-                
-                
-            
-                  
-        
-    	
-    
-			
-
-                
-    
+</html>

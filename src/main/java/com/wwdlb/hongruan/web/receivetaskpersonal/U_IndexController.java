@@ -6,7 +6,6 @@ import com.wwdlb.hongruan.service.serviceImpl.receivetaskpersonal.GetReceiveTask
 import com.wwdlb.hongruan.service.serviceImpl.receivetaskpersonal.NumOfIndexPageServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -15,8 +14,11 @@ import javax.servlet.http.HttpSession;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/**
+ * 个人中心界面映射
+ */
 @Controller
-public class PersonalIdentityConfimController {
+public class U_IndexController {
 
     private HttpSession httpSession;
 
@@ -30,17 +32,17 @@ public class PersonalIdentityConfimController {
     private GetReceiveTaskPersonalServiceImpl getReceiveTaskPersonalServiceImpl;
 
     /**
-     * 个人身份认证界面
-     * @return 个人身份认证界面
+     * 个人中心界面映射
+     * @return 个人中心界面
      */
-    @GetMapping(value = "/web/personalIdentityConfimPage")
-    public String identityConfimPage(HttpServletRequest request, ModelMap modelMap) {
+    @GetMapping(value = "/web/uIndexPage")
+    public String uIndexPage(HttpServletRequest request, ModelMap modelMap) {
         httpSession = request.getSession();
         String email = (String) httpSession.getAttribute("email");
         ReceiveTask_Personal receiveTask_personal = getReceiveTaskPersonalServiceImpl.getReceiveTaskPersonalByEmail(email);
         if (receiveTask_personal != null) {
-            Date date = new Date();
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy");
+            Date date = new Date();
             int nowyear = Integer.parseInt(simpleDateFormat.format(date));
             int birthyear = receiveTask_personal.getBirthyear();
             modelMap.addAttribute("age", nowyear - birthyear);
@@ -51,8 +53,6 @@ public class PersonalIdentityConfimController {
         modelMap.addAttribute("numOfReceiveTaskCompany", numOfIndexPageServiceImpl.getNumOfReceiveTaskCompany());
         modelMap.addAttribute("numOfHaveFinishedSmallTask", numOfIndexPageServiceImpl.getNumOfFinishedSmallTask());
         modelMap.addAttribute("numOfSmallTask", numOfIndexPageServiceImpl.getNumOfSmallTask());
-        return "u_renzheng1";
+        return "u_index";
     }
-
-
 }
