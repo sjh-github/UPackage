@@ -35,4 +35,21 @@ public class ShowImageController {
             System.out.println(e.getMessage());
         }
     }
+
+    /**
+     * 显示发包人身份证照片
+     * @param httpServletResponse response
+     * @throws IOException IO异常
+     * @throws FileNotFoundException 文件未找到异常
+     */
+    @GetMapping("/web/provideTaskPersonalImage")
+    public void showProvideTaskPersonalPhoto(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws IOException, FileNotFoundException {
+        httpSession = httpServletRequest.getSession();
+        try {
+            String email = (String) httpSession.getAttribute("email");
+            showImageServiceImpl.showProvideTaskPersonalPhoto(httpServletResponse, email);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
 }

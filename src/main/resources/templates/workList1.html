@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <!--接包人-->
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
   <title>任务列表</title>
@@ -36,12 +35,11 @@
             <div class="pop-dwon">
               <a href="u_index.html" th:href="@{/web/uIndexPage}"><i class="fa fa-user-o"></i>个人主页</a>
               <a href="u_xiaoxi.html" th:href="@{/web/systemNoticePage}"><i class="fa fa-commenting-o"></i>我的消息</a>
-              <a href="u_workList1.html"><i class="fa fa-image"></i>我的任务</a>
               <a href="login.html" th:href="@{/web/logout}" class="last"><i class="fa fa-power-off"></i>退出登录</a>
             </div>
           </li>
-          <li><a href="help.html">帮助中心</a></li>
-          <li><a href="help.html">联系我们</a></li>
+          <li><a href="#">帮助中心</a></li>
+          <li><a href="#">联系我们</a></li>
         </ul>
       </div>
     </div>
@@ -98,7 +96,7 @@
   <div class="filterbox wrap">
     <div class="filterlist">
       <div class="filter-crumbs-nav">
-        <a href="javascript:" class="back">
+        <a href="javascript:" th:href="@{/web/indexPage/receiveTaskPersonal}" class="back">
           <i class="fa fa-arrow-circle-o-left"></i>
         </a>
         <a href="receiveTaskPersonalIndex.html" th:href="@{/web/indexPage/receiveTaskPersonal}">首页</a>
@@ -131,7 +129,10 @@
   <div class="ind-con cl ind-tuku">
     <ul>
       <li>
-        <div class="img"><a href="workInfo.html"><img src="../static/images/title1.jpg" /></a></div>
+        <div>
+          <a href="workInfo.html" th:herf="@{}">
+            <input type="text" disabled="disabled" style="background: #D3D3D3;height: 280px;width: 380px;font-family: 微软雅黑;font-size: 50px;text-align: center" value="Ⅲ级-Ⅰ级-1"/></a>
+        </div>
         <div class="info">
           <div class="name">收集水果图片</div>
           <div class="sort"><s>安全级：</s><span>Ⅲ级</span><i>-</i><s>优先级：</s><span>Ⅰ级</span><div class="sc">还剩13小时截止！</div></div>

@@ -1,5 +1,6 @@
 package com.wwdlb.hongruan.aspect;
 
+import com.wwdlb.hongruan.service.serviceImpl.LoginServiceImpl;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
@@ -32,7 +33,7 @@ public class WEBReceiveTaskPersonalSessionCheckAspect {
         response.setHeader("Pragma","no-cache"); //HTTP 1.0 向后兼容
         try {
             String role = (String) httpSession.getAttribute("role");
-            if (role == null) {
+            if (!role.equals(LoginServiceImpl.ReceiveTaskPersonal)) {
                 response.sendRedirect("loginPage");
             }
         } catch (Exception e) {

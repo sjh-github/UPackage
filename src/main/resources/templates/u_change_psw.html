@@ -69,9 +69,9 @@
     <div class="hd-r">
       <div class="menu">
         <ul class="cl">
-          <li><a href="u_index.html" th:href="@{/web/uIndexPage}">个人中心<p>U-Center</p></a></li>
+          <li class="active"><a href="u_index.html" th:href="@{/web/uIndexPage}">个人中心<p>U-Center</p></a></li>
           <li><a href="workList.html" th:href="@{/web/smallTaskAllPage}">任务<p>Task</p></a></li>
-          <li class="active"><a href="receiveTaskPersonalIndex.html" th:href="@{/web/indexPage/receiveTaskPersonal}">首页<p>Index</p></a></li>
+          <li><a href="receiveTaskPersonalIndex.html" th:href="@{/web/indexPage/receiveTaskPersonal}">首页<p>Index</p></a></li>
         </ul>
       </div>
       <div class="search">
@@ -98,7 +98,7 @@
       <div class="u-name"><span th:text="${name}">飞翔的土豆</span></div>
       <div class="u-lx-dj"><span><i class="fa fa-mortar-board"></i></span>
         <span class="vip-grade">
-          <i class="fa fa-vimeo"></i>
+          <!--<i class="fa fa-vimeo"></i>-->
           <em th:text="${age}">23</em>
         </span>
       </div>
@@ -113,8 +113,8 @@
       <div class="listbox">
         <div class="centers_listm_one_in"><i class="fa fa-photo"></i><span>我的任务</span><b></b></div>
         <div class="gjszmdm">
-          <a href="u_workList1.html" th:href="@{/web/smallTaskRunningPage}" class="center_in_self"><span>进行中</span></a>
-          <a href="u_workList1.html" th:href="@{/web/smallTaskFinishedPage}" class="center_in_self"><span>已完成</span></a>
+          <a href="u_workList1.html" th:href="@{/web/smallTaskIndexRunningPage}" class="center_in_self"><span>进行中</span></a>
+          <a href="u_workList1.html" th:href="@{/web/smallTaskIndexFinishedPage}" class="center_in_self"><span>已完成</span></a>
         </div>
       </div>
 
@@ -163,7 +163,7 @@
               <em>确认密码：</em>
               <input type="text" class="u-ipt-txt"/>
             </p>
-            <a href="login.html" class="public_m3">确认修改</a>
+            <a href="login.html" class="public_m3" style="margin-left: 60px">确认修改</a>
           </div>
         </div>
 

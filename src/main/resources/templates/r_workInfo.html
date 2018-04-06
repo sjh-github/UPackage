@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <!--发包人-->
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <title>任务详情</title>
+    <meta content="虹软外包" name="keywords"/>
+    <meta content="虹软外包" name="description"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <link href="../static/css/basestyle.css" th:href="@{/css/basestyle.css}" rel="stylesheet" type="text/css" />
+    <link href="../static/css/user_center.css" th:href="@{/css/user_center.css}" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../static/css/jquery.step.css" th:href="@{/css/jquery.step.css}"/>
+    <link href="../static/css/mc.css" th:href="@{/css/mc.css}" rel="stylesheet" type="text/css" />
+    <script src="../static/js/jquery-1.8.3.min.js" th:src="@{/js/jquery-1.8.3.min.js}"></script>
+    <script type="text/javascript" src="../static/js/jquery-treat.js" th:src="@{/js/jquery-treat.js}"></script>
+    <script type="text/javascript" src="../static/js/jquery.step.js" th:src="@{/js/jquery.step.js}"></script>
+    <link href="../static/css/jquery.bxslider.css" th:href="@{/css/jquery.bxslider.css}" rel="stylesheet" type="text/css"/>
+    <link href="../static/css/font-awesome.min.css" th:href="@{/css/font-awesome.min.css}" rel="stylesheet" type="text/css"/>
+  </head>
+  <body>
+  <div class="header">
+    <div class="topper">
+      <div class="wrap cl">
+        <div class="t-left">您好，欢迎来到虹软外包管理平台！</div>
+        <div class="t-right">
+          <ul class="cl">
+            <li class="user-list">
+              <div class="top-user">
+                <img src="../static/images/logo.jpg" th:src="@{/web/receiveTaskPersonalImage}"/>
+                <span th:text="${name}">飞翔的土豆</span>
+                <i class="fa fa-caret-down"></i>
+                </a>
+              </div>
+              <div class="pop-dwon">
+                <a href="login.html" th:href="@{/web/logout}" class="last">
+                  <i class="fa fa-power-off"></i>退出登录
+                </a>
+              </div>
+            </li>
+            <li><a href="help.html">帮助中心</a></li>
+            <li><a href="help.html">联系我们</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="head">
+      <div class="wrap cl">
+        <div class="logo"><a href="releaseTaskPersonalIndex.html" th:href="@{}"></a></div>
+        <div class="hd-r">
+          <div class="menu">
+            <ul class="cl">
+              <!--            <li><a href="manage.html" th:href="@{}">管理<p>Manage</p></a></li>-->
+              <li><a href="r_workList.html" th:href="@{}">任务<p>Task</p></a></li>
+              <li class="active"><a href="releaseTaskPersonalIndex.html" th:href="@{}">首页<p>Index</p></a></li>
+            </ul>
+          </div>
+          <div class="search">
+            <input type="txt" class="ipt-sea" placeholder="请输入任务名称" />
+            <a href="javascript:;">搜索</a>
+          </div>
+          <div class="num">
+            <span>接包人员：<em>7,657</em>人</span>
+            <span>接包公司：<em>524</em>家</span>
+            <span>已完成项目：<em>15,517</em>项</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+    <script type="text/javascript">
+        $(function () {
+            var setTime;
+            $(".user-list").hover(function () {
+                var _this = $(this);
+                setTime = setTimeout(function () {
+                    _this.addClass("hover");
+                    $(".top-user i").removeClass("fa-caret-down").addClass("fa-caret-up");
+                    $(".user-list .pop-dwon").slideDown(300);
+                }, 300);
+            }, function () {
+                var _this = $(this);
+                if (setTime) {
+                    clearTimeout(setTime);
+                }
+                $(".user-list .pop-dwon").hide();
+                _this.removeClass("hover");
+                $(".top-user i").removeClass("fa-caret-up").addClass("fa-caret-down");
+            });
+        });
+    </script>
+    <div class="container">
+      <div class="filterbox wrap">
+        <div class="filterlist work-abt">
+          <h2>收集水果图片</h2>
+            <div class="work-txt">收集1W张水果照片，像素至少为720p，水果种类不少于5k种，水果类别清晰。
+            </div>
+            <div class="wk-lab">
+              <span>安全等级：<i>Ⅲ级</i></span>
+              <span>优先级别：<i>Ⅰ级</i></span>
+              <span>发布时间：<em>2018-01-23 15:22</em></span>
+              <span>截止时间：<em>2018-02-03 15:22</em></span>
+            </div>
+          <div class="wk-lab">
+            <span>任务版权：
+              <i>虹软中国公司版权所有，禁止匿名转载，禁止商业使用，禁止个人使用；</i>
+            </span>
+          </div>
+          <div class="wk-lab">
+            <div class="tab">
+            <span>任务进度</span>
+            </div>
+            <div id="myStat" data-dimension="60" data-text="85%" data-info="New Clients" data-width="10" data-fontsize="12" data-percent="85" data-fgcolor="#ff6561" data-bgcolor="#eee" data-fill="#FFF" class="circliful" style="width:60px; margin-left:45px;"></div>
+          </div>
+          </div>
+        </div>
+
+        <div class="wrap hide">
+          <div class="work-container">
+            <div class="work-details">
+              <h1>任务细分</h1>
+              <div class="info">
+                <div class="step-body" id="myStep">
+                  <div class="step-header" style="width:80%">
+                    <ul>
+                      <li><p>阶段1</p></li>
+                      <li><p>阶段2</p></li>
+                      <li><p>阶段3</p></li>
+                      <li><p>阶段4</p></li>
+                      <li><p>阶段5</p></li>
+                    </ul>
+                  </div>
+                  <div class="step-content">
+                    <div class="step-list">
+                      收集4000张图片
+                      <div class="butModel">
+                        <input type="file" accept="image/*" class="nextBtn" />
+                      </div>
+                    </div>
+                    <div class="step-list">
+                      收集2000张图片
+                      <div class="butModel">
+                        <input type="file" accept="image/*" class="nextBtn" />
+                      </div>
+                    </div>
+                    <div class="step-list">
+                      收集2000张图片
+                      <div class="butModel">
+                        <input type="file" accept="image/*" class="nextBtn" />
+                      </div>
+                    </div>
+                    <div class="step-list">
+                      收集1000张图片
+                      <div class="butModel">
+                        <input type="file" accept="image/*" class="nextBtn" />
+                      </div>
+                    </div>
+                    <div class="step-list">
+                      收集1000张图片
+                      <div class="butModel">
+                        <input type="file" accept="image/*" class="goBtn" />
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+
+              </div>
+              <div class="wrk-lab">剩余时间：  <span><em>7</em>天</span></div>
+            </div>
+
+
+
+            <div class="work-recommend">
+              <div class="tit-rec">相关文档</div>
+              <div class="tit-con">
+                <div class="bt"><span>水果图片具体要求</span><i>文档</i></div>
+                <div class="tk-xx">
+                  <a href="texy/test.txt" download="test"><img src="../static/images/text_pic.png" th:href="@{/images/text_pic.png}"/><span>详细说明.txt</span></a>
+                  <em>2018-01-23</em>
+                </div>
+              </div>
+              <div class="tit-con">
+                <div class="bt"><span>水果图片验收标准</span><i>文档</i></div>
+                <div class="tk-xx">
+                  <a href="texy/test.txt" download="test"><img src="../static/images/text_pic.png" th:href="@{/images/text_pic.png}" /><span>验收要求.txt</span></a>
+                  <em>2018-01-23</em>
+                </div>
+              </div>
+            </div>
+            <div class="work-recommend">
+              <div class="tit-rec">相关合同</div>
+              <div class="tit-con">
+                <div class="bt"><span>外包协议合同</span><i>合同</i></div>
+                <div class="tk-xx">
+                  <a href="texy/test.txt" download="test"><img src="../static/images/text_pic.png" th:href="@{/images/text_pic.png}" /><span>外包协议合同.pdf</span></a>
+                  <em>2018-01-23</em>
+                </div>
+              </div>
+            <div class="clearfiexd"></div>
+          </div>
+        </div>
+      </div>
+      <!--footer-->
+      <div class="footer">
+        <div class="ft-menu">
+          <div class="wrap hide">
+            <dl>
+              <dt><i class="fa fa-compass"></i>虹软技术</dt>
+              <dd>
+                <a href="#">防抖技术</a>
+                <a href="#">人脸技术</a>
+                <a href="#">HDR技术</a>
+                <a href="#">手势识别技术</a>
+                <a href="#">全景技术</a>
+              </dd>
+            </dl>
+            <dl>
+              <dt><i class="fa fa-mortar-board"></i>接包人员</dt>
+              <dd>
+                <a href="#">上传作品</a>
+                <a href="#">查看需求</a>
+                <a href="#">立即加入</a>
+              </dd>
+            </dl>
+            <dl>
+              <dt><i class="fa fa-institution"></i>接包公司</dt>
+              <dd>
+                <a href="#">查看需求</a>
+                <a href="#">发布作品</a>
+                <a href="#">公司简介</a>
+                <a href="#">立即加入</a>
+              </dd>
+            </dl>
+            <dl>
+              <dt><i class="fa fa-get-pocket"></i>虹软官网</dt>
+              <dd>
+                <a href="http://www.arcsoft.com.cn/">虹软中国</a>
+                <a href="#">英文官网</a>
+                <a href="#">虹软微博</a>
+              </dd>
+            </dl>
+          </div>
+        </div>
+
+        <div class="ft-cop">
+          <p>2018 虹软版权所有 <a href="#">浙ICP备11037259号-3</a> 联系电话：0527-88390110  邮箱：110@hongruan.com</p>
+        </div>
+    </div>
+    </div>
+    <script>
+        (function($) {
+            $.extend({
+                tipsBox: function(options) {
+                    options = $.extend({
+                        obj: null,  //jq对象，要在那个html标签上显示
+                        str: "+1",  //字符串，要显示的内容;也可以传一段html，如: "<b style='font-family:Microsoft YaHei;'>+1</b>"
+                        startSize: "12px",  //动画开始的文字大小
+                        endSize: "12px",    //动画结束的文字大小
+                        interval:500,  //动画时间间隔
+                        color: "red",    //文字颜色
+                        callback: function() {}    //回调函数
+                    }, options);
+                    $("body").append("<span class='count'>"+ options.str +"</span>");
+                    var box = $(".count");
+                    var left = options.obj.offset().left + options.obj.width() / 2;
+                    var top = options.obj.offset().top - options.obj.height();
+                    box.css({
+                        "position": "absolute",
+                        "left": left + "px",
+                        "top": top + "px",
+                        "z-index": 9999,
+                        "font-size": options.startSize,
+                        "line-height": options.endSize,
+                        "color": options.color
+                    });
+                    box.animate({
+                        "font-size": options.endSize,
+                        "opacity": "0",
+                        "top": top - parseInt(options.endSize) + "px"
+                    }, options.interval , function() {
+                        box.remove();
+                        options.callback();
+                    });
+                }
+            });
+        })(jQuery);
+    </script>
+    <script>
+        $(function() {
+            $(".sc_dz_btn").click(function() {
+                var _this =$(this);
+                $.tipsBox({
+                    obj: _this,
+                    str: "+1"
+                });
+            });
+        });
+    </script>
+  </body>
+</html>

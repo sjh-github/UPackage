@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <!--发包人-->
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+  <title>发布需求-任务</title>
+  <meta content="虹软外包" name="keywords"/>
+  <meta content="虹软外包" name="description"/>
+  <meta name="apple-mobile-web-app-capable" content="yes"/>
+  <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+  <meta name="format-detection" content="telephone=no"/>
+  <meta http-equiv="x-dns-prefetch-control" content="on"/>
+  <link href="../static/css/basestyle.css" th:href="@{/css/basestyle.css}" rel="stylesheet" type="text/css" />
+  <link href="../static/css/mc.css" th:href="@{/css/mc.css}" rel="stylesheet" type="text/css" />
+  <script src="../static/js/jquery-1.8.3.min.js" th:src="@{/js/jquery-1.8.3.min.js}"></script>
+  <script src="../static/js/jquery-ui.js" th:src="@{/js/jquery-ui.js}"></script>
+  <script src="../static/js/fwslider.js" th:src="@{/js/fwslider.js}"></script>
+  <link href="../static/css/user_center.css" th:href="@{/css/user_center.css}" rel="stylesheet" type="text/css" />
+  <link href="../static/css/font-awesome.min.css" th:href="@{/css/font-awesome.min.css}" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div class="header">
+  <div class="topper">
+    <div class="wrap cl">
+      <div class="t-left">您好，欢迎来到虹软外包管理平台！</div>
+      <div class="t-right">
+        <ul class="cl">
+          <li class="user-list">
+            <div class="top-user">
+              <img src="../static/images/logo.jpg" th:src="@{/web/provideTaskPersonalImage}"/>
+              <span th:text="${name}">飞翔的土豆</span>
+              <i class="fa fa-caret-down"></i>
+            </div>
+            <div class="pop-dwon">
+              <a href="login.html" th:href="@{/web/logout}" class="last">
+                <i class="fa fa-power-off"></i>退出登录
+              </a>
+            </div>
+          </li>
+          <li><a href="#">帮助中心</a></li>
+          <li><a href="#">联系我们</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="head">
+    <div class="wrap cl">
+      <div class="logo"><a href="releaseTaskPersonalIndex.html" th:href="@{/web/indexPage/provideTaskPersonal}"></a></div>
+      <div class="hd-r">
+        <div class="menu">
+          <ul class="cl">
+            <!--            <li><a href="manage.html" th:href="@{}">管理<p>Manage</p></a></li>-->
+            <li><a href="r_workList.html" th:href="@{/web/provideTaskPersonal/SmallTask/All}">任务<p>Task</p></a></li>
+            <li class="active"><a href="releaseTaskPersonalIndex.html" th:href="@{/web/indexPage/provideTaskPersonal}">首页<p>Index</p></a></li>
+          </ul>
+        </div>
+        <div class="search">
+          <input type="txt" class="ipt-sea" placeholder="请输入任务名称" />
+          <a href="javascript:;">搜索</a>
+        </div>
+        <div class="num">
+          <span>接包人员：<em th:text="${numOfReceiveTaskPersonal}">7,657</em>人</span>
+          <span>接包公司：<em th:text="${numOfReceiveTaskCompany}">524</em>家</span>
+          <span>已完成项目：<em th:text="${numOfHaveFinishedSmallTask}">15,517</em>项</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+    $(function () {
+        var setTime;
+        $(".user-list").hover(function () {
+			var _this = $(this); 
+            setTime = setTimeout(function () {
+				_this.addClass("hover");
+				$(".top-user i").removeClass("fa-caret-down").addClass("fa-caret-up");
+                $(".user-list .pop-dwon").slideDown(300);
+            }, 300);
+        }, function () {
+			var _this = $(this);
+            if (setTime) {
+                clearTimeout(setTime);
+            }
+            $(".user-list .pop-dwon").hide();
+			_this.removeClass("hover");
+			$(".top-user i").removeClass("fa-caret-up").addClass("fa-caret-down");
+        });
+    });
+</script>
+
+<div class="centers_m">
+    <div class="user-header">
+      <div class="u-main">
+    <div class="menu">
+      <a href="releaseTask.html" th:href="@{/web/taskPage}" class="upld upzp">发布项目</a>
+    </div>
+      </div>
+    </div>
+  <div class="upload-left">
+    <div class="req-push-title"><p class="req-name"><i></i><span>发布新的任务</span></p></div>
+    <div class="form-box-list">
+      <div class="tab-l"><span class="form-box-label"><i>*</i>项目名称</span></div>
+      <div  class="box-select">
+        <select name="safe" class="ui-select" style="border:none;outline: none;width: 100%;height: 40px;line-height: 40px;appearance: none;-webkit-appearance: none;-moz-appearance: none;padding-left: 60px; ">
+          <option selected="selected">选择项目</option>
+          <option>项目A</option>
+          <option>项目B</option>
+          <option>项目C</option>
+        </select>
+      </div>
+      <div class="clearfiexd"></div>
+    </div>
+    <div class="form-box-list">
+      <div class="tab-l"><span class="form-box-label"><i>*</i>任务名称</span></div>
+      <div class="tab-r"><input class="form-ipt-txt" placeholder="请输入项目名称（1-20字）"/></div>
+
+      <div class="clearfiexd"></div>
+    </div>
+    <div class="form-box-list">
+      <div class="tab-l"><span class="form-box-label"><i>*</i>安全等级</span></div>
+      <div  class="box-select">
+        <select name="safe" class="ui-select" style="border:none;outline: none;width: 100%;height: 40px;line-height: 40px;appearance: none;-webkit-appearance: none;-moz-appearance: none;padding-left: 60px; ">
+          <option selected="selected">选择安全级别</option>
+          <option>Ⅰ级</option>
+          <option>Ⅱ级</option>
+          <option>Ⅲ级</option>
+          <option>Ⅳ级</option>
+        </select>
+      </div>
+      <div class="tab-l"><span class="form-box-label"><i>*</i>优先级</span></div>
+      <div  class="box-select">
+        <select name="safe" class="ui-select" style="border:none;outline: none;width: 100%;height: 40px;line-height: 40px;appearance: none;-webkit-appearance: none;-moz-appearance: none;padding-left: 60px; ">
+          <option selected="selected">选择优先级</option>
+          <option>低</option>
+          <option>中</option>
+          <option>高</option>
+        </select>
+      </div>
+      <div class="clearfiexd"></div>
+    </div>
+    <div class="form-box-list">
+      <div class="tab-l"><span class="form-box-label"><i>*</i>任务内容</span></div>
+
+      <div class="tab-r"><textarea class="tab-a"  placeholder="请输入任务内容"></textarea></div>
+
+      <div class="clearfiexd"></div>
+    </div>
+    <div class="form-box-list">
+      <div class="tab-l"><span class="form-box-label">上传附件</span></div>
+      <div class="tab-r"><a><input type="file" name="fileUpload" /></a><span class="form-sm">每个大小不超过5M</span></div>
+      <div class="clearfiexd"></div>
+    </div>
+    <div class="form-box-list">
+      <div class="tab-l"><span class="form-box-label">上传协议</span></div>
+      <div class="tab-r"><a><input type="file" name="fileUpload" /></a></div>
+      <div class="clearfiexd"></div>
+    </div>
+    <div class="form-box-list">
+      <div class="tab-l"><span class="form-box-label">起始时间</span></div>
+      <div class="tab-r">
+        <div class="time-box"><span>开始时间：<input type="date" /></span><span>结束时间：<input type="date" /></span></div>
+      </div>
+      <div class="clearfiexd"></div>
+    </div>
+    <div class="form-box-list"><a class="btn-submit" href="javascript:void(0)">提交发布</a></div>
+  </div>
+  <div class="clearfiexd"></div>
+</div>
+
+
+</body>
+</html>    
+            
+                    
+          
+	   	
+                
+            
+            
+            			  
+    
+           
+       	
+				     
+             		
+            
+           
+        
+    			 
+        	
+       
+            
+            
+            
+            
+    	
+                         
+       
+                                                     
+                            
+					      
+                
+        
+       	
+					     
+           
+            
+             
+        	
+					
+            
+            
+                
+                           
+                
+
+        
+                
+                        
+                
+                
+                    	
+               
+             
+                 
+                
+                
+                
+                
+                
+            
+                  
+        
+    	
+    
+			
+
+                
+    

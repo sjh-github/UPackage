@@ -69,9 +69,9 @@
         <div class="hd-r">
           <div class="menu">
             <ul class="cl">
-              <li><a href="u_index.html" th:href="@{/web/uIndexPage}">个人中心<p>U-Center</p></a></li>
+              <li class="active"><a href="u_index.html" th:href="@{/web/uIndexPage}">个人中心<p>U-Center</p></a></li>
               <li><a href="workList.html" th:href="@{/web/smallTaskAllPage}">任务<p>Task</p></a></li>
-              <li class="active"><a href="receiveTaskPersonalIndex.html" th:href="@{/web/indexPage/receiveTaskPersonal}">首页<p>Index</p></a></li>
+              <li><a href="receiveTaskPersonalIndex.html" th:href="@{/web/indexPage/receiveTaskPersonal}">首页<p>Index</p></a></li>
             </ul>
           </div>
           <div class="search">
@@ -94,8 +94,15 @@
         <div class="center_header">
           <a href="u_ziliao.html" th:href="@{/web/changePersonalInformationPage}"><img src="../static/images/logo.jpg" th:src="@{/web/receiveTaskPersonalImage}"/></a>
           <div class="u-name"><span th:text="${name}">飞翔的土豆</span></div>
-          <div class="u-lx-dj"><span><i class="fa fa-mortar-board"></i></span>
-            <span class="vip-grade"><i class="fa fa-vimeo"></i><em th:text="${age}">23</em></span></div>
+          <div class="u-lx-dj">
+            <span>
+              <i class="fa fa-mortar-board"></i>
+            </span>
+            <span class="vip-grade">
+              <!--<i class="fa fa-vimeo"></i>-->
+              <em th:text="${age}">23</em>
+            </span>
+          </div>
           <div class="u-area"><span>浙江</span>，<span>杭州</span></div>
         </div>
         <div class="u-safe-btn">
@@ -163,20 +170,39 @@
                   <span class="fla-upload-btn">
                     <input type="file" id="file1" name=""/>
                     <div id="idcard1" style="background:#CCCCCC; float:left;">
-                      <img src="images/touxiang.png" onload='if (this.width>200 || this.height>250) if (this.width/this.height>200/250) this.width=200; else this.height=250;' />
+                      <img src="../static/images/touxiang.png" th:href="@{/images/touxiang.png}" onload='if (this.width>200 || this.height>250) if (this.width/this.height>200/250) this.width=200; else this.height=250;' />
                     </div>
                    </span>
                 </p>
+                <script>
+                    document.getElementById('file1').onchange = function() {
+                        var imgFile = this.files[0];
+                        var fr = new FileReader();
+                        fr.onload = function() {
+                            document.getElementById('idcard1').getElementsByTagName('img')[0].src = fr.result;
+                        };
+                        fr.readAsDataURL(imgFile);
+                    };
+                </script>
                 <p>
                   <em>上传身份证反面：</em>
                   <span class="fla-upload-btn">
                     <input type="file" id="file2" name=""/>
                     <div id="idcard2" style="background:#CCCCCC; float:left;">
-                      <img src="images/touxiang.png" onload='if (this.width>200 || this.height>250) if (this.width/this.height>200/250) this.width=200; else this.height=250;' />
+                      <img src="../static/images/touxiang.png" th:href="@{/images/touxiang.png}" onload='if (this.width>200 || this.height>250) if (this.width/this.height>200/250) this.width=200; else this.height=250;' />
                     </div>
                    </span>
                 </p>
-
+                <script>
+                    document.getElementById('file2').onchange = function() {
+                        var imgFile = this.files[0];
+                        var fr = new FileReader();
+                        fr.onload = function() {
+                            document.getElementById('idcard2').getElementsByTagName('img')[0].src = fr.result;
+                        };
+                        fr.readAsDataURL(imgFile);
+                    };
+                </script>
                 <input type="submit" value="提交认证" class="public_m3" onclick="shenhe()"/>
               </div>
             </div>
@@ -232,16 +258,6 @@
         <p>2018 虹软版权所有 <a href="#">浙ICP备11037259号-3</a> 联系电话：0527-88390110  邮箱：110@hongruan.com</p>
       </div>
     </div>
-    <script>
-        document.getElementById('file').onchange = function() {
-            var imgFile = this.files[0];
-            var fr = new FileReader();
-            fr.onload = function() {
-                document.getElementById('image').getElementsByTagName('img')[0].src = fr.result;
-            };
-            fr.readAsDataURL(imgFile);
-        };
-    </script>
     <script type="text/javascript">
         function shenhe()
         {

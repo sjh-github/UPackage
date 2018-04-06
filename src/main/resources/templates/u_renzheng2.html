@@ -146,31 +146,60 @@
             <p>
               <em>上传营业执照：</em>
               <span class="fla-upload-btn">
-                <input type="file" id="file1" name=""/>
-                <div id="idcard1" style="background:#CCCCCC; float:left;">
-                  <img src="images/touxiang.png" onload='if (this.width>200 || this.height>250) if (this.width/this.height>200/250) this.width=200; else this.height=250;' />
+                <input type="file" id="file2" name=""/>
+                <div id="card1" style="background:#CCCCCC; float:left;">
+                  <img src="../static/images/touxiang.png" th:href="@{/images/touxiang.png}" onload='if (this.width>200 || this.height>250) if (this.width/this.height>200/250) this.width=200; else this.height=250;' />
                 </div>
                </span>
             </p>
+            <script>
+                document.getElementById('file2').onchange = function() {
+                    var imgFile = this.files[0];
+                    var fr = new FileReader();
+                    fr.onload = function() {
+                        document.getElementById('card1').getElementsByTagName('img')[0].src = fr.result;
+                    };
+                    fr.readAsDataURL(imgFile);
+                };
+            </script>
             <p>
             <em>上传法人身份证正面：</em>
             <span class="fla-upload-btn">
                 <input type="file" id="file3" name=""/>
-                <div id="idcard3" style="background:#CCCCCC; float:left;">
-                  <img src="images/touxiang.png" onload='if (this.width>200 || this.height>250) if (this.width/this.height>200/250) this.width=200; else this.height=250;' />
+                <div id="card2" style="background:#CCCCCC; float:left;">
+                  <img src="../static/images/touxiang.png" th:href="@{/images/touxiang.png}" onload='if (this.width>200 || this.height>250) if (this.width/this.height>200/250) this.width=200; else this.height=250;' />
                 </div>
                </span>
           </p>
+            <script>
+                document.getElementById('file3').onchange = function() {
+                    var imgFile = this.files[0];
+                    var fr = new FileReader();
+                    fr.onload = function() {
+                        document.getElementById('card2').getElementsByTagName('img')[0].src = fr.result;
+                    };
+                    fr.readAsDataURL(imgFile);
+                };
+            </script>
             <p>
               <em>上传法人身份证反面：</em>
               <span class="fla-upload-btn">
                 <input type="file" id="file4" name=""/>
-                <div id="idcard4" style="background:#CCCCCC; float:left;">
-                  <img src="images/touxiang.png" onload='if (this.width>200 || this.height>250) if (this.width/this.height>200/250) this.width=200; else this.height=250;' />
+                <div id="card4" style="background:#CCCCCC; float:left;">
+                  <img src="../static/images/touxiang.png" th:href="@{/images/touxiang.png}" onload='if (this.width>200 || this.height>250) if (this.width/this.height>200/250) this.width=200; else this.height=250;' />
                 </div>
                </span>
             </p>
-
+            <script>
+                document.getElementById('file4').onchange = function() {
+                    var imgFile = this.files[0];
+                    var fr = new FileReader();
+                    fr.onload = function() {
+                        document.getElementById('card4').getElementsByTagName('img')[0].src = fr.result;
+                    };
+                    fr.readAsDataURL(imgFile);
+                };
+            </script>
             <input type="submit" value="提交认证" class="public_m3" onclick="shenhe()"/>
           </div>
         </div>

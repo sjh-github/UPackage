@@ -25,16 +25,24 @@ public class AttendanceServiceImpl {
      * @return 签到结果及累计天数
      */
     public String signIn(String email) {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        /*检查本日是否已签到*/
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date date = new Date();
-        Attendance attendance = new Attendance();
-        attendance.setEmail(email);
-        attendance.setSignintime(simpleDateFormat.format(date));
-        attendanceMapper.insert(attendance);
-        simpleDateFormat = new SimpleDateFormat("yyyy-MM");
         StringBuilder nowTime = new StringBuilder(simpleDateFormat.format(date));
         nowTime.append("%");
-        System.out.println(nowTime.toString());
+        Attendance attendance = attendanceMapper.selectByEmail(email, nowTime.toString());
+        if (attendance != null) {
+            return "签到失败，您本日已签到";
+        }
+        /*进行签到*/
+        simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Attendance todayAttendance = new Attendance();
+        todayAttendance.setEmail(email);
+        todayAttendance.setSignintime(simpleDateFormat.format(date));
+        attendanceMapper.insert(todayAttendance);
+        simpleDateFormat = new SimpleDateFormat("yyyy-MM");
+        nowTime = new StringBuilder(simpleDateFormat.format(date));
+        nowTime.append("%");
         int num = attendanceMapper.getSignDayNumOfMonth(email, nowTime.toString());
         return "签到成功，您本月已成功签到 " + num + " 天";
     }
@@ -47,11 +55,11 @@ public class AttendanceServiceImpl {
     public String signOut(String email) {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date date = new Date();
-        StringBuilder stringBuilder = new StringBuilder(simpleDateFormat.format(date));
-        stringBuilder.append("%");
-        Attendance attendance = attendanceMapper.selectByEmail(email, stringBuilder.toString());
+        Attendance attendance = attendanceMapper.selectByEmail(email, "%" + simpleDateFormat.format(date) + "%");
         if (attendance == null) {
-            return null;
+            System.out.println(email);
+            System.out.println(simpleDateFormat.format(date) + "%");
+            return "签退失败，您本日尚未签到";
         }
         simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         attendance.setSignouttime(simpleDateFormat.format(date));
@@ -59,4 +67,29 @@ public class AttendanceServiceImpl {
         return "签退成功";
     }
 
+    /**
+     * 获取本月已签到天数
+     * @param email 邮箱
+     * @return 本月已签到天数
+     */
+    public int getHaveSignInDay(String email) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM");
+        Date date = new Date();
+        return attendanceMapper.getSignDayNumOfMonth(email, simpleDateFormat.format(date) + "%");
+    }
+
+    /**
+     * 获取本日签到时间
+     * @param email 邮箱
+     * @return NULL/本日签到时间
+     */
+    public String getTodaySignInTime(String email) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = new Date();
+        Attendance attendance = attendanceMapper.selectByEmail(email, simpleDateFormat.format(date) + "%");
+        if (attendance == null) {
+            return null;
+        }
+        return attendance.getSignintime();
+    }
 }

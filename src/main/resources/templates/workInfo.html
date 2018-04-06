@@ -38,12 +38,11 @@
                 <div class="pop-dwon">
                   <a href="u_index.html" th:href="@{/web/uIndexPage}"><i class="fa fa-user-o"></i>个人主页</a>
                   <a href="u_xiaoxi.html" th:href="@{/web/systemNoticePage}"><i class="fa fa-commenting-o"></i>我的消息</a>
-                  <a href="u_workList1.html" th:href="@{/web/personalCenter/smallTaskPage}"><i class="fa fa-image"></i>我的任务</a>
                   <a href="login.html" th:href="@{/web/logout}" class="last"><i class="fa fa-power-off"></i>退出登录</a>
                 </div>
               </li>
-              <li><a href="help.html">帮助中心</a></li>
-              <li><a href="help.html">联系我们</a></li>
+              <li><a href="#">帮助中心</a></li>
+              <li><a href="#">联系我们</a></li>
             </ul>
           </div>
         </div>
@@ -55,8 +54,8 @@
             <div class="menu">
               <ul class="cl">
                 <li><a href="u_index.html" th:href="@{/web/uIndexPage}">个人中心<p>U-Center</p></a></li>
-                <li><a href="workList.html" th:href="@{/web/smallTaskAllPage}">任务<p>Task</p></a></li>
-                <li class="active"><a href="receiveTaskPersonalIndex.html" th:href="@{/web/indexPage/receiveTaskPersonal}">首页<p>Index</p></a></li>
+                <li class="active"><a href="workList.html" th:href="@{/web/smallTaskAllPage}">任务<p>Task</p></a></li>
+                <li><a href="receiveTaskPersonalIndex.html" th:href="@{/web/indexPage/receiveTaskPersonal}">首页<p>Index</p></a></li>
               </ul>
             </div>
             <div class="search">
@@ -173,19 +172,33 @@
               <div class="tit-con">
                 <div class="bt"><span>水果图片具体要求</span><i>文档</i></div>
                 <div class="tk-xx">
-                  <a href="texy/test.txt" download="test"><img src="images/text_pic.png" /><span>详细说明.txt</span></a>
+                  <a href="texy/test.txt" download="test">
+                    <img src="../static/images/text_pic.png" th:href="@{/images/text_pic.png}" />
+                    <span>详细说明.txt</span>
+                  </a>
                   <em>2018-01-23</em>
                 </div>
               </div>
               <div class="tit-con">
                 <div class="bt"><span>水果图片验收标准</span><i>文档</i></div>
                 <div class="tk-xx">
-                  <a href="texy/test.txt" download="test"><img src="images/text_pic.png" /><span>验收要求.txt</span></a>
+                  <a href="texy/test.txt" download="test">
+                    <img src="../static/images/text_pic.png" th:href="@{/images/text_pic.png}" />
+                    <span>验收要求.txt</span>
+                  </a>
                   <em>2018-01-23</em>
                 </div>
               </div>
             </div>
-
+            <div class="work-recommend">
+              <div class="tit-rec">相关合同</div>
+              <div class="tit-con">
+                <div class="bt"><span>外包协议合同</span><i>合同</i></div>
+                <div class="tk-xx">
+                  <a href="texy/test.txt" download="test"><img src="../static/images/text_pic.png" th:href="@{/images/text_pic.png}" /><span>外包协议合同.pdf</span></a>
+                  <em>2018-01-23</em>
+                </div>
+              </div>
             <div class="clearfiexd"></div>
           </div>
         </div>
@@ -286,5 +299,6 @@
             });
         });
     </script>
+    </div>
   </body>
 </html>

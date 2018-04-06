@@ -55,7 +55,7 @@ public class LookSmallTaskDetailController {
 
     /**
      * 查看所有小任务界面
-     * @return 正在所有小任务界面
+     * @return 所有小任务界面
      */
     @GetMapping(value = "/web/smallTaskAllPage")
     public String lookSmallTaskAllPage(HttpServletRequest request, ModelMap modelMap) {
