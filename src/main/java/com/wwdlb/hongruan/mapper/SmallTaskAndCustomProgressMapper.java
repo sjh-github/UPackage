@@ -2,6 +2,8 @@ package com.wwdlb.hongruan.mapper;
 
 import com.wwdlb.hongruan.model.SmallTaskAndCustomProgress;
 
+import java.util.ArrayList;
+
 public interface SmallTaskAndCustomProgressMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -14,4 +16,6 @@ public interface SmallTaskAndCustomProgressMapper {
     int updateByPrimaryKeySelective(SmallTaskAndCustomProgress record);
 
     int updateByPrimaryKey(SmallTaskAndCustomProgress record);
+
+    ArrayList<SmallTaskAndCustomProgress> getSmallTaskAndCustomProgressBySmallTaskID(Integer smallTaskID);
 }

@@ -18,4 +18,5 @@ public interface SmallTaskMapper {
     int updateByPrimaryKey(SmallTask record);
 
     int getNumOfSmallTaskByState(String haveFinished);
+
 }

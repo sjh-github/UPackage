@@ -3,6 +3,7 @@ package com.wwdlb.hongruan.service.serviceImpl.providetaskpersonal;
 import com.wwdlb.hongruan.mapper.SmallTaskMapper;
 import com.wwdlb.hongruan.mapper.TaskAndSmallTaskMapper;
 import com.wwdlb.hongruan.model.SmallTask;
+import com.wwdlb.hongruan.pojo.SmallTaskPojo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,7 +25,7 @@ public class SmallTaskManageServiceImpl {
      * @param taskID 项目ID
      * @return 小任务列表/NULL
      */
-    public ArrayList<SmallTask> getAllSmallTaskByTaskID(int taskID) {
+    public ArrayList<SmallTaskPojo> getAllSmallTaskByTaskID(int taskID) {
         ArrayList<Integer> smallTaskIDList = taskAndSmallTaskMapper.getSmallTaskIDByTaskID(taskID);
         if (smallTaskIDList == null) {
             return null;
@@ -33,6 +34,18 @@ public class SmallTaskManageServiceImpl {
         for (int smallTaskID : smallTaskIDList) {
             smallTaskArrayList.add(smallTaskMapper.selectByPrimaryKey(smallTaskID));
         }
-        return smallTaskArrayList;
+        ArrayList<SmallTaskPojo> smallTaskPojos = new ArrayList<>(smallTaskArrayList.size());
+        SmallTaskPojo smallTaskPojo = new SmallTaskPojo();
+        for (SmallTask smallTask : smallTaskArrayList) {
+            smallTaskPojo.setTaskid(taskID);
+            smallTaskPojo.setSmalltaskid(smallTask.getSmalltaskid());
+            smallTaskPojo.setSmalltaskname(smallTask.getSmalltaskname());
+            smallTaskPojo.setSmalltaskdetail(smallTask.getSmalltaskdetail());
+            smallTaskPojo.setEndtime(smallTask.getEndtime());
+            smallTaskPojo.setHavefinished(smallTask.getHavefinished());
+            smallTaskPojo.setFinishtime(smallTask.getFinishtime());
+            smallTaskPojos.add(smallTaskPojo);
+        }
+        return smallTaskPojos;
     }
 }

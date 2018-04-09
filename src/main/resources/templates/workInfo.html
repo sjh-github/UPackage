@@ -49,7 +49,7 @@
       </div>
       <div class="head">
         <div class="wrap cl">
-          <div class="logo"><a href="workInfo.html" th:href="@{/web/smallTaskDetailPage}"></a></div>
+          <div class="logo"><a href="workInfo.html" th:href="@{/web/indexPage/receiveTaskPersonal}"></a></div>
           <div class="hd-r">
             <div class="menu">
               <ul class="cl">
@@ -95,14 +95,14 @@
     <div class="container">
       <div class="filterbox wrap">
         <div class="filterlist work-abt">
-          <h2>收集水果图片</h2>
-            <div class="work-txt">收集1W张水果照片，像素至少为720p，水果种类不少于5k种，水果类别清晰。
+          <h2 th:text="${smallTask.smalltaskname}">收集水果图片</h2>
+            <div class="work-txt" th:text="${smallTask.smalltaskdetail}">收集1W张水果照片，像素至少为720p，水果种类不少于5k种，水果类别清晰。
             </div>
             <div class="wk-lab">
-              <span>安全等级：<i>Ⅲ级</i></span>
-              <span>优先级别：<i>Ⅰ级</i></span>
-              <span>发布时间：<em>2018-01-23 15:22</em></span>
-              <span>截止时间：<em>2018-02-03 15:22</em></span>
+              <span>安全等级：<i th:text="${safeGrade}">Ⅲ级</i></span>
+              <span>优先级别：<i th:text="${priority}">Ⅰ级</i></span>
+              <span>发布时间：<em th:text="${startTime}">2018-01-23 15:22</em></span>
+              <span>截止时间：<em th:text="${smallTask.endtime}">2018-02-03 15:22</em></span>
             </div>
           <div class="wk-lab">
             <span>任务版权：
@@ -115,94 +115,78 @@
           <div class="work-container">
             <div class="work-details">
               <h1>任务细分</h1>
-              <div class="info">
-                <div class="step-body" id="myStep">
-                  <div class="step-header" style="width:80%">
-                    <ul>
-                      <li><p>阶段1</p></li>
-                      <li><p>阶段2</p></li>
-                      <li><p>阶段3</p></li>
-                      <li><p>阶段4</p></li>
-                      <li><p>阶段5</p></li>
-                    </ul>
-                  </div>
-                  <div class="step-content">
-                    <div class="step-list">
-                      收集4000张图片
-                      <div class="butModel">
-                        <input type="file" accept="image/*" class="nextBtn" />
+              <div class="info" th:if="${customProgressPojos != null}">
+                  <div class="step-body" id="myStep">
+                      <div class="step-header" style="width:80%">
+                        <ul th:each="customProgressPojo : ${customProgressPojos}">
+                          <li><p th:text="|阶段${customProgressPojo.progressOrder}|">阶段1</p></li>
+                        </ul>
+                      </div>
+                      <div class="step-content" th:each="customProgressPojo : ${customProgressPojos}">
+                        <div class="step-list">
+                          <em th:text="${customProgressPojo.customProgress.remark}">收集4000张图片</em>
+                          <div class="butModel">
+                            <input type="file" accept="image/*" class="nextBtn" />
+                          </div>
+                        </div>
                       </div>
                     </div>
-                    <div class="step-list">
-                      收集2000张图片
-                      <div class="butModel">
-                        <input type="file" accept="image/*" class="nextBtn" />
-                      </div>
-                    </div>
-                    <div class="step-list">
-                      收集2000张图片
-                      <div class="butModel">
-                        <input type="file" accept="image/*" class="nextBtn" />
-                      </div>
-                    </div>
-                    <div class="step-list">
-                      收集1000张图片
-                      <div class="butModel">
-                        <input type="file" accept="image/*" class="nextBtn" />
-                      </div>
-                    </div>
-                    <div class="step-list">
-                      收集1000张图片
-                      <div class="butModel">
-                        <input type="file" accept="image/*" class="goBtn" />
-                      </div>
-                    </div>
-                  </div>
-
-                </div>
-
               </div>
-              <div class="wrk-lab">剩余时间：  <span><em>7</em>天</span></div>
+              <div class="info" th:unless="${customProgressPojos != null}">
+                  <table border="1">
+                    <tr>
+                      <td th:width="200px" width="200px">数量指标</td>
+                      <td width="200px">已完成</td>
+                      <td width="200px">更新时间</td>
+                    </tr>
+                    <tr>
+                      <td th:text="${numberProgress.numberprogress}">10000</td>
+                      <td th:text="${numberProgress.finishednumber}">5000</td>
+                      <td th:text="${numberProgress.updatetime}">2018-01-02 01:00:00</td>
+                    </tr>
+                  </table>
+              </div>
             </div>
-
-
+              <!--<div class="wrk-lab">剩余时间：  <span><em>7</em>天</span></div>-->
+          </div>
 
             <div class="work-recommend">
               <div class="tit-rec">相关文档</div>
               <div class="tit-con">
                 <div class="bt"><span>水果图片具体要求</span><i>文档</i></div>
                 <div class="tk-xx">
-                  <a href="texy/test.txt" download="test">
-                    <img src="../static/images/text_pic.png" th:href="@{/images/text_pic.png}" />
+                  <a href="../static/text/JAVA专场分享.doc" th:href="@{/text/JAVA专场分享.doc}" download="虹软要求文档">
+                    <img src="../static/images/text_pic.png" th:src="@{/images/text_pic.png}" />
                     <span>详细说明.txt</span>
                   </a>
-                  <em>2018-01-23</em>
                 </div>
               </div>
               <div class="tit-con">
                 <div class="bt"><span>水果图片验收标准</span><i>文档</i></div>
                 <div class="tk-xx">
-                  <a href="texy/test.txt" download="test">
-                    <img src="../static/images/text_pic.png" th:href="@{/images/text_pic.png}" />
+                  <a href="texy/test.txt" download="虹软验收标准">
+                    <img src="../static/images/text_pic.png" th:src="@{/images/text_pic.png}" />
                     <span>验收要求.txt</span>
                   </a>
-                  <em>2018-01-23</em>
                 </div>
+              </div>
+              <div class="work-recommend">
+                <div class="tit-rec">相关合同</div>
+                <div class="tit-con">
+                  <div class="bt"><span>外包协议合同</span><i>合同</i></div>
+                  <div class="tk-xx">
+                    <a href="texy/test.txt" download="虹软外包协议">
+                      <img src="../static/images/text_pic.png" th:src="@{/images/text_pic.png}" />
+                      <span>外包协议合同.pdf</span>
+                    </a>
+                  </div>
+                </div>
+                <div class="clearfiexd"></div>
               </div>
             </div>
-            <div class="work-recommend">
-              <div class="tit-rec">相关合同</div>
-              <div class="tit-con">
-                <div class="bt"><span>外包协议合同</span><i>合同</i></div>
-                <div class="tk-xx">
-                  <a href="texy/test.txt" download="test"><img src="../static/images/text_pic.png" th:href="@{/images/text_pic.png}" /><span>外包协议合同.pdf</span></a>
-                  <em>2018-01-23</em>
-                </div>
-              </div>
-            <div class="clearfiexd"></div>
-          </div>
         </div>
       </div>
+    </div>
       <!--footer-->
       <div class="footer">
         <div class="ft-menu">
@@ -249,56 +233,54 @@
           <p>2018 虹软版权所有 <a href="#">浙ICP备11037259号-3</a> 联系电话：0527-88390110  邮箱：110@hongruan.com</p>
         </div>
     </div>
-    </div>
-    <script>
-        (function($) {
-            $.extend({
-                tipsBox: function(options) {
-                    options = $.extend({
-                        obj: null,  //jq对象，要在那个html标签上显示
-                        str: "+1",  //字符串，要显示的内容;也可以传一段html，如: "<b style='font-family:Microsoft YaHei;'>+1</b>"
-                        startSize: "12px",  //动画开始的文字大小
-                        endSize: "12px",    //动画结束的文字大小
-                        interval:500,  //动画时间间隔
-                        color: "red",    //文字颜色
-                        callback: function() {}    //回调函数
-                    }, options);
-                    $("body").append("<span class='count'>"+ options.str +"</span>");
-                    var box = $(".count");
-                    var left = options.obj.offset().left + options.obj.width() / 2;
-                    var top = options.obj.offset().top - options.obj.height();
-                    box.css({
-                        "position": "absolute",
-                        "left": left + "px",
-                        "top": top + "px",
-                        "z-index": 9999,
-                        "font-size": options.startSize,
-                        "line-height": options.endSize,
-                        "color": options.color
-                    });
-                    box.animate({
-                        "font-size": options.endSize,
-                        "opacity": "0",
-                        "top": top - parseInt(options.endSize) + "px"
-                    }, options.interval , function() {
-                        box.remove();
-                        options.callback();
-                    });
-                }
-            });
-        })(jQuery);
-    </script>
-    <script>
-        $(function() {
-            $(".sc_dz_btn").click(function() {
-                var _this =$(this);
-                $.tipsBox({
-                    obj: _this,
-                    str: "+1"
-                });
-            });
-        });
-    </script>
-    </div>
+      <script>
+          (function($) {
+              $.extend({
+                  tipsBox: function(options) {
+                      options = $.extend({
+                          obj: null,  //jq对象，要在那个html标签上显示
+                          str: "+1",  //字符串，要显示的内容;也可以传一段html，如: "<b style='font-family:Microsoft YaHei;'>+1</b>"
+                          startSize: "12px",  //动画开始的文字大小
+                          endSize: "12px",    //动画结束的文字大小
+                          interval:500,  //动画时间间隔
+                          color: "red",    //文字颜色
+                          callback: function() {}    //回调函数
+                      }, options);
+                      $("body").append("<span class='count'>"+ options.str +"</span>");
+                      var box = $(".count");
+                      var left = options.obj.offset().left + options.obj.width() / 2;
+                      var top = options.obj.offset().top - options.obj.height();
+                      box.css({
+                          "position": "absolute",
+                          "left": left + "px",
+                          "top": top + "px",
+                          "z-index": 9999,
+                          "font-size": options.startSize,
+                          "line-height": options.endSize,
+                          "color": options.color
+                      });
+                      box.animate({
+                          "font-size": options.endSize,
+                          "opacity": "0",
+                          "top": top - parseInt(options.endSize) + "px"
+                      }, options.interval , function() {
+                          box.remove();
+                          options.callback();
+                      });
+                  }
+              });
+          })(jQuery);
+      </script>
+      <script>
+          $(function() {
+              $(".sc_dz_btn").click(function() {
+                  var _this =$(this);
+                  $.tipsBox({
+                      obj: _this,
+                      str: "+1"
+                  });
+              });
+          });
+      </script>
   </body>
 </html>

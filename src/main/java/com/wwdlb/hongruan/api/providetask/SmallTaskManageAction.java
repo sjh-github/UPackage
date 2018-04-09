@@ -1,6 +1,7 @@
 package com.wwdlb.hongruan.api.providetask;
 
 import com.wwdlb.hongruan.model.SmallTask;
+import com.wwdlb.hongruan.pojo.SmallTaskPojo;
 import com.wwdlb.hongruan.service.serviceImpl.providetaskpersonal.SmallTaskManageServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,7 +25,7 @@ public class SmallTaskManageAction {
      * @return 小任务列表/NULL
      */
     @GetMapping(value = "/api/smalltask")
-    public ArrayList<SmallTask> getAllSmallTaskByTaskID(@RequestParam int taskID) {
+    public ArrayList<SmallTaskPojo> getAllSmallTaskByTaskID(@RequestParam int taskID) {
         return smallTaskManageServiceImpl.getAllSmallTaskByTaskID(taskID);
     }
 }

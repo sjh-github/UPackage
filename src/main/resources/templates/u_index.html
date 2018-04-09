@@ -137,12 +137,13 @@
               <div id="myStat" data-dimension="60" data-text="85%" data-info="New Clients" data-width="10" data-fontsize="12" data-percent="85" data-fgcolor="#ff6561" data-bgcolor="#eee" data-fill="#FFF" class="circliful" style="width:60px; margin-left:45px;"></div></div>
             <div class="list jcxx">
               <div class="tab">注册邮箱：<span th:text="${email}">111111@qq.com</span></div>
-              <div class="tab">账户名称：<span th:text="${name}">飞翔的土豆</span><a href="u_renzheng1.html" th:href="@{/web/personalIdentityConfimPage}" class="edit">[个人信息未认证]</a></div>
+              <div class="tab">账户名称：<span th:text="${name}">飞翔的土豆</span><a href="u_renzheng1.html" th:href="@{/web/personalIdentityConfimPage}" class="edit"><em th:if="${haveChecked == false}">[个人信息未认证]</em><em th:if="${haveChecked == true}">[个人信息已认证]</em></a></div>
               <div class="tab safe">认证等级：
                 <span class="safe-tiao">
-                  <s style="width:70%;"></s>
+                  <s style="width:60%;"></s>
                 </span>
-                <em>高</em>
+                <em th:if="${haveChecked == true}">高</em>
+                <em th:if="${haveChecked == false}">低</em>
                 <a href="u_ziliao.html" th:href="@{/web/changePersonalInformationPage}" class="edit">[完善资料]</a>
               </div>
             </div>
@@ -159,17 +160,17 @@
             <div class="items-con">
               <div class="ind-tuku u-c">
                 <ul>
-                  <li>
+                  <li th:each="smallTask, iterStat : ${runningSmallTasks}">
                     <div>
-                      <a href="workInfo.html" th:herf="@{}">
-                        <input type="text" disabled="disabled" style="background: #D3D3D3;height: 280px;width: 380px;font-family: 微软雅黑;font-size: 50px;text-align: center" value="Ⅲ级-Ⅰ级-1"/>
+                      <a href="workInfo.html" th:href="@{/web/smallTaskDetailPage(smallTaskID=${smallTask.smalltaskid})}">
+                        <input type="text" th:value="|${smallTask.havefinished} - ${smallTask.smalltaskid}|" disabled="disabled" style="background: #D3D3D3;height: 190px;width: 293px;font-family: 微软雅黑;font-size: 50px;text-align: center" value="Ⅲ级-Ⅰ级-1"/>
                       </a>
                     </div>
                     <div class="info">
-                      <div class="name">收集水果图片</div>
-                      <div class="sort"><s>安全级：</s><span>Ⅲ级</span><i>-</i><s>优先级：</s><span>Ⅰ级</span><div class="sc">还剩13小时截止！</div></div>
+                      <div class="name" th:text="${smallTask.smalltaskname}">收集水果图片</div>
+                      <div class="sort"><div class="sc" th:text="|截止日期：${smallTask.endtime}|">截止日期：2018年5月1日！</div></div>
                       <div class="author">
-                        <img src="../static/images/logo.jpg" />虹软研发部
+                        <img src="../static/images/logo.jpg" th:src="@{/images/logo.jpg}"/>虹软研发部
                       </div>
                     </div>
                   </li>

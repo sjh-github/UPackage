@@ -3,6 +3,7 @@ package com.wwdlb.hongruan.service.serviceImpl.receivetaskpersonal;
 import com.wwdlb.hongruan.mapper.PersonAndSmallTaskMapper;
 import com.wwdlb.hongruan.mapper.SmallTaskMapper;
 import com.wwdlb.hongruan.model.SmallTask;
+import com.wwdlb.hongruan.pojo.SmallTaskAndEmailPojo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,16 +29,70 @@ public class LookSmallTaskServiceImpl {
      * @param email 接包人邮箱
      * @return null:无小任务，非null:小任务列表
      */
+    public ArrayList<SmallTaskAndEmailPojo> findAllSmallTaskAndEmailPojoByEmail(String email) {
+        ArrayList<Integer> smallTaskIDArrayList = personAndSmallTaskMapper.selectSmallTaskIDByEmail(email);
+        if (smallTaskIDArrayList == null) {
+            logger.info("无与该账户关联的小任务");
+            return null;
+        }
+        ArrayList<SmallTaskAndEmailPojo> smallTaskAndEmailPojos = new ArrayList<>(smallTaskIDArrayList.size());
+        for (Integer smallTaskID : smallTaskIDArrayList) {
+            smallTaskAndEmailPojos.add(new SmallTaskAndEmailPojo(smallTaskMapper.selectByPrimaryKey(smallTaskID), email));
+        }
+        return smallTaskAndEmailPojos;
+    }
+
+    /**
+     * 根据接包人邮箱查找所有小任务
+     * @param email 接包人邮箱
+     * @return null:无小任务，非null:小任务列表
+     */
     public ArrayList<SmallTask> findAllSmallTaskByEmail(String email) {
         ArrayList<Integer> smallTaskIDArrayList = personAndSmallTaskMapper.selectSmallTaskIDByEmail(email);
         if (smallTaskIDArrayList == null) {
             logger.info("无与该账户关联的小任务");
             return null;
         }
-        ArrayList<SmallTask> smallTaskArrayList = new ArrayList<>();
+        ArrayList<SmallTask> smallTasks = new ArrayList<>(smallTaskIDArrayList.size());
         for (Integer smallTaskID : smallTaskIDArrayList) {
-            smallTaskArrayList.add(smallTaskMapper.selectByPrimaryKey(smallTaskID));
+            smallTasks.add(smallTaskMapper.selectByPrimaryKey(smallTaskID));
         }
-        return smallTaskArrayList;
+        return smallTasks;
+    }
+
+    /**
+     * 查找正在进行小任务
+     * @param smallTasks 小任务列表
+     * @return null:无小任务，非null:小任务列表
+     */
+    public ArrayList<SmallTask> findRunningSmallTask(ArrayList<SmallTask> smallTasks) {
+       if (smallTasks == null) {
+           return null;
+       }
+       ArrayList<SmallTask> runningSmallTasks = new ArrayList<>();
+       for (SmallTask smallTask : smallTasks) {
+           if (smallTask.getHavefinished().equals("F")) {
+               runningSmallTasks.add(smallTask);
+           }
+       }
+       return runningSmallTasks;
+    }
+
+    /**
+     * 查找已完成小任务
+     * @param smallTasks 小任务列表
+     * @return null:无小任务，非null:小任务列表
+     */
+    public ArrayList<SmallTask> findFinishedSmallTask(ArrayList<SmallTask> smallTasks) {
+        if (smallTasks == null) {
+            return null;
+        }
+        ArrayList<SmallTask> runningSmallTasks = new ArrayList<>();
+        for (SmallTask smallTask : smallTasks) {
+            if (smallTask.getHavefinished().equals("T")) {
+                runningSmallTasks.add(smallTask);
+            }
+        }
+        return runningSmallTasks;
     }
 }

@@ -16,6 +16,12 @@
   <link href="../static/css/font-awesome.min.css" th:href="@{/css/font-awesome.min.css}" rel="stylesheet" type="text/css"/>
 </head>
 <body>
+<script  th:if="${updateResult eq 'true'}">
+  alert("修改成功");
+</script>
+<script  th:if="${updateResult eq 'false'}">
+    alert("修改失败");
+</script>
 <div class="topper">
   <div class="wrap cl">
     <div class="t-left">您好，欢迎来到虹软外包管理平台！</div>
@@ -151,19 +157,22 @@
             </ul>
           </div>
           <div class="public_m4">
-            <p>
-              <em>原密码：</em>
-              <input type="text" class="u-ipt-txt"/>
-            </p>
-            <p>
-              <em>新的密码：</em>
-              <input type="text" class="u-ipt-txt"/>
-            </p>
-            <p>
-              <em>确认密码：</em>
-              <input type="text" class="u-ipt-txt"/>
-            </p>
-            <a href="login.html" class="public_m3" style="margin-left: 60px">确认修改</a>
+            <form method="post" th:action="@{/web/password}">
+              <p>
+                <em>原密码：</em>
+                <input type="password" class="u-ipt-txt" id="oldPsw" name="oldPsw"/>
+              </p>
+              <p>
+                <em>新的密码：</em>
+                <input type="password" class="u-ipt-txt" id="newPsw1" name="newPsw1"/>
+              </p>
+              <p>
+                <em>确认密码：</em>
+                <input type="password" class="u-ipt-txt" id="newPsw2" name="newPsw2"/>
+              </p>
+              <input type="submit" th:value="确认修改" class="public_m3" style="margin-left: 60px" />
+            </form>
+            <!--<a href="#" class="public_m3" style="margin-left: 60px">确认修改</a>-->
           </div>
         </div>
 

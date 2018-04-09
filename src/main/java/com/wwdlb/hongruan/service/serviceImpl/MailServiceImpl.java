@@ -28,10 +28,10 @@ public class MailServiceImpl {
             helper.setFrom(from);
             helper.setTo(to);
             helper.setSubject(subject);
-            helper.setText(content,true);
+            helper.setText(content,false);
             sender.send(message);
         } catch (Exception e) {
-
+            System.out.println("发送失败," + e.getMessage());
         }
     }
 }

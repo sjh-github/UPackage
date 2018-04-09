@@ -18,4 +18,6 @@ public interface TaskAndSmallTaskMapper {
     int updateByPrimaryKey(TaskAndSmallTask record);
 
     ArrayList<Integer> getSmallTaskIDByTaskID(int taskID);
+
+    Integer getTaskIDBySmallTaskID(int smallTaskID);
 }

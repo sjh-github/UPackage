@@ -46,4 +46,18 @@ public class SmallTaskAndCustomProgress {
         this.customprogressid = customprogressid;
         this.progressorder = progressorder;
     }
+
+    public SmallTaskAndCustomProgress(Long id, String smalltaskid, String customprogressid, String progressorder) {
+        this.id = Integer.parseInt(id.toString());
+        this.smalltaskid = Integer.parseInt(smalltaskid);
+        this.customprogressid = Integer.parseInt(customprogressid);
+        this.progressorder = Integer.parseInt(progressorder);
+    }
+
+    public SmallTaskAndCustomProgress(Long id, Integer smalltaskid, Integer customprogressid, Integer progressorder) {
+        this.id = Integer.parseInt(id.toString());
+        this.smalltaskid = smalltaskid;
+        this.customprogressid = customprogressid;
+        this.progressorder = progressorder;
+    }
 }

@@ -14,4 +14,6 @@ public interface SmallTaskAndNumberProgressMapper {
     int updateByPrimaryKeySelective(SmallTaskAndNumberProgress record);
 
     int updateByPrimaryKey(SmallTaskAndNumberProgress record);
+
+    SmallTaskAndNumberProgress selectBySmallTaskID(Integer smallTaskID);
 }

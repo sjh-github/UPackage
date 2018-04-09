@@ -1,7 +1,6 @@
 package com.wwdlb.hongruan.web.providetaskpersonal;
 
 import com.wwdlb.hongruan.service.serviceImpl.GetNameByEmailServiceImpl;
-import com.wwdlb.hongruan.service.serviceImpl.receivetaskpersonal.LookAllSmallTaskByEmailServiceImpl;
 import com.wwdlb.hongruan.service.serviceImpl.receivetaskpersonal.NumOfIndexPageServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,9 +17,6 @@ public class ProvideTaskController {
 
     @Autowired
     private NumOfIndexPageServiceImpl numOfIndexPageServiceImpl;
-
-    @Autowired
-    private LookAllSmallTaskByEmailServiceImpl lookAllSmallTaskByEmailServiceImpl;
 
     @Autowired
     private GetNameByEmailServiceImpl getNameByEmailServiceImpl;

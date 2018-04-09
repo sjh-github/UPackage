@@ -44,6 +44,11 @@ public class CountSecurityController {
             int birthyear = receiveTask_personal.getBirthyear();
             modelMap.addAttribute("phone", receiveTask_personal.getPhone());
             modelMap.addAttribute("age", nowyear - birthyear);
+            if (receiveTask_personal.getPhone() == "" || receiveTask_personal.getPhone() == null || receiveTask_personal.getPhone().length() < 2) {
+                modelMap.addAttribute("havePhone", false);
+            } else {
+                modelMap.addAttribute("havePhone", true);
+            }
         }
         modelMap.addAttribute("email", email);
         modelMap.addAttribute("name", getNameByEmailServiceImpl.getReceiveTaskPersonalNameByEmail(email));

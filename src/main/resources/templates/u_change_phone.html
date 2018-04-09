@@ -16,6 +16,15 @@
   <link href="../static/css/font-awesome.min.css" th:href="@{/css/font-awesome.min.css}" rel="stylesheet" type="text/css"/>
 </head>
 <body>
+<script  th:if="${updateResult eq 'true'}">
+    alert("修改成功");
+</script>
+<script  th:if="${updateResult eq 'false'}">
+    alert("修改失败");
+</script>
+<script  th:if="${phone != null}">
+    alert("已发送验证码至您的邮箱");
+</script>
 <div class="topper">
   <div class="wrap cl">
     <div class="t-left">您好，欢迎来到虹软外包管理平台！</div>
@@ -152,16 +161,19 @@
             </ul>
           </div>
           <div class="public_m4">
-            <p>
-              <em>绑定手机号码：</em>
-              <input type="text" class="u-ipt-txt"/>
-              <input type="button" id="btnsj" class="btn_mfyzm" value="获取验证码" style=" border:1px solid #c8c8c8; height:29px; margin-left:6px"/>
-            </p>
-            <p>
-              <em>收到的验证码：</em>
-              <input type="text" class="u-ipt-txt" style="width:120px"/>
-            </p>
-            <a href="#" class="public_m3" style="margin-left: 60px">立即绑定</a>
+            <form method="post" th:action="@{/web/phone}">
+              <p>
+                <em>绑定手机号码：</em>
+                <input type="text" class="u-ipt-txt" name="phone" id="phone" th:value="${phone}" value="123456789"/>
+                <input type="button" th:onclick="'javascript:updatePhone()'" onclick="updatePhone()" id="btnsj" class="btn_mfyzm" value="获取验证码" style=" border:1px solid #c8c8c8; height:29px; margin-left:6px"/>
+               <!-- <a th:href="@{/web/checkCode}" th:width="200px" th:height="100px"></a>-->
+              </p>
+              <p>
+                <em>收到的验证码：</em>
+                <input type="text" class="u-ipt-txt" style="width:120px" name="checkCode"/>
+              </p>
+              <input type="submit" th:value="立即绑定" class="public_m3" style="margin-left: 60px" />
+            </form>
           </div>
         </div>
 
@@ -216,5 +228,11 @@
     <p>2018 虹软版权所有 <a href="#">浙ICP备11037259号-3</a> 联系电话：0527-88390110  邮箱：110@hongruan.com</p>
   </div>
 </div>
+<script th:inline="javascript" type="text/javascript">
+  function updatePhone() {
+      var phoneNum = document.getElementById("phone").value;
+      self.location.href="/hongruan/web/checkCode?phone=" + phoneNum;
+  }
+</script>
 </body>
 </html>

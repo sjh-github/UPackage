@@ -46,4 +46,28 @@ public class CustomProgress {
         this.havefinished = havefinished;
         this.finishtime = finishtime;
     }
+
+    public CustomProgress(Long customprogressid, String remark, String havefinished, String finishtime) {
+        this.customprogressid = Integer.parseInt(customprogressid.toString());
+        this.remark = remark;
+        this.havefinished = havefinished;
+        this.finishtime = finishtime;
+    }
+
+    public CustomProgress(Integer customprogressid, String remark, String havefinished, String finishtime) {
+        this.customprogressid = customprogressid;
+        this.remark = remark;
+        this.havefinished = havefinished;
+        this.finishtime = finishtime;
+    }
+
+    @Override
+    public String toString() {
+        return "CustomProgress{" +
+                "customprogressid=" + customprogressid +
+                ", remark='" + remark + '\'' +
+                ", havefinished='" + havefinished + '\'' +
+                ", finishtime='" + finishtime + '\'' +
+                '}';
+    }
 }

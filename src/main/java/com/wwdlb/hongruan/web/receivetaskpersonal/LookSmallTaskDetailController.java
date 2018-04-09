@@ -1,17 +1,24 @@
 package com.wwdlb.hongruan.web.receivetaskpersonal;
 
-import com.wwdlb.hongruan.model.ReceiveTask_Personal;
+import com.wwdlb.hongruan.model.*;
+import com.wwdlb.hongruan.pojo.CustomProgressPojo;
 import com.wwdlb.hongruan.service.serviceImpl.GetNameByEmailServiceImpl;
+import com.wwdlb.hongruan.service.serviceImpl.GetSmallTaskByIDServiceImpl;
+import com.wwdlb.hongruan.service.serviceImpl.SmallTaskAndProgressServiceImpl;
+import com.wwdlb.hongruan.service.serviceImpl.SmallTaskAndTaskServiceImpl;
 import com.wwdlb.hongruan.service.serviceImpl.receivetaskpersonal.GetReceiveTaskPersonalServiceImpl;
+import com.wwdlb.hongruan.service.serviceImpl.receivetaskpersonal.LookSmallTaskServiceImpl;
 import com.wwdlb.hongruan.service.serviceImpl.receivetaskpersonal.NumOfIndexPageServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 @Controller
@@ -28,12 +35,24 @@ public class LookSmallTaskDetailController {
     @Autowired
     private GetReceiveTaskPersonalServiceImpl getReceiveTaskPersonalServiceImpl;
 
+    @Autowired
+    private GetSmallTaskByIDServiceImpl getSmallTaskByIDServiceImpl;
+
+    @Autowired
+    private SmallTaskAndTaskServiceImpl smallTaskAndTaskServiceImpl;
+
+    @Autowired
+    private SmallTaskAndProgressServiceImpl smallTaskAndProgressServiceImpl;
+
+    @Autowired
+    private LookSmallTaskServiceImpl lookSmallTaskServiceImpl;
+
     /**
      * 查看小任务详情界面
      * @return 小任务详情界面
      */
     @GetMapping(value = "/web/smallTaskDetailPage")
-    public String lookSmallTaskDetailPage(HttpServletRequest request, ModelMap modelMap) {
+    public String lookSmallTaskDetailPage(HttpServletRequest request, ModelMap modelMap, @RequestParam Integer smallTaskID) {
         httpSession = request.getSession();
         String email = (String) httpSession.getAttribute("email");
         ReceiveTask_Personal receiveTask_personal = getReceiveTaskPersonalServiceImpl.getReceiveTaskPersonalByEmail(email);
@@ -50,6 +69,24 @@ public class LookSmallTaskDetailController {
         modelMap.addAttribute("numOfReceiveTaskCompany", numOfIndexPageServiceImpl.getNumOfReceiveTaskCompany());
         modelMap.addAttribute("numOfHaveFinishedSmallTask", numOfIndexPageServiceImpl.getNumOfFinishedSmallTask());
         modelMap.addAttribute("numOfSmallTask", numOfIndexPageServiceImpl.getNumOfSmallTask());
+
+        //任务详情
+        modelMap.addAttribute("smallTask", getSmallTaskByIDServiceImpl.getSmallTaskByID(smallTaskID));
+        Task task = smallTaskAndTaskServiceImpl.getTaskBySmallTaskID(smallTaskID);
+        if (task != null) {
+            modelMap.addAttribute("safeGrade", task.getSafetygrade());
+            modelMap.addAttribute("priority", task.getPriority());
+            modelMap.addAttribute("startTime", task.getStarttime());
+        }
+        SmallTaskAndNumberProgress smallTaskAndNumberProgress = smallTaskAndProgressServiceImpl.getSmallTaskAndNumberProgressBySmallTaskID(smallTaskID);
+        if (smallTaskAndNumberProgress == null) {
+            //自定义指标
+            ArrayList<CustomProgressPojo> customProgressPojos = smallTaskAndProgressServiceImpl.getSmallTaskAndCustomProgressBySmallTaskID(smallTaskID);
+            modelMap.addAttribute("customProgressPojos", customProgressPojos);
+        } else {
+            //数量指标
+            modelMap.addAttribute("numberProgress", smallTaskAndNumberProgress);
+        }
         return "workInfo";
     }
 
@@ -73,10 +110,17 @@ public class LookSmallTaskDetailController {
         modelMap.addAttribute("name", getNameByEmailServiceImpl.getReceiveTaskPersonalNameByEmail(email));
         modelMap.addAttribute("numOfReceiveTaskPersonal", numOfIndexPageServiceImpl.getNumOfReceiveTaskPersonal());
         modelMap.addAttribute("numOfReceiveTaskCompany", numOfIndexPageServiceImpl.getNumOfReceiveTaskCompany());
-        int numOfHaveFinishedSmallTask =  numOfIndexPageServiceImpl.getNumOfFinishedSmallTask();
+
+        //接包人的小任务
+        ArrayList<SmallTask> allSmallTask = lookSmallTaskServiceImpl.findAllSmallTaskByEmail(email);
+        modelMap.addAttribute("AllSmallTasks", allSmallTask);
+
+        int numOfHaveFinishedSmallTask =  numOfIndexPageServiceImpl.getNumOfFinishedSmallTask(allSmallTask);
         modelMap.addAttribute("numOfHaveFinishedSmallTask", numOfHaveFinishedSmallTask);
-        int numOfSmallTask = numOfIndexPageServiceImpl.getNumOfSmallTask();
+
+        int numOfSmallTask = allSmallTask.size();
         modelMap.addAttribute("numOfSmallTask", numOfSmallTask);
+
         modelMap.addAttribute("numOfRunningSmallTask", numOfSmallTask - numOfHaveFinishedSmallTask);
         return "workList";
     }
@@ -101,17 +145,25 @@ public class LookSmallTaskDetailController {
         modelMap.addAttribute("name", getNameByEmailServiceImpl.getReceiveTaskPersonalNameByEmail(email));
         modelMap.addAttribute("numOfReceiveTaskPersonal", numOfIndexPageServiceImpl.getNumOfReceiveTaskPersonal());
         modelMap.addAttribute("numOfReceiveTaskCompany", numOfIndexPageServiceImpl.getNumOfReceiveTaskCompany());
-        int numOfHaveFinishedSmallTask =  numOfIndexPageServiceImpl.getNumOfFinishedSmallTask();
+
+        //接包人的小任务
+        ArrayList<SmallTask> allSmallTask = lookSmallTaskServiceImpl.findAllSmallTaskByEmail(email);
+        ArrayList<SmallTask> runningSmallTasks = lookSmallTaskServiceImpl.findRunningSmallTask(allSmallTask);
+        modelMap.addAttribute("runningSmallTasks", runningSmallTasks);
+
+        int numOfHaveFinishedSmallTask =  numOfIndexPageServiceImpl.getNumOfFinishedSmallTask(allSmallTask);
         modelMap.addAttribute("numOfHaveFinishedSmallTask", numOfHaveFinishedSmallTask);
-        int numOfSmallTask = numOfIndexPageServiceImpl.getNumOfSmallTask();
+
+        int numOfSmallTask = allSmallTask.size();
         modelMap.addAttribute("numOfSmallTask", numOfSmallTask);
+
         modelMap.addAttribute("numOfRunningSmallTask", numOfSmallTask - numOfHaveFinishedSmallTask);
         return "workList1";
     }
 
     /**
-     * 查看未开始小任务界面
-     * @return 未开始小任务界面
+     * 查看已完成小任务界面
+     * @return 已完成小任务界面
      */
     @GetMapping(value = "/web/smallTaskFinishedPage")
     public String lookSmallTaskRunnablePage(HttpServletRequest request, ModelMap modelMap) {
@@ -129,10 +181,18 @@ public class LookSmallTaskDetailController {
         modelMap.addAttribute("name", getNameByEmailServiceImpl.getReceiveTaskPersonalNameByEmail(email));
         modelMap.addAttribute("numOfReceiveTaskPersonal", numOfIndexPageServiceImpl.getNumOfReceiveTaskPersonal());
         modelMap.addAttribute("numOfReceiveTaskCompany", numOfIndexPageServiceImpl.getNumOfReceiveTaskCompany());
-        int numOfHaveFinishedSmallTask =  numOfIndexPageServiceImpl.getNumOfFinishedSmallTask();
+
+        //接包人的小任务
+        ArrayList<SmallTask> allSmallTask = lookSmallTaskServiceImpl.findAllSmallTaskByEmail(email);
+        ArrayList<SmallTask> finishedSmallTasks = lookSmallTaskServiceImpl.findFinishedSmallTask(allSmallTask);
+        modelMap.addAttribute("finishedSmallTasks", finishedSmallTasks);
+
+        int numOfHaveFinishedSmallTask =  numOfIndexPageServiceImpl.getNumOfFinishedSmallTask(allSmallTask);
         modelMap.addAttribute("numOfHaveFinishedSmallTask", numOfHaveFinishedSmallTask);
-        int numOfSmallTask = numOfIndexPageServiceImpl.getNumOfSmallTask();
+
+        int numOfSmallTask = allSmallTask.size();
         modelMap.addAttribute("numOfSmallTask", numOfSmallTask);
+
         modelMap.addAttribute("numOfRunningSmallTask", numOfSmallTask - numOfHaveFinishedSmallTask);
         return "workList2";
     }
@@ -159,12 +219,16 @@ public class LookSmallTaskDetailController {
         modelMap.addAttribute("numOfReceiveTaskCompany", numOfIndexPageServiceImpl.getNumOfReceiveTaskCompany());
         modelMap.addAttribute("numOfHaveFinishedSmallTask", numOfIndexPageServiceImpl.getNumOfFinishedSmallTask());
         modelMap.addAttribute("numOfSmallTask", numOfIndexPageServiceImpl.getNumOfSmallTask());
+        //接包人的小任务
+        ArrayList<SmallTask> allSmallTask = lookSmallTaskServiceImpl.findAllSmallTaskByEmail(email);
+        ArrayList<SmallTask> runningSmallTasks = lookSmallTaskServiceImpl.findRunningSmallTask(allSmallTask);
+        modelMap.addAttribute("runningSmallTasks", runningSmallTasks);
         return "u_workList1";
     }
 
 
     /**
-     * 查看已完成小任务界面
+     * 查看个人中心已完成小任务界面
      * @return 已完成小任务界面
      */
     @GetMapping(value = "/web/smallTaskIndexFinishedPage")
@@ -185,6 +249,10 @@ public class LookSmallTaskDetailController {
         modelMap.addAttribute("numOfReceiveTaskCompany", numOfIndexPageServiceImpl.getNumOfReceiveTaskCompany());
         modelMap.addAttribute("numOfHaveFinishedSmallTask", numOfIndexPageServiceImpl.getNumOfFinishedSmallTask());
         modelMap.addAttribute("numOfSmallTask", numOfIndexPageServiceImpl.getNumOfSmallTask());
+        //接包人的小任务
+        ArrayList<SmallTask> allSmallTask = lookSmallTaskServiceImpl.findAllSmallTaskByEmail(email);
+        ArrayList<SmallTask> finishedSmallTasks = lookSmallTaskServiceImpl.findFinishedSmallTask(allSmallTask);
+        modelMap.addAttribute("finishedSmallTasks", finishedSmallTasks);
         return "u_workList2";
     }
 }

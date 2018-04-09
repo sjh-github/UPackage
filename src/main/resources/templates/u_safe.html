@@ -138,20 +138,20 @@
         <div class="public_m1">
           <div class="public_m2">账户安全</div>
           <div class="public_m4">
-            <p><em>您当前的安全等级：</em><i style="color:#fa3b4a">高</i></p>
+            <p><em>您当前的安全等级：</em><i style="color:#fa3b4a" th:if="${havePhone == true}">高</i><i style="color:#fa3b4a" th:if="${havePhone == false}">低</i></p>
           </div>
           <!--各种设置-->
           <div class="gezhong_szm">
             <div class="gezhong_szm_in">
-              <b style=" background:url(../static/images/fourm.png) no-repeat 0 0"></b>
+              <b style=" background:url(../static/images/fourm.png) no-repeat 0 0" th:background="@{/images/fourm.png}"></b>
               <span>登录密码<br/><em>已设置</em></span>
               <p>安全性高的密码，可以使账户更安全。</p>
               <a href="u_change_psw.html" th:href="@{/web/changePasswordPage}">修改密码</a>
             </div>
 
             <div class="gezhong_szm_in">
-              <b style=" background:url(../static/images/fourm.png) no-repeat 0 -100px"></b>
-              <span>手机绑定<br/><em>已设置</em></span>
+              <b style=" background:url(../static/images/fourm.png) no-repeat 0 -100px" th:background="@{/images/fourm.png}"></b>
+              <span>手机绑定<br/><em th:if="${havePhone == true}">已设置</em><em th:if="${havePhone == false}">未设置</em></span>
               <p>进行手机验证后，可用于接收敏感操作的身份验证信息，以及任务提醒，非常有助于保护您的账号安全。</p>
               <a href="u_change_phone.html" th:href="@{/web/changePhonePage}">修改手机</a>
             </div>

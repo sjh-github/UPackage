@@ -131,16 +131,17 @@
 <div class="wrap hide">
   <div class="ind-con cl ind-tuku">
     <ul>
-      <li>
+      <li th:each="smallTask, iterStat : ${finishedSmallTasks}">
         <div>
-          <a href="workInfo.html" th:herf="@{}">
-            <input type="text" disabled="disabled" style="background: #D3D3D3;height: 280px;width: 380px;font-family: 微软雅黑;font-size: 50px;text-align: center" value="Ⅲ级-Ⅰ级-1"/></a>
+          <a href="workInfo.html" th:href="@{/web/smallTaskDetailPage(smallTaskID=${smallTask.smalltaskid})}">
+            <input type="text" th:value="|${smallTask.havefinished} - ${smallTask.smalltaskid}|" disabled="disabled" style="background: #D3D3D3;height: 280px;width: 380px;font-family: 微软雅黑;font-size: 50px;text-align: center" value="Ⅲ级-Ⅰ级-1"/>
+          </a>
         </div>
         <div class="info">
-          <div class="name">收集水果图片</div>
-          <div class="sort"><s>安全级：</s><span>Ⅲ级</span><i>-</i><s>优先级：</s><span>Ⅰ级</span><div class="sc">还剩13小时截止！</div></div>
+          <div class="name" th:text="${smallTask.smalltaskname}">收集水果图片</div>
+          <div class="sort"><div class="sc" th:text="|截止日期：${smallTask.endtime}|">截止日期：2018年5月1日！</div></div>
           <div class="author">
-            <img src="../static/images/logo.jpg" />虹软研发部
+            <img src="../static/images/logo.jpg" th:src="@{/images/logo.jpg}"/>虹软研发部
           </div>
         </div>
       </li>
