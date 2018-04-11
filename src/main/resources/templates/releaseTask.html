@@ -22,6 +22,12 @@
   <script type="text/javascript" src="../static/js/select-widget-min.js" th:src="@{/js/select-widget-min.js}"></script>
 </head>
 <body>
+<script  th:if="${result eq 'true'}">
+    alert("发布项目成功");
+</script>
+<script  th:if="${result eq 'false'}">
+    alert("发布项目失败");
+</script>
 <div class="header">
   <div class="topper">
     <div class="wrap cl">

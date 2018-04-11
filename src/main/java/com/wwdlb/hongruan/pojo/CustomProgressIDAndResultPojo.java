@@ -1,15 +1,15 @@
 package com.wwdlb.hongruan.pojo;
 
-public class CustomProgressIDAndResult {
+public class CustomProgressIDAndResultPojo {
     private Integer customProgressID;
-    private boolean haveFinihed;
+    private boolean haveFinished;
 
-    public CustomProgressIDAndResult(Integer customProgressID, boolean haveFinihed) {
+    public CustomProgressIDAndResultPojo(Integer customProgressID, boolean haveFinihed) {
         this.customProgressID = customProgressID;
-        this.haveFinihed = haveFinihed;
+        this.haveFinished = haveFinihed;
     }
 
-    public CustomProgressIDAndResult() {
+    public CustomProgressIDAndResultPojo() {
     }
 
     public Integer getCustomProgressID() {
@@ -21,10 +21,10 @@ public class CustomProgressIDAndResult {
     }
 
     public boolean isHaveFinihed() {
-        return haveFinihed;
+        return haveFinished;
     }
 
     public void setHaveFinihed(boolean haveFinihed) {
-        this.haveFinihed = haveFinihed;
+        this.haveFinished = haveFinihed;
     }
 }

@@ -19,4 +19,6 @@ public interface PersonAndSmallTaskMapper {
 
     ArrayList<Integer> selectSmallTaskIDByEmail(String email);
 
+    PersonAndSmallTask selectBySmallTaskID(Integer smallTaskID);
+
 }

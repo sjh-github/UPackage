@@ -21,6 +21,12 @@ public class SmallTaskManageController {
     @Autowired
     private NumOfIndexPageServiceImpl numOfIndexPageServiceImpl;
 
+    /**
+     * 查看所有小任务界面
+     * @param request request
+     * @param modelMap modelMap
+     * @return 所有小任务界面
+     */
     @GetMapping(value = "/web/provideTaskPersonal/SmallTask/All")
     public String allSmallTaskPage(HttpServletRequest request, ModelMap modelMap) {
         httpSession = request.getSession();
@@ -37,6 +43,12 @@ public class SmallTaskManageController {
         return "r_workList";
     }
 
+    /**
+     * 查看正在进行小任务界面
+     * @param request request
+     * @param modelMap modelMap
+     * @return 正在进行小任务界面
+     */
     @GetMapping(value = "/web/provideTaskPersonal/SmallTask/Running")
     public String runningSmallTaskPage(HttpServletRequest request, ModelMap modelMap) {
         httpSession = request.getSession();
@@ -53,6 +65,12 @@ public class SmallTaskManageController {
         return "r_workList1";
     }
 
+    /**
+     * 查看已完成小任务界面
+     * @param request request
+     * @param modelMap modelMap
+     * @return 已完成小任务界面
+     */
     @GetMapping(value = "/web/provideTaskPersonal/SmallTask/Finished")
     public String finishedSmallTaskPage(HttpServletRequest request, ModelMap modelMap) {
         httpSession = request.getSession();

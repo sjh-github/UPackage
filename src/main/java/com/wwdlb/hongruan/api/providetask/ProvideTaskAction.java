@@ -23,10 +23,10 @@ public class ProvideTaskAction {
      * @param priority 优先级
      * @param startTime 开始时间
      * @param endTime 结束时间
-     * @return true:新建成功
+     * @return taskID/NULL
      */
     @PostMapping(value = "/api/task")
-    public boolean provideTask(@RequestParam String taskName, @RequestParam String taskDetail, @RequestParam int safetyGrade,
+    public Integer provideTask(@RequestParam String taskName, @RequestParam(required = false) String taskDetail, @RequestParam int safetyGrade,
                             @RequestParam int priority, @RequestParam(required = false) String startTime, @RequestParam(required = false) String endTime) {
         return provideTaskServiceImpl.provideTask(taskName, taskDetail, safetyGrade, priority, startTime, endTime);
     }

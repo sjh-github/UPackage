@@ -7,6 +7,8 @@ import java.util.ArrayList;
 public interface TaskAndSmallTaskMapper {
     int deleteByPrimaryKey(Integer id);
 
+    int deleteByTaskID(Integer taskID);
+
     int insert(TaskAndSmallTask record);
 
     int insertSelective(TaskAndSmallTask record);
@@ -20,4 +22,6 @@ public interface TaskAndSmallTaskMapper {
     ArrayList<Integer> getSmallTaskIDByTaskID(int taskID);
 
     Integer getTaskIDBySmallTaskID(int smallTaskID);
+
+    TaskAndSmallTask selectBySmallTaskID(Integer smallTaskID);
 }

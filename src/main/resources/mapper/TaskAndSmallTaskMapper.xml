@@ -15,6 +15,12 @@
     from taskandsmalltask
     where ID = #{id,jdbcType=INTEGER}
   </select>
+  <select id="selectBySmallTaskID" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from taskandsmalltask
+    where smalltaskid = #{smallTaskID,jdbcType=INTEGER}
+  </select>
   <select id="getTaskIDBySmallTaskID" parameterType="java.lang.Integer" resultType="java.lang.Integer">
     select taskid from taskandsmalltask where smalltaskid = #{smalltaskid,jdbcType=INTEGER}
   </select>
@@ -24,6 +30,10 @@
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from taskandsmalltask
     where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByTaskID" parameterType="java.lang.Integer">
+    delete from taskandsmalltask
+    where taskid = #{taskID,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.wwdlb.hongruan.model.TaskAndSmallTask">
     insert into taskandsmalltask (ID, TaskID, SmallTaskID

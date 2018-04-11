@@ -163,6 +163,11 @@
                enableDeleteByExample="false" enableSelectByExample="false"
                enableUpdateByExample="false">
         </table>-->
+        <!--<table schema="hongruan" tableName="SmallTaskAndProvidePersonEmail"
+               domainObjectName="SmallTaskAndProvidePersonEmail" enableCountByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               enableUpdateByExample="false">
+        </table>-->
     </context>
 </generatorConfiguration>
 

@@ -19,6 +19,97 @@
     <script type="text/javascript" src="../static/js/jquery.step.js" th:src="@{/js/jquery.step.js}"></script>
     <link href="../static/css/jquery.bxslider.css" th:href="@{/css/jquery.bxslider.css}" rel="stylesheet" type="text/css"/>
     <link href="../static/css/font-awesome.min.css" th:href="@{/css/font-awesome.min.css}" rel="stylesheet" type="text/css"/>
+
+    <style type="text/css">
+      .demo{
+        padding: 0em 0;
+        background: #dbc1af;
+      }
+      .progress{
+        height: 7px;
+        background: #e3e3e3;
+        border-radius: 0;
+        box-shadow: none;
+        margin: 20px 0 10px;
+        overflow: visible;
+        position: relative;
+      }
+      .progress .progress-title{
+        padding: 2px 10px;
+        margin: 0;
+        background: #393a3d;
+        border-radius: 5px 0 0 5px;
+        box-shadow: 0 7px 7px rgba(0,0,0,0.4);
+        font-size: 18px;
+        font-weight: 700;
+        color: #fff;
+        text-transform: uppercase;
+        position: absolute;
+        top: -13px;
+        left: 0;
+        z-index: 1;
+      }
+      .progress .progress-title:after{
+        content: "";
+        border-left: 17px solid #393a3d;
+        border-top: 17px solid transparent;
+        border-bottom: 17px solid transparent;
+        position: absolute;
+        top: 0;
+        right: -17px;
+      }
+      .progress .progress-bar{
+        box-shadow: none;
+        border-radius: 0;
+        position: relative;
+        -webkit-animation: animate-positive 2s;
+        animation: animate-positive 2s;
+      }
+      .progress .progress-bar:after{
+        content: "";
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        box-shadow: 0 5px 5px rgba(0,0,0,0.6);
+        background: #fff;
+        position: absolute;
+        right: -5px;
+        top: -6px;
+      }
+      .progress .progress-value{
+        width: 105px;
+        height: 30px;
+        line-height: 30px;
+        border-radius: 3px;
+        background: #393a3d;
+        box-shadow: 0 5px 5px rgba(0,0,0,0.4);
+        font-size: 15px;
+        font-weight: 700;
+        color: #fff;
+        text-align: center;
+        position: absolute;
+        bottom: 30px;
+        right: -14px;
+      }
+      .progress .progress-value:after{
+        content: "";
+        border-top: 2px solid #393a3d;
+        border-left: 7px solid transparent;
+        border-right: 7px solid transparent;
+        position: absolute;
+        bottom: -7px;
+        left: 35%;
+      }
+      .progress.green .progress-bar:after{ border: 5px solid #21da9a; }
+
+      @-webkit-keyframes animate-positive{
+        0% { width: 0; }
+      }
+      @keyframes animate-positive{
+        0% { width: 0; }
+      }
+    </style>
+
   </head>
   <body>
   <div class="header">
@@ -52,7 +143,6 @@
         <div class="hd-r">
           <div class="menu">
             <ul class="cl">
-              <!--            <li><a href="manage.html" th:href="@{}">管理<p>Manage</p></a></li>-->
               <li><a href="r_workList.html" th:href="@{}">任务<p>Task</p></a></li>
               <li class="active"><a href="releaseTaskPersonalIndex.html" th:href="@{}">首页<p>Index</p></a></li>
             </ul>
@@ -93,8 +183,9 @@
     </script>
     <div class="container">
       <div class="filterbox wrap">
-        <div class="filterlist work-abt">
+        <div class="filterlist work-abt" style="height: 200px">
           <h2>收集水果图片</h2>
+          <h>指定接包人：张三</h>
             <div class="work-txt">收集1W张水果照片，像素至少为720p，水果种类不少于5k种，水果类别清晰。
             </div>
             <div class="wk-lab">
@@ -108,59 +199,31 @@
               <i>虹软中国公司版权所有，禁止匿名转载，禁止商业使用，禁止个人使用；</i>
             </span>
           </div>
-          <div class="wk-lab">
-            <div class="tab">
-            <span>任务进度</span>
-            </div>
-            <div id="myStat" data-dimension="60" data-text="85%" data-info="New Clients" data-width="10" data-fontsize="12" data-percent="85" data-fgcolor="#ff6561" data-bgcolor="#eee" data-fill="#FFF" class="circliful" style="width:60px; margin-left:45px;"></div>
-          </div>
           </div>
         </div>
 
         <div class="wrap hide">
           <div class="work-container">
             <div class="work-details">
-              <h1>任务细分</h1>
+              <h1>任务进度</h1>
               <div class="info">
                 <div class="step-body" id="myStep">
-                  <div class="step-header" style="width:80%">
-                    <ul>
-                      <li><p>阶段1</p></li>
-                      <li><p>阶段2</p></li>
-                      <li><p>阶段3</p></li>
-                      <li><p>阶段4</p></li>
-                      <li><p>阶段5</p></li>
-                    </ul>
-                  </div>
                   <div class="step-content">
-                    <div class="step-list">
-                      收集4000张图片
-                      <div class="butModel">
-                        <input type="file" accept="image/*" class="nextBtn" />
-                      </div>
-                    </div>
-                    <div class="step-list">
-                      收集2000张图片
-                      <div class="butModel">
-                        <input type="file" accept="image/*" class="nextBtn" />
-                      </div>
-                    </div>
-                    <div class="step-list">
-                      收集2000张图片
-                      <div class="butModel">
-                        <input type="file" accept="image/*" class="nextBtn" />
-                      </div>
-                    </div>
-                    <div class="step-list">
-                      收集1000张图片
-                      <div class="butModel">
-                        <input type="file" accept="image/*" class="nextBtn" />
-                      </div>
-                    </div>
-                    <div class="step-list">
-                      收集1000张图片
-                      <div class="butModel">
-                        <input type="file" accept="image/*" class="goBtn" />
+                    <div class="jq22-container">
+                      <div class="demo">
+                        <div class="container">
+                          <div class="row">
+                            <div class="col-md-offset-3 col-md-6">
+                              <div class="progress green">
+                                <h3 class="progress-title">已完成</h3>
+                                <div class="progress-bar" style="width:65%; background:#21da9a;">
+                                  <div class="progress-value">2018/4/7</div>
+                                  <div>65%</div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -170,8 +233,6 @@
               </div>
               <div class="wrk-lab">剩余时间：  <span><em>7</em>天</span></div>
             </div>
-
-
 
             <div class="work-recommend">
               <div class="tit-rec">相关文档</div>
@@ -190,17 +251,6 @@
                 </div>
               </div>
             </div>
-            <div class="work-recommend">
-              <div class="tit-rec">相关合同</div>
-              <div class="tit-con">
-                <div class="bt"><span>外包协议合同</span><i>合同</i></div>
-                <div class="tk-xx">
-                  <a href="texy/test.txt" download="test"><img src="../static/images/text_pic.png" th:href="@{/images/text_pic.png}" /><span>外包协议合同.pdf</span></a>
-                  <em>2018-01-23</em>
-                </div>
-              </div>
-            <div class="clearfiexd"></div>
-          </div>
         </div>
       </div>
       <!--footer-->

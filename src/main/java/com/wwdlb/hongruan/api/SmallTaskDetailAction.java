@@ -5,6 +5,7 @@ import com.wwdlb.hongruan.model.SmallTaskAndNumberProgress;
 import com.wwdlb.hongruan.model.Task;
 import com.wwdlb.hongruan.pojo.CustomProgressPojo;
 import com.wwdlb.hongruan.pojo.SmallTaskDetailPojo;
+import com.wwdlb.hongruan.service.serviceImpl.GetReceiveSmallTaskPersonNameBySmallTaskIDServiceImpl;
 import com.wwdlb.hongruan.service.serviceImpl.GetSmallTaskByIDServiceImpl;
 import com.wwdlb.hongruan.service.serviceImpl.SmallTaskAndProgressServiceImpl;
 import com.wwdlb.hongruan.service.serviceImpl.SmallTaskAndTaskServiceImpl;
@@ -30,6 +31,9 @@ public class SmallTaskDetailAction {
     @Autowired
     private SmallTaskAndProgressServiceImpl smallTaskAndProgressServiceImpl;
 
+    @Autowired
+    private GetReceiveSmallTaskPersonNameBySmallTaskIDServiceImpl getReceiveSmallTaskPersonNameBySmallTaskIDServiceImpl;
+
     /**
      * 获取小任务
      * @param smallTaskID 小任务ID
@@ -37,9 +41,11 @@ public class SmallTaskDetailAction {
      */
     @GetMapping(value = "/api/smallTask/{smallTaskID}")
     public SmallTaskDetailPojo getSmallTaskByID(@PathVariable Integer smallTaskID){
-        SmallTaskDetailPojo smallTaskDetailPojo = new SmallTaskDetailPojo();
         SmallTask smallTask = getSmallTaskByIDServiceImpl.getSmallTaskByID(smallTaskID);
-
+        if (smallTask == null) {
+            return null;
+        }
+        SmallTaskDetailPojo smallTaskDetailPojo = new SmallTaskDetailPojo();
         smallTaskDetailPojo.setSmalltaskid(smallTask.getSmalltaskid());
         smallTaskDetailPojo.setSmalltaskname(smallTask.getSmalltaskname());
         smallTaskDetailPojo.setSmalltaskdetail(smallTask.getSmalltaskdetail());
@@ -47,6 +53,7 @@ public class SmallTaskDetailAction {
         smallTaskDetailPojo.setHavefinished(smallTask.getHavefinished());
         smallTaskDetailPojo.setFinishtime(smallTask.getFinishtime());
 
+        //安全级，优先级
         Task task = smallTaskAndTaskServiceImpl.getTaskBySmallTaskID(smallTaskID);
         if (task != null) {
             smallTaskDetailPojo.setSafetyGrade(task.getSafetygrade());
@@ -57,7 +64,9 @@ public class SmallTaskDetailAction {
         //无数量指标
         if (smallTaskAndNumberProgress == null) {
             ArrayList<CustomProgressPojo> customProgressPojos = smallTaskAndProgressServiceImpl.getSmallTaskAndCustomProgressBySmallTaskID(smallTaskID);
-            smallTaskDetailPojo.setCustomProgressPojos(customProgressPojos);
+            if (customProgressPojos != null) {
+                smallTaskDetailPojo.setCustomProgressPojos(customProgressPojos);
+            }
             smallTaskDetailPojo.setSmallTaskAndNumberProgress(null);
         } else {
             //数量指标
@@ -65,6 +74,8 @@ public class SmallTaskDetailAction {
             smallTaskDetailPojo.setCustomProgressPojos(null);
         }
 
+        //该小任务接包人
+        smallTaskDetailPojo.setReceiveSmallTaskPersonName(getReceiveSmallTaskPersonNameBySmallTaskIDServiceImpl.getReceiveSmallTaskPersonNameBySmallTaskID(smallTaskID));
         return smallTaskDetailPojo;
     }
 }

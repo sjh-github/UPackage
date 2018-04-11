@@ -15,8 +15,7 @@ import java.util.Date;
  * 发布任务服务接口实例
  */
 @Service
-public class ProvideTaskServiceImpl/* implements ProvideTaskService*/ {
-    private Logger logger = LoggerFactory.getLogger(String.valueOf(ProvideTaskServiceImpl.this));
+public class ProvideTaskServiceImpl {
 
     @Autowired
     private TaskMapper taskMapper;
@@ -29,19 +28,16 @@ public class ProvideTaskServiceImpl/* implements ProvideTaskService*/ {
      * @param priority 优先级
      * @param startTime 开始时间
      * @param endTime 结束时间
-     * @return true:新建成功
+     * @return taskID/NULL
      */
-    //@Override
     @Transactional
-    public boolean provideTask(String taskName, String taskDetail, int safetyGrade, int priority,
+    public Integer provideTask(String taskName, String taskDetail, int safetyGrade, int priority,
                             String startTime, String endTime) {
         if (safetyGrade <= 0) {
-            logger.error("safetyGrade should be bigger than 0");
-            throw new RuntimeException("safetyGrade should be bigger than 0");
+            return null;
         }
         if (priority <= 0) {
-            logger.error("priority should be bigger than 0");
-            throw new RuntimeException("priority should be bigger than 0");
+            return null;
         }
         if (startTime == null) {
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -50,6 +46,7 @@ public class ProvideTaskServiceImpl/* implements ProvideTaskService*/ {
         }
         Task task = new Task(taskName, taskDetail, safetyGrade, priority, startTime, endTime);
         taskMapper.insert(task);
-        return true;
+        Integer taskID = task.getTaskid();
+        return taskID;
     }
 }

@@ -1,0 +1,158 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+  <!--管理员-->
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+  <title>虹软外包</title>
+  <meta content="虹软外包" name="keywords"/>
+  <meta content="虹软外包" name="description"/>
+  <meta name="apple-mobile-web-app-capable" content="yes"/>
+  <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+  <meta name="format-detection" content="telephone=no"/>
+  <meta http-equiv="x-dns-prefetch-control" content="on"/>
+  <link href="../static/css/basestyle.css" th:href="@{/css/basestyle.css}" rel="stylesheet" type="text/css" />
+  <link href="../static/css/user_center.css" th:href="@{/css/user_center.css}" rel="stylesheet" type="text/css" />
+  <link href="../static/css/mc.css" th:href="@{/css/mc.css}" rel="stylesheet" type="text/css" />
+  <script src="../static/js/jquery-1.8.3.min.js" th:src="@{/js/jquery-1.8.3.min.js}"></script>
+  <script src="../static/js/jquery-ui.js" th:src="@{/js/jquery-ui.js}"></script>
+  <script src="../static/js/fwslider.js" th:src="@{js/fwslider.js}"></script>
+  <link href="../static/css/font-awesome.min.css" th:href="@{/css/font-awesome.min.css}" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div class="topper">
+  <div class="wrap cl">
+    <div class="t-left">您好，欢迎来到虹软外包管理平台！</div>
+    <div class="t-right">
+      <ul class="cl">
+        <li class="user-list">
+          <div class="top-user">
+            <img src="../static/images/logo.jpg" th:href="@{../static/images/logo.jpg}"/>
+            <span th:text="${name}">飞翔的土豆</span>
+            <i class="fa fa-caret-down"></i>
+          </div>
+          <div class="pop-dwon">
+            <a href="login.html" th:href="@{/web/logout}" class="last">
+              <i class="fa fa-power-off"></i>退出登录
+            </a>
+          </div>
+        </li>
+        <li><a href="#">帮助中心</a></li>
+        <li><a href="#">联系我们</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+    $(function () {
+        var setTime;
+        $(".user-list").hover(function () {
+			var _this = $(this); 
+            setTime = setTimeout(function () {
+				_this.addClass("hover");
+				$(".top-user i").removeClass("fa-caret-down").addClass("fa-caret-up");
+                $(".user-list .pop-dwon").slideDown(300);
+            }, 300);
+        }, function () {
+			var _this = $(this);
+            if (setTime) {
+                clearTimeout(setTime);
+            }
+            $(".user-list .pop-dwon").hide();
+			_this.removeClass("hover");
+			$(".top-user i").removeClass("fa-caret-up").addClass("fa-caret-down");
+        });
+    });
+</script>
+
+<div class="centers_m">
+  <!--left-->
+  <div class="centers_ml">
+    <!--头像-->
+    <div class="center_header">
+      <a href="u_ziliao.html"><img src="images/66f625e1ecfd7ad8244efabaa744aa73.png" th:href="@{images/66f625e1ecfd7ad8244efabaa744aa73.png}"/></a>
+      <div class="u-name">您好，<span>飞翔的土豆</span></div>
+
+    </div>
+    <div class="u-safe-btn">
+      <a href="u_ziliao.html"><i class="fa fa-vcard"></i>个人资料</a>
+      <a href="u_safe.html"><i class="fa fa-get-pocket"></i>账户安全</a>
+    </div>
+    <div class="centers_listm">
+      <!--分类开始-->
+
+      <!--<div class="listbox">
+        <div class="centers_listm_one_in"><i class="fa fa-photo"></i><span>外包任务</span><b></b></div>
+        <div class="gjszmdm">
+          <a href="u_work_list_sh.html" class="center_in_self"><span>待审核</span></a>
+          <a href="u_work_list_tg.html" class="center_in_self"><span>已通过</span></a>
+        </div >
+      </div>-->
+      <div class="listbox">
+        <div class="centers_listm_one_in"><i class="fa fa-paper-plane"></i><span>外包人员</span><b></b></div>
+        <div class="gjszmdm">
+          <a href="u_user_list_sh.html" class="center_in_self"><span>待审核</span></a>
+          <a href="u_user_list_tg.html" class="center_in_self"><span>已通过</span></a>
+        </div >
+      </div>
+      <!--<div class="listbox">
+        <div class="centers_listm_one_in"><i class="fa fa-paper-plane"></i><span>发包人员</span><b></b></div>
+        <div class="gjszmdm">
+          <a href="u_user_f_list_sh.html" class="center_in_self"><span>待审核</span></a>
+          <a href="u_user_f_list_tg.html" class="center_in_self"><span>已通过</span></a>
+        </div >
+      </div>-->
+    </div>
+  </div>
+<script type="text/javascript">
+	$(function(){
+		$(".centers_listm_one_in").click(function(){
+			$(this).next(".gjszmdm").slideToggle().siblings("gjszmdm").slideUp()
+			$(this).children("b").toggleClass("active")
+			});
+	})
+</script>
+  <!--right-->
+  <div class="centers_mr">
+    <div class="centers_r_items">
+
+      <div class="items-con">
+        <div class="button_m" >
+          <a href="add_user.html"><img style="margin-left: 20px;margin-top: 10px;" src="../static/images/logo.jpg"  th:src="@{../static/images/add_.png}"/></a>
+        </div>
+        <div class="search" style="margin-left: 310px">
+          <input type="text" class="ipt-sea" placeholder="请输入欲查找的内容" />
+          <a href="javascript:;">搜索</a>
+        </div>
+		<div class="deslist-box">
+        <ul>
+          <li>
+            <a href="desHome.html" class="des-img"><img src="upload/sjsjg2.jpg" th:src="@{upload/sjsjg2.jpg}"/></a>
+            <div class="pull-left">
+              <div class="name"><a href="desHome.html">甜蜜的萧大师</a><span></span><span class="vip-grade"><em style="background: #c80000;font-family: Microsoft YaHei;color: #FFFFFF;padding-left: 12px;padding-right: 12px;padding-bottom: 4px;padding-top: 4px;">待审核</em></span></div>
+              <div class="leixing">年龄：<span>28岁</span></div>
+              <div class="leixing">性别：<span>女</span></div>
+              <div class="leixing">所属公司：<span>UU外包公司</span></div>
+              <div class="leixing">手机号码：<span>13334448989</span></div>
+            </div>
+            <div class="pull-btn">
+              <button class="gz" type="submit" style="background: #FFFFFF">通过</button>
+              <button type="submit"  class="zhuye">不通过</button>
+            </div>
+          </li>
+        </ul>
+        <div class="listPage">
+          <div class="pageBtn">
+            <span class="disabled"><i class="fa fa-caret-left"></i>上一页</span><span class="current">1</span><a href="#">2</a><a href="#">3</a><a href="#">4</a><span>...</span><a href="#">32</a><a href="#">下一页<i class="fa fa-caret-right"></i></a>
+          </div>                    
+        </div>
+      </div>
+
+      </div>
+    </div>
+  </div>
+  <div class="clearfiexd"></div>
+</div>
+
+</body>
+</html>

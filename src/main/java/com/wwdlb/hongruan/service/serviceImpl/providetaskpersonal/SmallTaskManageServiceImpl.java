@@ -1,8 +1,7 @@
 package com.wwdlb.hongruan.service.serviceImpl.providetaskpersonal;
 
-import com.wwdlb.hongruan.mapper.SmallTaskMapper;
-import com.wwdlb.hongruan.mapper.TaskAndSmallTaskMapper;
-import com.wwdlb.hongruan.model.SmallTask;
+import com.wwdlb.hongruan.mapper.*;
+import com.wwdlb.hongruan.model.*;
 import com.wwdlb.hongruan.pojo.SmallTaskPojo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,6 +18,22 @@ public class SmallTaskManageServiceImpl {
 
     @Autowired
     private SmallTaskMapper smallTaskMapper;
+
+    @Autowired
+    private SmallTaskAndNumberProgressMapper smallTaskAndNumberProgressMapper;
+
+    @Autowired
+    private PersonAndSmallTaskMapper personAndSmallTaskMapper;
+
+    @Autowired
+    private SmallTaskAndCustomProgressMapper smallTaskAndCustomProgressMapper;
+
+    @Autowired
+    private CustomProgressMapper customProgressMapper;
+
+    @Autowired
+    private SmallTaskAndProvidePersonEmailMapper smallTaskAndProvidePersonEmailMapper;
+
 
     /**
      * 获取项目下属所有小任务
@@ -47,5 +62,57 @@ public class SmallTaskManageServiceImpl {
             smallTaskPojos.add(smallTaskPojo);
         }
         return smallTaskPojos;
+    }
+
+    /**
+     * 删除小任务
+     * @param smallTaskID 小任务ID
+     * @return true/false
+     */
+    public boolean deleteSmallTask(String email, Integer smallTaskID) {
+        if (smallTaskID == null || smallTaskID < 1) {
+            return false;
+        }
+        SmallTask smallTask = smallTaskMapper.selectByPrimaryKey(smallTaskID);
+        if (smallTask == null) {
+            return false;
+        }
+        //删除小任务
+        smallTaskMapper.deleteByPrimaryKey(smallTaskID);
+        SmallTaskAndNumberProgress smallTaskAndNumberProgress = smallTaskAndNumberProgressMapper.selectBySmallTaskID(smallTaskID);
+        if (smallTaskAndNumberProgress != null) {
+            Integer smallTaskAndNumerProgressId = smallTaskAndNumberProgress.getId();
+            //删除数量指标小任务关联
+            smallTaskAndNumberProgressMapper.deleteByPrimaryKey(smallTaskAndNumerProgressId);
+        }
+        PersonAndSmallTask personAndSmallTask = personAndSmallTaskMapper.selectBySmallTaskID(smallTaskID);
+        if (personAndSmallTask != null) {
+            Integer personAndSmallTaskID = personAndSmallTask.getId();
+            //删除接包人与小任务关联
+            personAndSmallTaskMapper.deleteByPrimaryKey(personAndSmallTaskID);
+        }
+        TaskAndSmallTask taskAndSmallTask = taskAndSmallTaskMapper.selectBySmallTaskID(smallTaskID);
+        if (taskAndSmallTask != null) {
+            Integer taskAndSmallTaskID = taskAndSmallTask.getId();
+            //删除任务与小任务关联
+            taskAndSmallTaskMapper.deleteByPrimaryKey(taskAndSmallTaskID);
+        }
+        ArrayList<SmallTaskAndCustomProgress> smallTaskAndCustomProgressList = smallTaskAndCustomProgressMapper.getSmallTaskAndCustomProgressBySmallTaskID(smallTaskID);
+        if (smallTaskAndCustomProgressList != null) {
+            for (SmallTaskAndCustomProgress smallTaskAndCustomProgress : smallTaskAndCustomProgressList) {
+                Integer smallTaskAndCustomProgressID = smallTaskAndCustomProgress.getId();
+                //删除小任务与自定义指标关联
+                smallTaskAndCustomProgressMapper.deleteByPrimaryKey(smallTaskAndCustomProgressID);
+                Integer customProgressID = smallTaskAndCustomProgress.getCustomprogressid();
+                CustomProgress customProgress = customProgressMapper.selectByPrimaryKey(customProgressID);
+                if (customProgress != null) {
+                    //删除自定义指标
+                    customProgressMapper.deleteByPrimaryKey(customProgressID);
+                }
+            }
+        }
+        //删除小任务与发包者关联
+        smallTaskAndProvidePersonEmailMapper.deleteByPrimaryKey(email);
+        return true;
     }
 }

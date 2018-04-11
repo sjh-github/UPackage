@@ -1,14 +1,12 @@
 package com.wwdlb.hongruan.service.serviceImpl.receivetaskpersonal;
 
 import com.wwdlb.hongruan.mapper.CustomProgressMapper;
-import com.wwdlb.hongruan.mapper.SmallTaskAndCustomProgressMapper;
 import com.wwdlb.hongruan.mapper.SmallTaskAndNumberProgressMapper;
 import com.wwdlb.hongruan.mapper.SmallTaskMapper;
 import com.wwdlb.hongruan.model.CustomProgress;
 import com.wwdlb.hongruan.model.SmallTask;
-import com.wwdlb.hongruan.model.SmallTaskAndCustomProgress;
 import com.wwdlb.hongruan.model.SmallTaskAndNumberProgress;
-import com.wwdlb.hongruan.pojo.CustomProgressIDAndResult;
+import com.wwdlb.hongruan.pojo.CustomProgressIDAndResultPojo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -65,13 +63,15 @@ public class UpdateProgressServiceImpl {
      * @param customProgressIDAndResults 自定义指标ID及完成结果（boolean）
      * @return true/false
      */
-    public boolean updateCustomProgress(ArrayList<CustomProgressIDAndResult> customProgressIDAndResults) {
+    public boolean updateCustomProgress(ArrayList<CustomProgressIDAndResultPojo> customProgressIDAndResults) {
+        System.out.println(customProgressIDAndResults);
         if (customProgressIDAndResults == null || customProgressIDAndResults.size() < 1) {
+            System.out.println("false");
             return false;
         }
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date date = new Date();
-        for (CustomProgressIDAndResult customProgressIDAndResult : customProgressIDAndResults) {
+        for (CustomProgressIDAndResultPojo customProgressIDAndResult : customProgressIDAndResults) {
             //该指标已完成
             if (customProgressIDAndResult.isHaveFinihed()) {
                 //获取自定义指标

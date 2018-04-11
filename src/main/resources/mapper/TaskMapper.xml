@@ -33,7 +33,7 @@
     delete from task
     where TaskID = #{taskid,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.wwdlb.hongruan.model.Task">
+  <insert id="insert" parameterType="com.wwdlb.hongruan.model.Task"  useGeneratedKeys="true" keyProperty="taskid">
     insert into task (TaskID, TaskName, TaskDetail, 
       SafetyGrade, Priority, StartTime, 
       EndTime, Progress)
@@ -41,7 +41,7 @@
       #{safetygrade,jdbcType=INTEGER}, #{priority,jdbcType=INTEGER}, #{starttime,jdbcType=VARCHAR}, 
       #{endtime,jdbcType=VARCHAR}, #{progress,jdbcType=DOUBLE})
   </insert>
-  <insert id="insertSelective" parameterType="com.wwdlb.hongruan.model.Task">
+  <insert id="insertSelective" parameterType="com.wwdlb.hongruan.model.Task"  useGeneratedKeys="true" keyProperty="taskid">
     insert into task
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="taskid != null">

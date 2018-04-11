@@ -10,16 +10,50 @@
   <meta name="apple-mobile-web-app-capable" content="yes"/>
   <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
   <meta name="format-detection" content="telephone=no"/>
-  <meta http-equiv="x-dns-prefetch-control" content="on"/>
+  <meta http-equiv="x-dns-prefetch-control" content="on">
   <link href="../static/css/basestyle.css" th:href="@{/css/basestyle.css}" rel="stylesheet" type="text/css" />
   <link href="../static/css/mc.css" th:href="@{/css/mc.css}" rel="stylesheet" type="text/css" />
   <script src="../static/js/jquery-1.8.3.min.js" th:src="@{/js/jquery-1.8.3.min.js}"></script>
   <script src="../static/js/jquery-ui.js" th:src="@{/js/jquery-ui.js}"></script>
   <script src="../static/js/fwslider.js" th:src="@{/js/fwslider.js}"></script>
+
   <link href="../static/css/user_center.css" th:href="@{/css/user_center.css}" rel="stylesheet" type="text/css" />
   <link href="../static/css/font-awesome.min.css" th:href="@{/css/font-awesome.min.css}" rel="stylesheet" type="text/css"/>
+
+  <script type="text/javascript">
+      var count = 1;
+      function add() {
+          var tbl = document.all.ci;
+          var rows = tbl.rows.length;
+          var tr = tbl.insertRow(rows);
+
+          var add = tr.insertCell(0);
+          add.innerHTML =' <input type="button" onclick="add()" value="+" style="width: 10px"/>';
+          var name = tr.insertCell(1);
+          name.innerHTML = '<span>阶段：<input type="text" /></span>'
+          var tel = tr.insertCell(2);
+          tel.innerHTML = '<span>接包人：<input type="text" /></span>';
+          var del = tr.insertCell(3);
+          del.innerHTML = '<input type="button" style="width: 20px" onclick="del(this)" value="删除">';
+          count++;
+      }
+
+      function del(btn) {
+          var tr = btn.parentElement.parentElement;
+          var tbl = tr.parentElement;
+          tbl.deleteRow(tr.rowIndex-1);
+      }
+      //-->
+  </script>
+
 </head>
 <body>
+<script  th:if="${result eq 'true'}">
+    alert("发布任务成功");
+</script>
+<script  th:if="${result eq 'false'}">
+    alert("发布任务失败");
+</script>
 <div class="header">
   <div class="topper">
     <div class="wrap cl">
@@ -28,9 +62,10 @@
         <ul class="cl">
           <li class="user-list">
             <div class="top-user">
-              <img src="../static/images/logo.jpg" th:src="@{/web/provideTaskPersonalImage}"/>
+              <img src="../static/images/logo.jpg" th:src="@{/web/receiveTaskPersonalImage}"/>
               <span th:text="${name}">飞翔的土豆</span>
               <i class="fa fa-caret-down"></i>
+              </a>
             </div>
             <div class="pop-dwon">
               <a href="login.html" th:href="@{/web/logout}" class="last">
@@ -38,21 +73,20 @@
               </a>
             </div>
           </li>
-          <li><a href="#">帮助中心</a></li>
-          <li><a href="#">联系我们</a></li>
+          <li><a href="help.html">帮助中心</a></li>
+          <li><a href="help.html">联系我们</a></li>
         </ul>
       </div>
     </div>
   </div>
   <div class="head">
     <div class="wrap cl">
-      <div class="logo"><a href="releaseTaskPersonalIndex.html" th:href="@{/web/indexPage/provideTaskPersonal}"></a></div>
+      <div class="logo"><a href="releaseTaskPersonalIndex.html" th:href="@{}"></a></div>
       <div class="hd-r">
         <div class="menu">
           <ul class="cl">
-            <!--            <li><a href="manage.html" th:href="@{}">管理<p>Manage</p></a></li>-->
-            <li><a href="r_workList.html" th:href="@{/web/provideTaskPersonal/SmallTask/All}">任务<p>Task</p></a></li>
-            <li class="active"><a href="releaseTaskPersonalIndex.html" th:href="@{/web/indexPage/provideTaskPersonal}">首页<p>Index</p></a></li>
+            <li><a href="r_workList.html" th:href="@{}">任务<p>Task</p></a></li>
+            <li class="active"><a href="releaseTaskPersonalIndex.html" th:href="@{}">首页<p>Index</p></a></li>
           </ul>
         </div>
         <div class="search">
@@ -60,9 +94,9 @@
           <a href="javascript:;">搜索</a>
         </div>
         <div class="num">
-          <span>接包人员：<em th:text="${numOfReceiveTaskPersonal}">7,657</em>人</span>
-          <span>接包公司：<em th:text="${numOfReceiveTaskCompany}">524</em>家</span>
-          <span>已完成项目：<em th:text="${numOfHaveFinishedSmallTask}">15,517</em>项</span>
+          <span>接包人员：<em>7,657</em>人</span>
+          <span>接包公司：<em>524</em>家</span>
+          <span>已完成项目：<em>15,517</em>项</span>
         </div>
       </div>
     </div>
@@ -94,7 +128,7 @@
     <div class="user-header">
       <div class="u-main">
     <div class="menu">
-      <a href="releaseTask.html" th:href="@{/web/taskPage}" class="upld upzp">发布项目</a>
+      <a href="releaseTask.html" th:href="@{}" class="upld upzp" target="_blank">发布项目</a>
     </div>
       </div>
     </div>
@@ -104,7 +138,7 @@
       <div class="tab-l"><span class="form-box-label"><i>*</i>项目名称</span></div>
       <div  class="box-select">
         <select name="safe" class="ui-select" style="border:none;outline: none;width: 100%;height: 40px;line-height: 40px;appearance: none;-webkit-appearance: none;-moz-appearance: none;padding-left: 60px; ">
-          <option selected="selected">选择项目</option>
+          <option selected value="">选择项目</option>
           <option>项目A</option>
           <option>项目B</option>
           <option>项目C</option>
@@ -114,7 +148,7 @@
     </div>
     <div class="form-box-list">
       <div class="tab-l"><span class="form-box-label"><i>*</i>任务名称</span></div>
-      <div class="tab-r"><input class="form-ipt-txt" placeholder="请输入项目名称（1-20字）"/></div>
+      <div class="tab-r"><input class="form-ipt-txt" placeholder="请输入项目名称（1-20字）"></div>
 
       <div class="clearfiexd"></div>
     </div>
@@ -122,7 +156,7 @@
       <div class="tab-l"><span class="form-box-label"><i>*</i>安全等级</span></div>
       <div  class="box-select">
         <select name="safe" class="ui-select" style="border:none;outline: none;width: 100%;height: 40px;line-height: 40px;appearance: none;-webkit-appearance: none;-moz-appearance: none;padding-left: 60px; ">
-          <option selected="selected">选择安全级别</option>
+          <option selected value="">选择安全级别</option>
           <option>Ⅰ级</option>
           <option>Ⅱ级</option>
           <option>Ⅲ级</option>
@@ -132,7 +166,7 @@
       <div class="tab-l"><span class="form-box-label"><i>*</i>优先级</span></div>
       <div  class="box-select">
         <select name="safe" class="ui-select" style="border:none;outline: none;width: 100%;height: 40px;line-height: 40px;appearance: none;-webkit-appearance: none;-moz-appearance: none;padding-left: 60px; ">
-          <option selected="selected">选择优先级</option>
+          <option selected value="">选择优先级</option>
           <option>低</option>
           <option>中</option>
           <option>高</option>
@@ -140,6 +174,7 @@
       </div>
       <div class="clearfiexd"></div>
     </div>
+
     <div class="form-box-list">
       <div class="tab-l"><span class="form-box-label"><i>*</i>任务内容</span></div>
 
@@ -147,6 +182,21 @@
 
       <div class="clearfiexd"></div>
     </div>
+
+    <div class="form-box-list">
+      <div class="tab-l"><span class="form-box-label"><i>*</i>指定接包人</span></div>
+      <div class="tab-r">
+        <table class="time-box" border="1" id="ci" name="ci" style=" border-color: transparent;">
+        <div class="time-box">
+          <input type="button" onclick="add()" value="+" style="width: 10px"/>
+          <span>阶段：<input type="text" /></span><span>接包人：<input type="text" /></span>
+        </div>
+        </table>
+      </div>
+      <div class="clearfiexd"></div>
+    </div>
+
+
     <div class="form-box-list">
       <div class="tab-l"><span class="form-box-label">上传附件</span></div>
       <div class="tab-r"><a><input type="file" name="fileUpload" /></a><span class="form-sm">每个大小不超过5M</span></div>
@@ -164,6 +214,8 @@
       </div>
       <div class="clearfiexd"></div>
     </div>
+
+
     <div class="form-box-list"><a class="btn-submit" href="javascript:void(0)">提交发布</a></div>
   </div>
   <div class="clearfiexd"></div>

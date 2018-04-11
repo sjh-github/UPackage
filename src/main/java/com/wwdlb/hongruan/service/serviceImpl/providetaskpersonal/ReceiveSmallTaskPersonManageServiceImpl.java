@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Collections;
+import java.util.Comparator;
 
 /**
  * 接包人员管理服务实例
@@ -69,4 +71,28 @@ public class ReceiveSmallTaskPersonManageServiceImpl {
         }
         return receivePersonAndSmallTaskNumPojoArrayList;
     }
+	
+	/**
+     * 7条及以下接包人员列表及其正在进行的小任务数量/NULL
+     * @return 接包人员列表及其正在进行的小任务数量/NULL:无接包人员列表
+     */
+	public ArrayList<ReceivePersonAndSmallTaskNumPojo> getReceiveSmallTaskPersonalOrderBySmallTaskNum() {
+		ArrayList<ReceivePersonAndSmallTaskNumPojo> receivePersonAndSmallTaskNumPojoList = receiveSmallTaskSurvey();
+		if(receivePersonAndSmallTaskNumPojoList == null) {
+			return null;
+		}
+		//按照接包数量从大到小排序
+		Collections.sort(receivePersonAndSmallTaskNumPojoList, new Comparator<ReceivePersonAndSmallTaskNumPojo>() {
+			@Override
+			public int compare(ReceivePersonAndSmallTaskNumPojo arg0, ReceivePersonAndSmallTaskNumPojo arg1) {
+				return arg1.getNum() - (arg0.getNum());
+			}
+		});
+		if(receivePersonAndSmallTaskNumPojoList.size() > 7) {
+			for(int i = 7; i < receivePersonAndSmallTaskNumPojoList.size(); i++) {
+				receivePersonAndSmallTaskNumPojoList.remove(i);
+			}
+		}
+		return receivePersonAndSmallTaskNumPojoList;
+	}
 }

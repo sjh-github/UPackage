@@ -41,6 +41,9 @@ public class ProvideSmallTaskServiceImpl /*implements ProvideSmallTaskService*/ 
     @Autowired
     private SmallTaskAndCustomProgressMapper smallTaskAndCustomProgressMapper;
 
+    @Autowired
+    private SmallTaskAndProvidePersonEmailMapper smallTaskAndProvidePersonEmailMapper;
+
     /**
      * 发布外包小任务
      * @param taskName 任务名称
@@ -50,23 +53,22 @@ public class ProvideSmallTaskServiceImpl /*implements ProvideSmallTaskService*/ 
      * @param receiveSmallTaskEmail 指定接包人邮箱
      * @param numberProgress 数量指标（可空）
      * @param customProgressArrayList 自定义指标ArrayList（可空,按照第一步，第二步...顺序）
-     * @return true:发布成功
+     * @return SmallTaskID/NULL
      */
     @Transactional
-    //@Override
-    public boolean provideSmallTask(String taskName, String smallTaskName, String smallTaskDetail, String endTime, String receiveSmallTaskEmail,
+    public Integer provideSmallTask(String email, String taskName, String smallTaskName, String smallTaskDetail, String endTime, String receiveSmallTaskEmail,
                                     Integer numberProgress, ArrayList<String> customProgressArrayList) {
-        int taskID = taskMapper.selectIDByTaskName(taskName);
-        if (taskID <= 0) {
-            return false;
+        Integer taskID = taskMapper.selectIDByTaskName(taskName);
+        if (taskID == null || taskID <= 0) {
+            return null;
         }
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date date = new Date();
         //新建小任务
         SmallTask smallTask = new SmallTask(smallTaskName, smallTaskDetail, endTime, "F", simpleDateFormat.format(date));
-        smallTaskMapper.insert(smallTask);
         //创建任务与小任务关联
-        int smallTaskID = smallTask.getSmalltaskid();
+        smallTaskMapper.insert(smallTask);
+        Integer smallTaskID = smallTask.getSmalltaskid();
         TaskAndSmallTask taskAndSmallTask = new TaskAndSmallTask(taskID, smallTaskID);
         taskAndSmallTaskMapper.insert(taskAndSmallTask);
         //创建外包人员与小任务关联
@@ -93,6 +95,9 @@ public class ProvideSmallTaskServiceImpl /*implements ProvideSmallTaskService*/ 
                 smallTaskAndCustomProgressMapper.insert(smallTaskAndCustomProgress);
             }
         }
-        return true;
+        //创建小任务与发包人关联
+        SmallTaskAndProvidePersonEmail smallTaskAndProvidePersonEmail = new SmallTaskAndProvidePersonEmail(email, smallTaskID);
+        smallTaskAndProvidePersonEmailMapper.insert(smallTaskAndProvidePersonEmail);
+        return smallTaskID;
     }
 }

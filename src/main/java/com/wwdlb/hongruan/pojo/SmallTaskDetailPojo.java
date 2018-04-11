@@ -21,6 +21,8 @@ public class SmallTaskDetailPojo {
 
     private Integer priority;
 
+    private String receiveSmallTaskPersonName;
+
     private SmallTaskAndNumberProgress smallTaskAndNumberProgress;
 
     private ArrayList<CustomProgressPojo> customProgressPojos;
@@ -103,5 +105,13 @@ public class SmallTaskDetailPojo {
 
     public void setCustomProgressPojos(ArrayList<CustomProgressPojo> customProgressPojos) {
         this.customProgressPojos = customProgressPojos;
+    }
+
+    public String getReceiveSmallTaskPersonName() {
+        return receiveSmallTaskPersonName;
+    }
+
+    public void setReceiveSmallTaskPersonName(String receiveSmallTaskPersonName) {
+        this.receiveSmallTaskPersonName = receiveSmallTaskPersonName;
     }
 }

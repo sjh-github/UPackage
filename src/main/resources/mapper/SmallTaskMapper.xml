@@ -33,7 +33,7 @@
       #{endtime,jdbcType=VARCHAR}, #{havefinished,jdbcType=CHAR}, #{finishtime,jdbcType=VARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.wwdlb.hongruan.model.SmallTask">
+  <insert id="insertSelective" parameterType="com.wwdlb.hongruan.model.SmallTask" useGeneratedKeys="true" keyProperty="smalltaskid">
     insert into smalltask
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="smalltaskid != null">
