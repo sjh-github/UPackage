@@ -89,16 +89,16 @@
         text-align: center;
         position: absolute;
         bottom: 30px;
-        right: -14px;
+        right: -70px;
       }
       .progress .progress-value:after{
         content: "";
         border-top: 2px solid #393a3d;
-        border-left: 7px solid transparent;
-        border-right: 7px solid transparent;
+        border-left: 10px solid transparent;
+        border-right: 10px solid transparent;
         position: absolute;
         bottom: -7px;
-        left: 35%;
+        left: 10%;
       }
       .progress.green .progress-bar:after{ border: 5px solid #21da9a; }
 
@@ -120,10 +120,9 @@
           <ul class="cl">
             <li class="user-list">
               <div class="top-user">
-                <img src="../static/images/logo.jpg" th:src="@{/web/receiveTaskPersonalImage}"/>
+                <img src="../static/images/logo.jpg" th:src="@{/web/provideTaskPersonalImage}"/>
                 <span th:text="${name}">飞翔的土豆</span>
                 <i class="fa fa-caret-down"></i>
-                </a>
               </div>
               <div class="pop-dwon">
                 <a href="login.html" th:href="@{/web/logout}" class="last">
@@ -131,30 +130,30 @@
                 </a>
               </div>
             </li>
-            <li><a href="help.html">帮助中心</a></li>
-            <li><a href="help.html">联系我们</a></li>
+            <li><a href="#">帮助中心</a></li>
+            <li><a href="#">联系我们</a></li>
           </ul>
         </div>
       </div>
     </div>
     <div class="head">
       <div class="wrap cl">
-        <div class="logo"><a href="releaseTaskPersonalIndex.html" th:href="@{}"></a></div>
+        <div class="logo"><a href="releaseTaskPersonalIndex.html" th:href="@{/web/indexPage/provideTaskPersonal}"></a></div>
         <div class="hd-r">
           <div class="menu">
             <ul class="cl">
-              <li><a href="r_workList.html" th:href="@{}">任务<p>Task</p></a></li>
-              <li class="active"><a href="releaseTaskPersonalIndex.html" th:href="@{}">首页<p>Index</p></a></li>
+              <li><a href="r_workList.html" th:href="@{/web/provideTaskPersonal/SmallTask/All}">任务<p>Task</p></a></li>
+              <li class="active"><a href="releaseTaskPersonalIndex.html" th:href="@{/web/indexPage/provideTaskPersonal}">首页<p>Index</p></a></li>
             </ul>
           </div>
           <div class="search">
-            <input type="txt" class="ipt-sea" placeholder="请输入任务名称" />
+            <input type="text" class="ipt-sea" placeholder="请输入任务名称" />
             <a href="javascript:;">搜索</a>
           </div>
           <div class="num">
-            <span>接包人员：<em>7,657</em>人</span>
-            <span>接包公司：<em>524</em>家</span>
-            <span>已完成项目：<em>15,517</em>项</span>
+            <span>接包人员：<em th:text="${numOfReceiveTaskPersonal}">7,657</em>人</span>
+            <span>接包公司：<em th:text="${numOfReceiveTaskCompany}">524</em>家</span>
+            <span>已完成项目：<em th:text="${numOfHaveFinishedSmallTask}">15,517</em>项</span>
           </div>
         </div>
       </div>
@@ -183,24 +182,24 @@
     </script>
     <div class="container">
       <div class="filterbox wrap">
-        <div class="filterlist work-abt" style="height: 200px">
-          <h2>收集水果图片</h2>
-          <h>指定接包人：张三</h>
-            <div class="work-txt">收集1W张水果照片，像素至少为720p，水果种类不少于5k种，水果类别清晰。
-            </div>
-            <div class="wk-lab">
-              <span>安全等级：<i>Ⅲ级</i></span>
-              <span>优先级别：<i>Ⅰ级</i></span>
-              <span>发布时间：<em>2018-01-23 15:22</em></span>
-              <span>截止时间：<em>2018-02-03 15:22</em></span>
-            </div>
+        <div class="filterlist work-abt">
+          <h2 th:text="${smallTask.smalltaskname}">收集水果图片</h2>
+          <div class="work-txt" th:text="${smallTask.smalltaskdetail}">收集1W张水果照片，像素至少为720p，水果种类不少于5k种，水果类别清晰。
+          </div>
+          <div class="wk-lab">
+            <span>安全等级：<i th:text="${safeGrade}">Ⅲ级</i></span>
+            <span>优先级别：<i th:text="${priority}">Ⅰ级</i></span>
+            <span>发布时间：<em th:text="${startTime}">2018-01-23 15:22</em></span>
+            <span>截止时间：<em th:text="${smallTask.endtime}">2018-02-03 15:22</em></span>
+          </div>
           <div class="wk-lab">
             <span>任务版权：
               <i>虹软中国公司版权所有，禁止匿名转载，禁止商业使用，禁止个人使用；</i>
             </span>
           </div>
-          </div>
         </div>
+      </div>
+    </div>
 
         <div class="wrap hide">
           <div class="work-container">
@@ -215,10 +214,11 @@
                           <div class="row">
                             <div class="col-md-offset-3 col-md-6">
                               <div class="progress green">
-                                <h3 class="progress-title">已完成</h3>
-                                <div class="progress-bar" style="width:65%; background:#21da9a;">
-                                  <div class="progress-value">2018/4/7</div>
-                                  <div>65%</div>
+                                <h3 class="progress-title" th:if="${smallTask.havefinished eq 'T'}">已完成</h3>
+                                <h3 class="progress-title" th:if="${smallTask.havefinished eq 'F'}">已完成</h3>
+                                <div class="progress-bar" style="width:50%; background:#21da9a;" th:style="'width:' + ${progress} + '%' + '; background:#21da9a;'">
+                                  <div class="progress-value" th:text="${nowTime}">2018/4/7</div>
+                                  <div th:text="|${progress}%|">65%</div>
                                 </div>
                               </div>
                             </div>
@@ -231,10 +231,10 @@
                 </div>
 
               </div>
-              <div class="wrk-lab">剩余时间：  <span><em>7</em>天</span></div>
+              <!--<div class="wrk-lab">剩余时间：  <span><em>7</em>天</span></div>-->
             </div>
 
-            <div class="work-recommend">
+           <!-- <div class="work-recommend">
               <div class="tit-rec">相关文档</div>
               <div class="tit-con">
                 <div class="bt"><span>水果图片具体要求</span><i>文档</i></div>
@@ -250,7 +250,7 @@
                   <em>2018-01-23</em>
                 </div>
               </div>
-            </div>
+            </div>-->
         </div>
       </div>
       <!--footer-->
@@ -298,7 +298,6 @@
         <div class="ft-cop">
           <p>2018 虹软版权所有 <a href="#">浙ICP备11037259号-3</a> 联系电话：0527-88390110  邮箱：110@hongruan.com</p>
         </div>
-    </div>
     </div>
     <script>
         (function($) {

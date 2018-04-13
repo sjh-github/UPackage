@@ -2,7 +2,9 @@ package com.wwdlb.hongruan.service.serviceImpl.providetaskpersonal;
 
 import com.wwdlb.hongruan.mapper.*;
 import com.wwdlb.hongruan.model.*;
+import com.wwdlb.hongruan.pojo.SmallTaskDetailAndProgressPojo;
 import com.wwdlb.hongruan.pojo.SmallTaskPojo;
+import com.wwdlb.hongruan.service.serviceImpl.SmallTaskAndProgressServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -34,34 +36,82 @@ public class SmallTaskManageServiceImpl {
     @Autowired
     private SmallTaskAndProvidePersonEmailMapper smallTaskAndProvidePersonEmailMapper;
 
+    @Autowired
+    private TaskMapper taskMapper;
+
+    @Autowired
+    private SmallTaskAndProgressServiceImpl smallTaskAndProgressServiceImpl;
+
 
     /**
      * 获取项目下属所有小任务
      * @param taskID 项目ID
      * @return 小任务列表/NULL
      */
-    public ArrayList<SmallTaskPojo> getAllSmallTaskByTaskID(int taskID) {
+    public ArrayList<SmallTaskPojo> getAllSmallTaskByTaskID(Integer taskID) {
         ArrayList<Integer> smallTaskIDList = taskAndSmallTaskMapper.getSmallTaskIDByTaskID(taskID);
         if (smallTaskIDList == null) {
             return null;
         }
         ArrayList<SmallTask> smallTaskArrayList = new ArrayList<>();
+        SmallTask smallTask = null;
         for (int smallTaskID : smallTaskIDList) {
-            smallTaskArrayList.add(smallTaskMapper.selectByPrimaryKey(smallTaskID));
+            smallTask = smallTaskMapper.selectByPrimaryKey(smallTaskID);
+            if (smallTask != null) {
+                smallTaskArrayList.add(smallTask);
+            }
         }
         ArrayList<SmallTaskPojo> smallTaskPojos = new ArrayList<>(smallTaskArrayList.size());
         SmallTaskPojo smallTaskPojo = new SmallTaskPojo();
-        for (SmallTask smallTask : smallTaskArrayList) {
+        for (SmallTask smallTask1 : smallTaskArrayList) {
             smallTaskPojo.setTaskid(taskID);
-            smallTaskPojo.setSmalltaskid(smallTask.getSmalltaskid());
-            smallTaskPojo.setSmalltaskname(smallTask.getSmalltaskname());
-            smallTaskPojo.setSmalltaskdetail(smallTask.getSmalltaskdetail());
-            smallTaskPojo.setEndtime(smallTask.getEndtime());
-            smallTaskPojo.setHavefinished(smallTask.getHavefinished());
-            smallTaskPojo.setFinishtime(smallTask.getFinishtime());
+            smallTaskPojo.setSmalltaskid(smallTask1.getSmalltaskid());
+            smallTaskPojo.setSmalltaskname(smallTask1.getSmalltaskname());
+            smallTaskPojo.setSmalltaskdetail(smallTask1.getSmalltaskdetail());
+            smallTaskPojo.setEndtime(smallTask1.getEndtime());
+            smallTaskPojo.setHavefinished(smallTask1.getHavefinished());
+            smallTaskPojo.setFinishtime(smallTask1.getFinishtime());
             smallTaskPojos.add(smallTaskPojo);
         }
         return smallTaskPojos;
+    }
+
+    /**
+     * 根据项目ID查找小任务详情优先级安全级及进度
+     * @param taskID 项目ID
+     * @return 小任务详情优先级安全级及进度
+     */
+    public ArrayList<SmallTaskDetailAndProgressPojo> getSmallTaskDetailAndProgressPojo(Integer taskID) {
+        ArrayList<Integer> smallTaskIDList = taskAndSmallTaskMapper.getSmallTaskIDByTaskID(taskID);
+        if (smallTaskIDList == null) {
+            return null;
+        }
+        Task task = null;
+        SmallTask smallTask = null;
+        TaskAndSmallTask taskAndSmallTask = null;
+        ArrayList<SmallTaskDetailAndProgressPojo> smallTaskDetailAndProgressPojos = new ArrayList<>(smallTaskIDList.size());
+        SmallTaskDetailAndProgressPojo smallTaskDetailAndProgressPojo = null;
+        for (Integer smallTaskID : smallTaskIDList) {
+            smallTaskDetailAndProgressPojo = new SmallTaskDetailAndProgressPojo();
+            smallTask =smallTaskMapper.selectByPrimaryKey(smallTaskID);
+            if (smallTask != null) {
+                smallTaskDetailAndProgressPojo.setSmallTask(smallTask);
+                taskAndSmallTask = taskAndSmallTaskMapper.selectBySmallTaskID(smallTaskID);
+                if (taskAndSmallTask != null) {
+                    task = taskMapper.selectByPrimaryKey(taskAndSmallTask.getTaskid());
+                    if (task != null) {
+                        smallTaskDetailAndProgressPojo.setSafetyGrade(task.getSafetygrade());
+                        smallTaskDetailAndProgressPojo.setPriority(task.getPriority());
+                        Integer progress = smallTaskAndProgressServiceImpl.getProgressBySmallTaskID(smallTaskID);
+                        if (progress != null) {
+                            smallTaskDetailAndProgressPojo.setProgress(progress);
+                            smallTaskDetailAndProgressPojos.add(smallTaskDetailAndProgressPojo);
+                        }
+                    }
+                }
+            }
+        }
+        return smallTaskDetailAndProgressPojos;
     }
 
     /**
@@ -112,7 +162,7 @@ public class SmallTaskManageServiceImpl {
             }
         }
         //删除小任务与发包者关联
-        smallTaskAndProvidePersonEmailMapper.deleteByPrimaryKey(email);
+        smallTaskAndProvidePersonEmailMapper.deleteBySmallTaskID(smallTaskID);
         return true;
     }
 }

@@ -51,7 +51,7 @@ public class LookSmallTaskDetailController {
      * 查看小任务详情界面
      * @return 小任务详情界面
      */
-    @GetMapping(value = "/web/smallTaskDetailPage")
+    @GetMapping(value = "/web/receiveTaskPerson/smallTaskDetailPage")
     public String lookSmallTaskDetailPage(HttpServletRequest request, ModelMap modelMap, @RequestParam Integer smallTaskID) {
         httpSession = request.getSession();
         String email = (String) httpSession.getAttribute("email");

@@ -3,6 +3,7 @@ package com.wwdlb.hongruan.service.serviceImpl;
 import com.wwdlb.hongruan.mapper.CustomProgressMapper;
 import com.wwdlb.hongruan.mapper.SmallTaskAndCustomProgressMapper;
 import com.wwdlb.hongruan.mapper.SmallTaskAndNumberProgressMapper;
+import com.wwdlb.hongruan.model.CustomProgress;
 import com.wwdlb.hongruan.model.SmallTaskAndCustomProgress;
 import com.wwdlb.hongruan.model.SmallTaskAndNumberProgress;
 import com.wwdlb.hongruan.pojo.CustomProgressPojo;
@@ -53,5 +54,42 @@ public class SmallTaskAndProgressServiceImpl {
            customProgressPojos.add(customProgressPojo);
        }
        return customProgressPojos;
+   }
+
+    /**
+     * 获取小任务进度
+     * @param smallTaskID 小任务ID
+     * @return 进度Double/NULL
+     */
+   public Integer getProgressBySmallTaskID(Integer smallTaskID) {
+       SmallTaskAndNumberProgress smallTaskAndNumberProgress = smallTaskAndNumberProgressMapper.selectBySmallTaskID(smallTaskID);
+       if (smallTaskAndNumberProgress != null) {
+           Integer numberProgress = smallTaskAndNumberProgress.getNumberprogress();
+           Integer finishedNumber = smallTaskAndNumberProgress.getFinishednumber();
+           System.out.println("finishedprogress:" + finishedNumber + ", numberProgress:" + numberProgress);
+           double progress = 1.0 * finishedNumber / numberProgress * 100;
+           return (int)progress;
+       } else {
+           ArrayList<SmallTaskAndCustomProgress> smallTaskAndCustomProgressArrayList = smallTaskAndCustomProgressMapper.getSmallTaskAndCustomProgressBySmallTaskID(smallTaskID);
+           if (smallTaskAndCustomProgressArrayList != null) {
+               Integer progressSize = smallTaskAndCustomProgressArrayList.size();
+               Integer haveFinishedNum = 0;
+               CustomProgress customProgress = null;
+               for (SmallTaskAndCustomProgress smallTaskAndCustomProgress : smallTaskAndCustomProgressArrayList) {
+                    Integer customProgressID = smallTaskAndCustomProgress.getCustomprogressid();
+                    if (customProgressID != null) {
+                        customProgress = customProgressMapper.selectByPrimaryKey(customProgressID);
+                        if (customProgress != null) {
+                            if ("T".equals(customProgress.getHavefinished())) {
+                                haveFinishedNum++;
+                            }
+                        }
+                    }
+               }
+               double progress = 1.0 * haveFinishedNum / progressSize * 100;
+               return (int)progress;
+           }
+       }
+       return null;
    }
 }

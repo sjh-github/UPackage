@@ -18,4 +18,6 @@ public interface SmallTaskAndCustomProgressMapper {
     int updateByPrimaryKey(SmallTaskAndCustomProgress record);
 
     ArrayList<SmallTaskAndCustomProgress> getSmallTaskAndCustomProgressBySmallTaskID(Integer smallTaskID);
+
+    SmallTaskAndCustomProgress selectByCustomID(Integer customProgressID);
 }

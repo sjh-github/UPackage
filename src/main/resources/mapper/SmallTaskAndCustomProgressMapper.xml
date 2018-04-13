@@ -16,6 +16,12 @@
     from smalltaskandcustomprogress
     where ID = #{id,jdbcType=INTEGER}
   </select>
+  <select id="selectByCustomID" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from smalltaskandcustomprogress
+    where customprogressid = #{customProgressID,jdbcType=INTEGER}
+  </select>
   <select id="getSmallTaskAndCustomProgressBySmallTaskID" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />

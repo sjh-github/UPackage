@@ -59,7 +59,7 @@ public class ProvideSmallTaskServiceImpl /*implements ProvideSmallTaskService*/ 
     public Integer provideSmallTask(String email, String taskName, String smallTaskName, String smallTaskDetail, String endTime, String receiveSmallTaskEmail,
                                     Integer numberProgress, ArrayList<String> customProgressArrayList) {
         Integer taskID = taskMapper.selectIDByTaskName(taskName);
-        if (taskID == null || taskID <= 0) {
+        if (taskID == null || taskID <= 0 || email == null) {
             return null;
         }
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");

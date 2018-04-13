@@ -132,7 +132,7 @@
         <ul>
           <li th:each="smallTask, iterStat : ${AllSmallTasks}">
             <div>
-              <a href="workInfo.html" th:href="@{/web/smallTaskDetailPage(smallTaskID=${smallTask.smalltaskid})}">
+              <a href="workInfo.html" th:href="@{/web/receiveTaskPerson/smallTaskDetailPage(smallTaskID=${smallTask.smalltaskid})}">
                 <input type="text" th:value="|${smallTask.havefinished} - ${smallTask.smalltaskid}|" disabled="disabled" style="background: #D3D3D3;height: 280px;width: 380px;font-family: 微软雅黑;font-size: 50px;text-align: center" value="Ⅲ级-Ⅰ级-1"/>
               </a>
             </div>

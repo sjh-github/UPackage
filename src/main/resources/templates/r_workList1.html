@@ -60,7 +60,7 @@
           </ul>
         </div>
         <div class="search">
-          <input type="txt" class="ipt-sea" placeholder="请输入任务名称" />
+          <input type="text" class="ipt-sea" placeholder="请输入任务名称" />
           <a href="javascript:;">搜索</a>
         </div>
         <div class="num">
@@ -107,9 +107,9 @@
         <span>任务</span>
       </div>
       <div class="filter-pbl">
-        <a href="r_workList.html" th:href="@{/web/provideTaskPersonal/SmallTask/All}"><span>ALL</span><em th:text="${numOfSmallTask}">8</em></a>
-        <a href="r_workList1.html" th:href="@{/web/provideTaskPersonal/SmallTask/Running}" class="active"><span>进行中</span><em th:text="${numOfRunningSmallTask}">5</em></a>
-        <a href="r_workList2.html" th:href="@{/web/provideTaskPersonal/SmallTask/Finished}"><span>已完成</span><em th:text="${numOfHaveFinishedSmallTask}">3</em></a>
+        <a href="r_workList.html" th:href="@{/web/provideTaskPersonal/SmallTask/All}"><span>ALL</span><em th:text="${allSmallTaskNum}">8</em></a>
+        <a href="r_workList1.html" th:href="@{/web/provideTaskPersonal/SmallTask/Running}" class="active"><span>进行中</span><em th:text="${runningSmallTaskNum}">5</em></a>
+        <a href="r_workList2.html" th:href="@{/web/provideTaskPersonal/SmallTask/Finished}"><span>已完成</span><em th:text="${finishedSmallTaskNum}">3</em></a>
       </div>
     </div>
   </div>
@@ -131,16 +131,17 @@
 <div class="wrap hide">
   <div class="ind-con cl ind-tuku">
     <ul>
-      <li>
+      <li th:each="smallTask, iterStat : ${runningSmallTaskList}">
         <div>
-          <a href="r_workInfo.html" th:herf="@{/web/##}">
-            <input type="text" disabled="disabled" style="background: #D3D3D3;height: 280px;width: 380px;font-family: 微软雅黑;font-size: 50px;text-align: center" value="Ⅲ级-Ⅰ级-1"/></a>
+          <a href="r_workInfo.html" th:href="@{/web/provideTaskPerson/smallTaskDetailPage(smallTaskID=${smallTask.smalltaskid})}">
+            <input type="text" th:value="|${smallTask.havefinished} - ${smallTask.smalltaskid}|" disabled="disabled" style="background: #D3D3D3;height: 280px;width: 380px;font-family: 微软雅黑;font-size: 50px;text-align: center" value="Ⅲ级-Ⅰ级-1"/>
+          </a>
         </div>
         <div class="info">
-          <div class="name">收集水果图片</div>
-          <div class="sort"><s>安全级：</s><span>Ⅲ级</span><i>-</i><s>优先级：</s><span>Ⅰ级</span><div class="sc">还剩13小时截止！</div></div>
+          <div class="name" th:text="${smallTask.smalltaskname}">收集水果图片</div>
+          <div class="sort"><div class="sc" th:text="|截止日期：${smallTask.endtime}|">截止日期：2018年5月1日！</div></div>
           <div class="author">
-            <img src="../static/images/logo.jpg" />虹软研发部
+            <img src="../static/images/logo.jpg" th:src="@{/images/logo.jpg}"/>虹软研发部
           </div>
         </div>
       </li>

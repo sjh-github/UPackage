@@ -5,6 +5,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 
 /**
@@ -15,6 +18,8 @@ public class ProvideSmallTaskAction {
 
     @Autowired
     private ProvideSmallTaskServiceImpl provideSmallTaskServiceImpl;
+
+    private HttpSession httpSession;
 
     /**
      * 发布外包小任务
@@ -32,7 +37,9 @@ public class ProvideSmallTaskAction {
                                     @RequestParam String smallTaskDetail, @RequestParam String endTime,
                                     @RequestParam String receiveSmallTaskEmail,
                                     @RequestParam(required = false) Integer numberProgress,
-                                    @RequestParam(required = false) ArrayList<String> customProgressArrayList) {
-        return provideSmallTaskServiceImpl.provideSmallTask(taskName, smallTaskName, smallTaskDetail, endTime, receiveSmallTaskEmail, numberProgress, customProgressArrayList);
+                                    @RequestParam(required = false) ArrayList<String> customProgressArrayList, HttpServletRequest request) {
+        httpSession = request.getSession();
+        String email = (String)httpSession.getAttribute("email");
+        return provideSmallTaskServiceImpl.provideSmallTask(email, taskName, smallTaskName, smallTaskDetail, endTime, receiveSmallTaskEmail, numberProgress, customProgressArrayList);
     }
 }

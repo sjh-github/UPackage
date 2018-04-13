@@ -3,6 +3,7 @@ package com.wwdlb.hongruan.api.receivetask;
 
 import com.wwdlb.hongruan.model.SmallTask;
 import com.wwdlb.hongruan.pojo.SmallTaskAndEmailPojo;
+import com.wwdlb.hongruan.pojo.SmallTaskDetailAndProgressPojo;
 import com.wwdlb.hongruan.service.serviceImpl.receivetaskpersonal.LookSmallTaskServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,8 +28,8 @@ public class LookSmallTaskAction {
      * @return null:无小任务，非null:小任务列表
      */
     @GetMapping(value = "/api/smallTask")
-    public ArrayList<SmallTask> lookAllSmallTaskByEmail(@RequestParam String email) {
-        return lookSmallTaskServiceImpl.findAllSmallTaskByEmail(email);
+    public ArrayList<SmallTaskDetailAndProgressPojo> lookAllSmallTaskByEmail(@RequestParam String email) {
+        return lookSmallTaskServiceImpl.getSmallTaskDetailAndProgressPojoByEmail(email);
     }
 
     /**
