@@ -3,7 +3,7 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
-  <title>个人中心进行中任务</title>
+  <title>个人中心已完成任务</title>
   <meta content="虹软外包" name="keywords"/>
   <meta content="虹软外包" name="description"/>
   <meta name="apple-mobile-web-app-capable" content="yes"/>
@@ -37,6 +37,13 @@
               <i class="fa fa-power-off"></i>退出登录
             </a>
           </div>
+        </li>
+        <li>
+          <td th:if="${signInTime != null}"><span th:text="|签到:${signInTime}|" style="color:#F00">12:47:00</span></td>
+          <td th:unless="${signInTime != null}"><a href="#" th:href="@{/web/signIn}">签到</a></td>
+          <span>&nbsp;</span>
+          <td th:if="${signOutTime != null}"><a href="#" th:href="@{/web/signOut}" th:text="|签退:${signOutTime}|" style="color:#F00">签退</a></td>
+          <td th:unless="${signOutTime != null}"><a href="#" th:href="@{/web/signOut}">签退</a></td>
         </li>
         <li><a href="#">帮助中心</a></li>
         <li><a href="#">联系我们</a></li>
@@ -77,8 +84,11 @@
         </ul>
       </div>
       <div class="search">
-        <input type="text" class="ipt-sea" placeholder="请输入任务名称" />
-        <a href="javascript:">搜索</a>
+        <form action="#" th:action="@{/web/search/smallTaskName}">
+          <input type="text" class="ipt-sea" placeholder="请输入任务名称" name="smallTaskName"/>
+          <input type="submit" value="搜索" style="width:100px; height:44px; background:#c80000; color:#fff; text-align:center; font-size:16px; line-height:44px; position:absolute; right:-2px; top:-2px;"/>
+        </form>
+        <!--<a href="javascript:;">搜索</a>-->
       </div>
       <div class="num">
         <span>接包人员：<em th:text="${numOfReceiveTaskPersonal}">7,657</em>人</span>
@@ -152,7 +162,7 @@
           <ul>
             <li th:each="smallTask, iterStat : ${finishedSmallTasks}">
               <div>
-                <a href="workInfo.html" th:href="@{/web/smallTaskDetailPage(smallTaskID=${smallTask.smalltaskid})}">
+                <a href="workInfo.html" th:href="@{/web/receiveTaskPerson/smallTaskDetailPage(smallTaskID=${smallTask.smalltaskid})}">
                   <input type="text" th:value="|${smallTask.havefinished} - ${smallTask.smalltaskid}|" disabled="disabled" style="background: #D3D3D3;height: 190px;width: 293px;font-family: 微软雅黑;font-size: 50px;text-align: center" value="Ⅲ级-Ⅰ级-1"/>
                 </a>
               </div>
@@ -165,11 +175,11 @@
               </div>
             </li>
           </ul>
-          <div class="listPage">
+          <!--<div class="listPage">
             <div class="pageBtn">
               <span class="disabled"><i class="fa fa-caret-left"></i>上一页</span><span class="current">1</span><a href="#">2</a><a href="#">3</a><a href="#">4</a><span>...</span><a href="#">32</a><a href="#">下一页<i class="fa fa-caret-right"></i></a>
             </div>
-          </div>
+          </div>-->
         </div>
       </div>
     </div>

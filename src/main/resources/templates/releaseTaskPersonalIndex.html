@@ -55,8 +55,11 @@
           </ul>
         </div>
         <div class="search">
-          <input type="text" class="ipt-sea" placeholder="请输入任务名称" />
-          <a href="javascript:;">搜索</a>
+          <form action="#" th:action="@{/web/search/provideTaskPerson/smallTaskName}">
+            <input type="text" class="ipt-sea" placeholder="请输入任务名称" name="smallTaskName"/>
+            <input type="submit" value="搜索" style="width:100px; height:44px; background:#c80000; color:#fff; text-align:center; font-size:16px; line-height:44px; position:absolute; right:-2px; top:-2px;"/>
+          </form>
+          <!--<a href="javascript:;">搜索</a>-->
         </div>
         <div class="num">
           <span>接包人员：<em th:text="${numOfReceiveTaskPersonal}">7,657</em>人</span>
@@ -99,7 +102,7 @@
 <!--接包人员/公司-->
 <div class="wrap hide">
   <div class="ind-title cl">
-    <div class="name">接包人员/公司</div>
+    <div class="name">接包人员</div>
     <div class="info">
       <a href="desList.html">北京</a>
       <a href="desList.html">上海</a>
@@ -110,17 +113,34 @@
     </div>
   </div>
   <div class="ind-con cl ind-designers">
-      <a href="desHome.html" class="big hover"><img src="upload/sjsjg1.jpg" /><span class="tit">专家顾问：丁小勇</span></a>
-      <a href="desHome.html" class="midde"><img src="upload/sjsjg2.jpg" /><span class="tit">接包人员：胡连山</span></a>
-      <a href="desHome.html" class="midde"><img src="upload/sjsjg2.jpg" /><span class="tit">接包人员：胡连山</span></a>
-      <a href="desHome.html" class="midde"><img src="upload/sjsjg2.jpg" /><span class="tit">接包人员：胡连山</span></a>
-      <a href="desHome.html" class="small fl"><img src="upload/sjsjg3.jpg" /><span class="tit">接包人员：胡连山</span></a>
-      <a href="desHome.html" class="small fr"><img src="upload/sjsjg3.jpg" /><span class="tit">接包人员：胡连山</span></a>
-      <a href="desHome.html" class="small fl"><img src="upload/sjsjg3.jpg" /><span class="tit">接包人员：胡连山</span></a>
-      <a href="desHome.html" class="small fr"><img src="upload/sjsjg3.jpg" /><span class="tit">接包人员：胡连山</span></a>
-      <a href="desHome.html" class="small fl"><img src="upload/sjsjg3.jpg" /><span class="tit">接包人员：胡连山</span></a>
-      <a href="desHome.html" class="small fl"><img src="upload/sjsjg3.jpg" /><span class="tit">接包人员：胡连山</span></a>
-
+    <ul>
+      <li>
+      <a href="desHome.html" class="big hover">
+        <img src="../static/images/logo.jpg" th:src="@{/web/receiveSmallTaskPersonalImage(email=${bigReceivePersonAndSmallTaskNumPojos.email})}"/>
+        <span class="tit" th:text="|专家顾问:${bigReceivePersonAndSmallTaskNumPojos.name}|">专家顾问：丁小勇</span>
+      </a>
+      </li>
+    </ul>
+    <ul>
+      <li th:each="middleReceivePerson : ${middleReceivePersonAndSmallTaskNumPojos}">
+        <a href="desHome.html" class="midde">
+          <img src="../static/images/logo.jpg" th:src="@{/web/receiveSmallTaskPersonalImage(email=${middleReceivePerson.email})}"/>
+          <span class="tit" th:text="|接包人员:${middleReceivePerson.name}|">接包人员：胡连山</span>
+        </a>
+      </li>
+    </ul>
+    <ul>
+      <li th:each="smallReceivePerson : ${smallReceivePersonAndSmallTaskNumPojos}">
+        <a href="desHome.html" class="small fl">
+          <img src="../static/images/logo.jpg" th:src="@{/web/receiveSmallTaskPersonalImage(email=${smallReceivePerson.email})}"/>
+          <span class="tit" th:text="|接包人员:${smallReceivePerson.name}|">接包人员：胡连山</span>
+        </a>
+      </li>
+    </ul>
+  <!--  <a href="desHome.html" class="midde">
+      <img src="../static/images/logo.jpg" th:src="@{/web/receiveTaskCompany(email=${receiveCompany.companyemail})}"/>
+      <span class="tit" th:text="|接包公司:${receiveCompany.companyname}|">接包公司：网易</span>
+    </a>-->
   </div>
 </div>
 
@@ -146,7 +166,7 @@
 <!--外包任务-->
 <div class="wrap hide">
   <div class="ind-title cl">
-    <div class="name">外包任务 <span>已发布任务<em>17</em>项！</span></div>
+    <div class="name">外包任务 <span>已发布任务<em th:text="${allSmallTaskNum}">17</em>项！</span></div>
     <div class="info">
       <a href="workList.html" class="active">素材收集</a>
       <a href="workList.html">素材整理</a>
@@ -156,16 +176,17 @@
 
   <div class="ind-con cl ind-tuku">
     <ul>
-      <li>
+      <li th:each="smallTask, iterStat : ${runningSmallTaskList}">
         <div>
-          <a href="r_workInfo.html" th:herf="@{/web/##}">
-            <input type="text" disabled="disabled" style="background: #D3D3D3;height: 280px;width: 380px;font-family: 微软雅黑;font-size: 50px;text-align: center" value="Ⅲ级-Ⅰ级-1"/></a>
+          <a href="r_workInfo.html" th:href="@{/web/provideTaskPerson/smallTaskDetailPage(smallTaskID=${smallTask.smalltaskid})}">
+            <input type="text" th:value="|${smallTask.havefinished} - ${smallTask.smalltaskid}|" disabled="disabled" style="background: #D3D3D3;height: 280px;width: 380px;font-family: 微软雅黑;font-size: 50px;text-align: center" value="Ⅲ级-Ⅰ级-1"/>
+          </a>
         </div>
         <div class="info">
-          <div class="name">收集水果图片</div>
-          <div class="sort"><s>安全级：</s><span>Ⅲ级</span><i>-</i><s>优先级：</s><span>Ⅰ级</span><div class="sc">还剩13小时截止！</div></div>
+          <div class="name" th:text="${smallTask.smalltaskname}">收集水果图片</div>
+          <div class="sort"><div class="sc" th:text="|截止日期：${smallTask.endtime}|">截止日期：2018年5月1日！</div></div>
           <div class="author">
-            <img src="../static/images/logo.jpg" />虹软研发部
+            <img src="../static/images/logo.jpg" th:src="@{/images/logo.jpg}"/>虹软研发部
           </div>
         </div>
       </li>

@@ -59,25 +59,25 @@ public class RegisiterServiceImpl {
             } else {
                 receiveTask_personal.setGender(1);
             }
-            if (birthyear > (new Date().getYear())) {
+            /*if (birthyear > (new Date().getYear())) {
                 logger.error("出生年份不合法");
                 throw new RuntimeException("出生年份不合法");
-            }
+            }*/
             receiveTask_personal.setBirthyear(birthyear);
-            if (birthmonth < 1 || birthmonth > 12) {
+           /* if (birthmonth < 1 || birthmonth > 12) {
                 logger.error("出生月份不合法");
                 throw new RuntimeException("出生月份不合法");
-            }
+            }*/
             receiveTask_personal.setBirthmonth(birthmonth);
-            if (birthday < 1 || birthday > 31) {
+           /* if (birthday < 1 || birthday > 31) {
                 logger.error("出生日期不合法");
                 throw new RuntimeException("出生日期不合法");
-            }
+            }*/
             receiveTask_personal.setBirthday(birthday);
-            if (idcard.length() != 18) {
+            /*if (idcard.length() != 18) {
                 logger.error("身份证号码不合法");
                 throw new RuntimeException("身份证号码不合法");
-            }
+            }*/
             receiveTask_personal.setIdcard(idcard);
             receiveTask_personal.setPhone(phone);
             //文件上传

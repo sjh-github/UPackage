@@ -3,6 +3,7 @@ package com.wwdlb.hongruan.web.receivetaskpersonal;
 import com.wwdlb.hongruan.model.ReceiveTask_Personal;
 import com.wwdlb.hongruan.service.serviceImpl.GetNameByEmailServiceImpl;
 import com.wwdlb.hongruan.service.serviceImpl.receivetaskpersonal.GetReceiveTaskPersonalServiceImpl;
+import com.wwdlb.hongruan.service.serviceImpl.receivetaskpersonal.GetSignTimeServiceImpl;
 import com.wwdlb.hongruan.service.serviceImpl.receivetaskpersonal.NumOfIndexPageServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,6 +30,9 @@ public class PersonalIdentityConfimController {
     @Autowired
     private GetReceiveTaskPersonalServiceImpl getReceiveTaskPersonalServiceImpl;
 
+    @Autowired
+    private GetSignTimeServiceImpl getSignTimeServiceImpl;
+
     /**
      * 个人身份认证界面
      * @return 个人身份认证界面
@@ -51,6 +55,8 @@ public class PersonalIdentityConfimController {
         modelMap.addAttribute("numOfReceiveTaskCompany", numOfIndexPageServiceImpl.getNumOfReceiveTaskCompany());
         modelMap.addAttribute("numOfHaveFinishedSmallTask", numOfIndexPageServiceImpl.getNumOfFinishedSmallTask());
         modelMap.addAttribute("numOfSmallTask", numOfIndexPageServiceImpl.getNumOfSmallTask());
+        modelMap.addAttribute("signInTime", getSignTimeServiceImpl.getSignInTime(email));
+        modelMap.addAttribute("signOutTime", getSignTimeServiceImpl.getSignOutTime(email));
         return "u_renzheng1";
     }
 

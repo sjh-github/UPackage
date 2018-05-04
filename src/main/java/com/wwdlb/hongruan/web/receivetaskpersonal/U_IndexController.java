@@ -4,6 +4,7 @@ import com.wwdlb.hongruan.model.ReceiveTask_Personal;
 import com.wwdlb.hongruan.model.SmallTask;
 import com.wwdlb.hongruan.service.serviceImpl.GetNameByEmailServiceImpl;
 import com.wwdlb.hongruan.service.serviceImpl.receivetaskpersonal.GetReceiveTaskPersonalServiceImpl;
+import com.wwdlb.hongruan.service.serviceImpl.receivetaskpersonal.GetSignTimeServiceImpl;
 import com.wwdlb.hongruan.service.serviceImpl.receivetaskpersonal.LookSmallTaskServiceImpl;
 import com.wwdlb.hongruan.service.serviceImpl.receivetaskpersonal.NumOfIndexPageServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +38,9 @@ public class U_IndexController {
     @Autowired
     private LookSmallTaskServiceImpl lookSmallTaskServiceImpl;
 
+    @Autowired
+    private GetSignTimeServiceImpl getSignTimeServiceImpl;
+
     /**
      * 个人中心界面映射
      * @return 个人中心界面
@@ -68,6 +72,8 @@ public class U_IndexController {
         ArrayList<SmallTask> allSmallTask = lookSmallTaskServiceImpl.findAllSmallTaskByEmail(email);
         ArrayList<SmallTask> runningSmallTasks = lookSmallTaskServiceImpl.findRunningSmallTask(allSmallTask);
         modelMap.addAttribute("runningSmallTasks", runningSmallTasks);
+        modelMap.addAttribute("signInTime", getSignTimeServiceImpl.getSignInTime(email));
+        modelMap.addAttribute("signOutTime", getSignTimeServiceImpl.getSignOutTime(email));
         return "u_index";
     }
 }

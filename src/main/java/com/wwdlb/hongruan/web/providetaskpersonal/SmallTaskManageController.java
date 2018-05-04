@@ -1,5 +1,7 @@
 package com.wwdlb.hongruan.web.providetaskpersonal;
 
+import com.github.pagehelper.PageInfo;
+import com.sun.org.apache.regexp.internal.RE;
 import com.wwdlb.hongruan.model.ReceiveTask_Personal;
 import com.wwdlb.hongruan.model.SmallTask;
 import com.wwdlb.hongruan.model.SmallTaskAndNumberProgress;
@@ -12,7 +14,9 @@ import com.wwdlb.hongruan.service.serviceImpl.SmallTaskAndTaskServiceImpl;
 import com.wwdlb.hongruan.service.serviceImpl.providetaskpersonal.ShowSmallTaskByProvidePersonEmailServiceImpl;
 import com.wwdlb.hongruan.service.serviceImpl.receivetaskpersonal.GetReceiveTaskPersonalServiceImpl;
 import com.wwdlb.hongruan.service.serviceImpl.receivetaskpersonal.NumOfIndexPageServiceImpl;
+import groovy.util.IFileNameFinder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,6 +30,9 @@ import java.util.Date;
 
 @Controller
 public class SmallTaskManageController {
+
+    @Value("${my.perpage}")
+    private int perpage;
 
     private HttpSession httpSession;
 
@@ -102,7 +109,10 @@ public class SmallTaskManageController {
      * @return 所有小任务界面
      */
     @GetMapping(value = "/web/provideTaskPersonal/SmallTask/All")
-    public String allSmallTaskPage(HttpServletRequest request, ModelMap modelMap) {
+    public String allSmallTaskPage(HttpServletRequest request, ModelMap modelMap, @RequestParam(required = false)Integer page) {
+        if (page == null || page < 1) {
+            page = 1;
+        }
         httpSession = request.getSession();
         String email = (String) httpSession.getAttribute("email");
         modelMap.addAttribute("name", getNameByEmailServiceImpl.getProvideTaskPersonalNameByEmail(email));
@@ -111,7 +121,9 @@ public class SmallTaskManageController {
         modelMap.addAttribute("numOfReceiveTaskPersonal", numOfIndexPageServiceImpl.getNumOfReceiveTaskPersonal());
         //所有该发包人发布的小任务
         ArrayList<SmallTask> allSmallTaskList = showSmallTaskByProvidePersonEmailServiceImpl.getAllSmallTaskByProvidePersonEmail(email);
-        modelMap.addAttribute("allSmallTasks", allSmallTaskList);
+        PageInfo<SmallTask> allSmallTaskPageList = showSmallTaskByProvidePersonEmailServiceImpl.getAllSmallTaskByProvidePersonEmail(email, page, perpage);
+        modelMap.addAttribute("allSmallTasks", allSmallTaskPageList);
+        modelMap.addAttribute("nowPage", page);
         //该发包人所有发布的小任务数量
         Integer allSmallTaskNum = allSmallTaskList.size();
         modelMap.addAttribute("allSmallTaskNum",allSmallTaskNum);
@@ -135,7 +147,10 @@ public class SmallTaskManageController {
      * @return 正在进行小任务界面
      */
     @GetMapping(value = "/web/provideTaskPersonal/SmallTask/Running")
-    public String runningSmallTaskPage(HttpServletRequest request, ModelMap modelMap) {
+    public String runningSmallTaskPage(HttpServletRequest request, ModelMap modelMap, @RequestParam(required = false)Integer page) {
+        if (page == null || page < 1) {
+            page = 1;
+        }
         httpSession = request.getSession();
         String email = (String) httpSession.getAttribute("email");
         modelMap.addAttribute("numOfReceiveTaskCompany", numOfIndexPageServiceImpl.getNumOfReceiveTaskCompany());
@@ -144,7 +159,9 @@ public class SmallTaskManageController {
         modelMap.addAttribute("numOfReceiveTaskPersonal", numOfIndexPageServiceImpl.getNumOfReceiveTaskPersonal());
         //正在进行该发包人发布的小任务
         ArrayList<SmallTask> runningSmallTaskList = showSmallTaskByProvidePersonEmailServiceImpl.getRunningSmallTaskByProvidePersonEmail(email);
-        modelMap.addAttribute("runningSmallTaskList", runningSmallTaskList);
+        PageInfo<SmallTask> runningSmallTaskListPage = showSmallTaskByProvidePersonEmailServiceImpl.getRunningSmallTaskByProvidePersonEmail(email, page, perpage);
+        modelMap.addAttribute("runningSmallTaskList", runningSmallTaskListPage);
+        modelMap.addAttribute("nowPage", page);
         //该发包人正在进行小任务数量
         Integer runningSmallTaskNum = runningSmallTaskList.size();
         modelMap.addAttribute("runningSmallTaskNum", runningSmallTaskNum);
@@ -169,7 +186,10 @@ public class SmallTaskManageController {
      * @return 已完成小任务界面
      */
     @GetMapping(value = "/web/provideTaskPersonal/SmallTask/Finished")
-    public String finishedSmallTaskPage(HttpServletRequest request, ModelMap modelMap) {
+    public String finishedSmallTaskPage(HttpServletRequest request, ModelMap modelMap, @RequestParam(required = false)Integer page) {
+        if (page == null || page < 1) {
+            page = 1;
+        }
         httpSession = request.getSession();
         String email = (String) httpSession.getAttribute("email");
         modelMap.addAttribute("name", getNameByEmailServiceImpl.getProvideTaskPersonalNameByEmail(email));
@@ -178,7 +198,9 @@ public class SmallTaskManageController {
         modelMap.addAttribute("numOfReceiveTaskPersonal", numOfIndexPageServiceImpl.getNumOfReceiveTaskPersonal());
         //已完成该发包人发布的小任务
         ArrayList<SmallTask> finishedSmallTaskList = showSmallTaskByProvidePersonEmailServiceImpl.getFinishedSmallTaskByProvidePersonEmail(email);
-        modelMap.addAttribute("finishedSmallTaskList", finishedSmallTaskList);
+        PageInfo<SmallTask> finishedSmallTaskListPage = showSmallTaskByProvidePersonEmailServiceImpl.getFinishedSmallTaskByProvidePersonEmail(email, page, perpage);
+        modelMap.addAttribute("finishedSmallTaskList", finishedSmallTaskListPage);
+        modelMap.addAttribute("nowPage", page);
         //该发包人已完成小任务数量
         Integer finishedSmallTaskNum = finishedSmallTaskList.size();
         modelMap.addAttribute("finishedSmallTaskNum", finishedSmallTaskNum);

@@ -26,6 +26,5 @@ public interface AttendanceMapper {
     ArrayList<String> selectHaveRunningTaskEmailTodayHaveSigned(@Param("haveRunningSmallTaskPersonEmailList") ArrayList<String> haveRunningSmallTaskPersonEmailList,
                                                                 @Param(("nowTime")) String nowTme);
 
-    /*ArrayList<String> selecctHaveRunningTaskEmailTodayNoSigned(@Param("haveRunningSmallTaskPersonEmailList") ArrayList<String> haveRunningSmallTaskPersonEmailList,
-                                                               @Param(("nowTime")) String nowTme);*/
+    /*Attendance selectByEmailAnd(@Param("email")String email, @Param("nowTime") String nowTime);*/
 }

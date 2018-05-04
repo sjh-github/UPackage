@@ -60,8 +60,11 @@
           </ul>
         </div>
         <div class="search">
-          <input type="text" class="ipt-sea" placeholder="请输入任务名称" />
-          <a href="javascript:;">搜索</a>
+          <form action="#" th:action="@{/web/search/provideTaskPerson/smallTaskName}">
+            <input type="text" class="ipt-sea" placeholder="请输入任务名称" name="smallTaskName"/>
+            <input type="submit" value="搜索" style="width:100px; height:44px; background:#c80000; color:#fff; text-align:center; font-size:16px; line-height:44px; position:absolute; right:-2px; top:-2px;"/>
+          </form>
+          <!--<a href="javascript:;">搜索</a>-->
         </div>
         <div class="num">
           <span>接包人员：<em th:text="${numOfReceiveTaskPersonal}">7,657</em>人</span>
@@ -131,7 +134,7 @@
 <div class="wrap hide">
   <div class="ind-con cl ind-tuku">
     <ul>
-      <li th:each="smallTask, iterStat : ${finishedSmallTaskList}">
+      <li th:each="smallTask, iterStat : ${finishedSmallTaskList.list}">
         <div>
           <a href="r_workInfo.html" th:href="@{/web/provideTaskPerson/smallTaskDetailPage(smallTaskID=${smallTask.smalltaskid})}">
             <input type="text" th:value="|${smallTask.havefinished} - ${smallTask.smalltaskid}|" disabled="disabled" style="background: #D3D3D3;height: 280px;width: 380px;font-family: 微软雅黑;font-size: 50px;text-align: center" value="Ⅲ级-Ⅰ级-1"/>
@@ -149,7 +152,9 @@
   </div>
   <div class="listPage">
     <div class="pageBtn">
-      <span class="disabled"><i class="fa fa-caret-left"></i>上一页</span><span class="current">1</span><a href="#">2</a><a href="#">3</a><a href="#">4</a><span>...</span><a href="#">32</a><a href="#">下一页<i class="fa fa-caret-right"></i></a>
+      <a href="#" th:href="@{/web/provideTaskPersonal/SmallTask/Finished(page=${nowPage}-1)}"><i class="fa fa-caret-left"></i>上一页</a>
+      <span class="current" th:text="${nowPage}">1</span>
+      <a href="#" th:href="@{/web/provideTaskPersonal/SmallTask/Finished(page=${nowPage}+1)}">下一页<i class="fa fa-caret-right"></i></a>
     </div>
   </div>
 </div>

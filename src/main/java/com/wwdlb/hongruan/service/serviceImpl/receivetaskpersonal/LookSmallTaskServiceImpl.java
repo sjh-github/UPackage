@@ -1,5 +1,7 @@
 package com.wwdlb.hongruan.service.serviceImpl.receivetaskpersonal;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.wwdlb.hongruan.mapper.PersonAndSmallTaskMapper;
 import com.wwdlb.hongruan.mapper.SmallTaskMapper;
 import com.wwdlb.hongruan.mapper.TaskAndSmallTaskMapper;
@@ -77,6 +79,28 @@ public class LookSmallTaskServiceImpl {
     }
 
     /**
+     * 根据接包人邮箱查找所有小任务,分页查询
+     * @param email 接包人邮箱
+     * @return null:无小任务，非null:小任务列表
+     */
+    public PageInfo<SmallTask> findAllSmallTaskByEmailAndPage(String email, int page, int per_page) {
+        PageHelper.startPage(page, per_page);
+        ArrayList<Integer> smallTaskIDArrayList = personAndSmallTaskMapper.selectSmallTaskIDByEmail(email);
+        if (smallTaskIDArrayList == null) {
+            return null;
+        }
+        ArrayList<SmallTask> smallTasks = new ArrayList<>(smallTaskIDArrayList.size());
+        SmallTask smallTask = null;
+        for (Integer smallTaskID : smallTaskIDArrayList) {
+            smallTask = smallTaskMapper.selectByPrimaryKey(smallTaskID);
+            if (smallTask != null) {
+                smallTasks.add(smallTask);
+            }
+        }
+        return new PageInfo<>(smallTasks);
+    }
+
+    /**
      * 获取小任务详情及安全级优先级进度
      * @param email 接包人邮箱
      * @return 小任务详情及安全级优先级进度
@@ -97,6 +121,7 @@ public class LookSmallTaskServiceImpl {
             smallTask =smallTaskMapper.selectByPrimaryKey(smallTaskID);
             if (smallTask != null) {
                 smallTaskDetailAndProgressPojo.setSmallTask(smallTask);
+                smallTaskDetailAndProgressPojo.setReceiveTaskEmail(email);
                 taskAndSmallTask = taskAndSmallTaskMapper.selectBySmallTaskID(smallTaskID);
                 if (taskAndSmallTask != null) {
                     task = taskMapper.selectByPrimaryKey(taskAndSmallTask.getTaskid());
@@ -149,5 +174,28 @@ public class LookSmallTaskServiceImpl {
             }
         }
         return runningSmallTasks;
+    }
+
+    /**
+     * 查找已完成小任务,分页查询
+     * @return null:无小任务，非null:小任务列表
+     */
+    public PageInfo<SmallTask> findFinishedSmallTask(String email, int page, int per_page) {
+        PageHelper.startPage(page, per_page);
+        ArrayList<Integer> smallTaskIDArrayList = personAndSmallTaskMapper.selectSmallTaskIDByEmail(email);
+        if (smallTaskIDArrayList == null) {
+            return null;
+        }
+        ArrayList<SmallTask> smallTasks = new ArrayList<>(smallTaskIDArrayList.size());
+        SmallTask smallTask = null;
+        for (Integer smallTaskID : smallTaskIDArrayList) {
+            smallTask = smallTaskMapper.selectByPrimaryKey(smallTaskID);
+            if (smallTask != null) {
+                if (smallTask.getHavefinished().equals("T")) {
+                    smallTasks.add(smallTask);
+                }
+            }
+        }
+        return new PageInfo<>(smallTasks);
     }
 }

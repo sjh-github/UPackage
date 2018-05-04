@@ -1,7 +1,9 @@
 package com.wwdlb.hongruan.web.receivetaskpersonal;
 
+import com.wwdlb.hongruan.model.SmallTask;
 import com.wwdlb.hongruan.service.serviceImpl.GetNameByEmailServiceImpl;
 import com.wwdlb.hongruan.service.serviceImpl.LoginServiceImpl;
+import com.wwdlb.hongruan.service.serviceImpl.receivetaskpersonal.GetSignTimeServiceImpl;
 import com.wwdlb.hongruan.service.serviceImpl.receivetaskpersonal.LookSmallTaskServiceImpl;
 import com.wwdlb.hongruan.service.serviceImpl.receivetaskpersonal.NumOfIndexPageServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 
 @Controller
 public class ReceiveTaskPersonalIndexController {
@@ -26,12 +29,13 @@ public class ReceiveTaskPersonalIndexController {
     @Autowired
     private GetNameByEmailServiceImpl getNameByEmailServiceImpl;
 
+    @Autowired
+    private GetSignTimeServiceImpl getSignTimeServiceImpl;
+
     @GetMapping(value = "/web/indexPage/receiveTaskPersonal")
     public String receiveTaskPersonalIndexPage(HttpServletRequest httpServletRequest, ModelMap modelMap) {
         httpSession = httpServletRequest.getSession();
         try {
-            String role = (String) httpSession.getAttribute("role");
-            if (role.equals(LoginServiceImpl.ReceiveTaskPersonal)) {
                 String email = (String) httpSession.getAttribute("email");
                 modelMap.addAttribute("email", email);
                 modelMap.addAttribute("name", getNameByEmailServiceImpl.getReceiveTaskPersonalNameByEmail(email));
@@ -41,14 +45,13 @@ public class ReceiveTaskPersonalIndexController {
                 modelMap.addAttribute("numOfSmallTask", numOfIndexPageServiceImpl.getNumOfSmallTask());
 
                 //接包人的小任务
-                modelMap.addAttribute("AllSmallTasks", lookSmallTaskServiceImpl.findAllSmallTaskByEmail(email));
+                ArrayList<SmallTask> allSmallTasks = lookSmallTaskServiceImpl.findAllSmallTaskByEmail(email);
+                modelMap.addAttribute("AllSmallTasks", lookSmallTaskServiceImpl.findRunningSmallTask(allSmallTasks));
+                modelMap.addAttribute("signInTime", getSignTimeServiceImpl.getSignInTime(email));
+                modelMap.addAttribute("signOutTime", getSignTimeServiceImpl.getSignOutTime(email));
                 return "receiveTaskPersonalIndex";
-            } else {
-                return "redirect:/web/loginPage";
-            }
         } catch (Exception e) {
-            System.out.println(e.getMessage());
-            return "redirect:/web/loginPage";
+            return "redirect:http://115.159.71.92/hongruan/web/loginPage";
         }
     }
 }

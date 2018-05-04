@@ -168,6 +168,11 @@
                enableDeleteByExample="false" enableSelectByExample="false"
                enableUpdateByExample="false">
         </table>-->
+<!--        <table schema="hongruan" tableName="Information"
+               domainObjectName="Information" enableCountByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               enableUpdateByExample="false">
+        </table>-->
     </context>
 </generatorConfiguration>
 

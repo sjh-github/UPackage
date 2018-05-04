@@ -18,6 +18,12 @@
     from smalltask
     where SmallTaskID = #{smalltaskid,jdbcType=INTEGER}
   </select>
+  <select id="searchBySmallTaskName" parameterType="java.lang.String" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    from smalltask
+    where smalltaskname LIKE #{smallTaskName,jdbcType=VARCHAR}
+  </select>
   <select id="getNumOfSmallTaskByState" resultType="java.lang.Integer" parameterType="java.lang.String">
     SELECT count(*) from smalltask where HaveFinished = #{haveFinished}
   </select>

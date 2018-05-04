@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
   <!--管理员-->
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
@@ -20,6 +20,12 @@
   <link href="../static/css/font-awesome.min.css" th:href="@{/css/font-awesome.min.css}" rel="stylesheet" type="text/css"/>
 </head>
 <body>
+<script  th:if="${result eq 'true'}">
+  alert("审核成功");
+</script>
+<script  th:if="${result eq 'false'}">
+    alert("审核失败");
+</script>
 <div class="topper">
   <div class="wrap cl">
     <div class="t-left">您好，欢迎来到虹软外包管理平台！</div>
@@ -27,7 +33,7 @@
       <ul class="cl">
         <li class="user-list">
           <div class="top-user">
-            <img src="../static/images/logo.jpg" th:href="@{../static/images/logo.jpg}"/>
+            <img src="../static/images/logo.jpg" th:src="@{/images/logo.jpg}"/>
             <span th:text="${name}">飞翔的土豆</span>
             <i class="fa fa-caret-down"></i>
           </div>
@@ -70,14 +76,14 @@
   <div class="centers_ml">
     <!--头像-->
     <div class="center_header">
-      <a href="u_ziliao.html"><img src="images/66f625e1ecfd7ad8244efabaa744aa73.png" th:href="@{images/66f625e1ecfd7ad8244efabaa744aa73.png}"/></a>
-      <div class="u-name">您好，<span>飞翔的土豆</span></div>
-
+      <a href="u_ziliao.html"><img src="../static/images/logo.jpg" th:src="@{/images/logo.jpg}"/></a>
+      <div class="u-name">您好，<span th:text="${name}">飞翔的土豆</span></div>
     </div>
-    <div class="u-safe-btn">
+
+    <!--<div class="u-safe-btn">
       <a href="u_ziliao.html"><i class="fa fa-vcard"></i>个人资料</a>
       <a href="u_safe.html"><i class="fa fa-get-pocket"></i>账户安全</a>
-    </div>
+    </div>-->
     <div class="centers_listm">
       <!--分类开始-->
 
@@ -91,8 +97,14 @@
       <div class="listbox">
         <div class="centers_listm_one_in"><i class="fa fa-paper-plane"></i><span>外包人员</span><b></b></div>
         <div class="gjszmdm">
-          <a href="u_user_list_sh.html" class="center_in_self"><span>待审核</span></a>
-          <a href="u_user_list_tg.html" class="center_in_self"><span>已通过</span></a>
+          <a href="u_user_list_sh.html" th:href="@{/web/receiveTaskPersonal/no}" class="center_in_self"><span class="active" style="color: red">待审核</span></a>
+          <a href="u_user_list_tg.html" th:href="@{/web/receiveTaskPersonal/yes}" class="center_in_self"><span>已通过</span></a>
+        </div >
+      </div>
+      <div class="listbox">
+        <div class="centers_listm_one_in"><i class="fa fa-paper-plane"></i><span>IP白名单</span><b></b></div>
+        <div class="gjszmdm">
+          <a href="IPWhiteList.html" th:href="@{/web/IPWhiteList}" class="center_in_self"><span>IP白名单设置</span></a>
         </div >
       </div>
       <!--<div class="listbox">
@@ -117,37 +129,46 @@
     <div class="centers_r_items">
 
       <div class="items-con">
-        <div class="button_m" >
-          <a href="add_user.html"><img style="margin-left: 20px;margin-top: 10px;" src="../static/images/logo.jpg"  th:src="@{../static/images/add_.png}"/></a>
-        </div>
+        <!--<div class="button_m" >
+          <a href="add_user.html"><img style="margin-left: 20px;margin-top: 10px;" src="../static/images/add_.png"  th:src="@{../static/images/}"/></a>
+        </div>-->
         <div class="search" style="margin-left: 310px">
-          <input type="text" class="ipt-sea" placeholder="请输入欲查找的内容" />
-          <a href="javascript:;">搜索</a>
+          <form action="#" th:action="@{/web/search/receiveTaskName/noChecked}">
+            <input type="text" class="ipt-sea" placeholder="请输入接包人员姓名" name="receiveTaskName"/>
+            <input type="submit" value="搜索" style="width:100px; height:44px; background:#c80000; color:#fff; text-align:center; font-size:16px; line-height:44px; position:absolute; right:-2px; top:-2px;"/>
+          </form>
+          <!--<a href="javascript:;">搜索</a>-->
         </div>
-		<div class="deslist-box">
-        <ul>
-          <li>
-            <a href="desHome.html" class="des-img"><img src="upload/sjsjg2.jpg" th:src="@{upload/sjsjg2.jpg}"/></a>
-            <div class="pull-left">
-              <div class="name"><a href="desHome.html">甜蜜的萧大师</a><span></span><span class="vip-grade"><em style="background: #c80000;font-family: Microsoft YaHei;color: #FFFFFF;padding-left: 12px;padding-right: 12px;padding-bottom: 4px;padding-top: 4px;">待审核</em></span></div>
-              <div class="leixing">年龄：<span>28岁</span></div>
-              <div class="leixing">性别：<span>女</span></div>
-              <div class="leixing">所属公司：<span>UU外包公司</span></div>
-              <div class="leixing">手机号码：<span>13334448989</span></div>
-            </div>
-            <div class="pull-btn">
-              <button class="gz" type="submit" style="background: #FFFFFF">通过</button>
-              <button type="submit"  class="zhuye">不通过</button>
-            </div>
-          </li>
-        </ul>
+		<div class="deslist-box" th:each="noCheckPerson : ${noCheckPersonList.list}">
+          <ul>
+            <li>
+              <a href="#" class="des-img"><img src="../static/images/logo.jpg" th:src="@{/web/receiveSmallTaskPersonalImage(email=${noCheckPerson.email})}"/></a>
+              <div class="pull-left">
+                <div class="leixing">
+                  姓名：
+                  <span th:text="|${noCheckPerson.name}|">甜蜜的萧大师</span>
+                  <span></span>
+                  <span class="vip-grade"><em style="background: #c80000;font-family: Microsoft YaHei;color: #FFFFFF;padding-left: 12px;padding-right: 12px;padding-bottom: 4px;padding-top: 4px;">待审核</em></span>
+                </div>
+                <div class="leixing">出生日期：<span th:text="|${noCheckPerson.birthyear}-${noCheckPerson.birthmonth}-${noCheckPerson.birthday}|">1997-06-08</span></div>
+                <div class="leixing">性别：<span th:if="${noCheckPerson.gender == 1}">女</span><span th:if="${noCheckPerson.gender == 0}">男</span></div>
+                <div class="leixing">手机号码：<span th:text="${noCheckPerson.phone}">13334448989</span></div>
+              </div>
+              <div class="pull-btn">
+                <a class="gz" type="submit" style="background: #FFFFFF" href="#" th:href="@{/web/receivePerson/check/yes(email=${noCheckPerson.email})}">通过</a>
+                <a type="submit"  class="zhuye" href="#" th:href="@{/web/receivePerson/check/no(email=${noCheckPerson.email})}">不通过</a>
+              </div>
+            </li>
+          </ul>
+        </div>
+
         <div class="listPage">
           <div class="pageBtn">
-            <span class="disabled"><i class="fa fa-caret-left"></i>上一页</span><span class="current">1</span><a href="#">2</a><a href="#">3</a><a href="#">4</a><span>...</span><a href="#">32</a><a href="#">下一页<i class="fa fa-caret-right"></i></a>
-          </div>                    
+            <a href="#" th:href="@{/web/receiveTaskPersonal/no(page=${nowPage}-1)}"><i class="fa fa-caret-left"></i>上一页</a>
+            <span class="current" th:text="${nowPage}">1</span>
+            <a href="#" th:href="@{/web/receiveTaskPersonal/no(page=${nowPage}+1)}">下一页<i class="fa fa-caret-right"></i></a>
+          </div>
         </div>
-      </div>
-
       </div>
     </div>
   </div>

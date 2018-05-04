@@ -23,6 +23,7 @@ public class ProvideSmallTaskAction {
 
     /**
      * 发布外包小任务
+     * @param email 发包人邮箱
      * @param taskName 任务名称
      * @param smallTaskName 小任务名称
      * @param smallTaskDetail 小任务详情
@@ -33,13 +34,11 @@ public class ProvideSmallTaskAction {
      * @return smallTaskID/NULL
      */
     @PostMapping(value = "/api/smallTask")
-    public Integer provideSmallTask(@RequestParam String taskName, @RequestParam String smallTaskName,
+    public Integer provideSmallTask(@RequestParam String email, @RequestParam String taskName, @RequestParam String smallTaskName,
                                     @RequestParam String smallTaskDetail, @RequestParam String endTime,
                                     @RequestParam String receiveSmallTaskEmail,
                                     @RequestParam(required = false) Integer numberProgress,
                                     @RequestParam(required = false) ArrayList<String> customProgressArrayList, HttpServletRequest request) {
-        httpSession = request.getSession();
-        String email = (String)httpSession.getAttribute("email");
         return provideSmallTaskServiceImpl.provideSmallTask(email, taskName, smallTaskName, smallTaskDetail, endTime, receiveSmallTaskEmail, numberProgress, customProgressArrayList);
     }
 }

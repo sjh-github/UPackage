@@ -3,6 +3,10 @@ package com.wwdlb.hongruan.pojo;
 import com.wwdlb.hongruan.model.SmallTask;
 
 public class SmallTaskDetailAndProgressPojo {
+    private String receiveTaskEmail;
+
+    private Integer taskid;
+
     private Integer smalltaskid;
 
     private String smalltaskname;
@@ -20,6 +24,14 @@ public class SmallTaskDetailAndProgressPojo {
     private Integer safetyGrade;
 
     private Integer priority;
+
+    public String getReceiveTaskEmail() {
+        return receiveTaskEmail;
+    }
+
+    public void setReceiveTaskEmail(String receiveTaskEmail) {
+        this.receiveTaskEmail = receiveTaskEmail;
+    }
 
     public Integer getSmalltaskid() {
         return smalltaskid;
@@ -91,6 +103,14 @@ public class SmallTaskDetailAndProgressPojo {
 
     public void setPriority(Integer priority) {
         this.priority = priority;
+    }
+
+    public Integer getTaskid() {
+        return taskid;
+    }
+
+    public void setTaskid(Integer taskid) {
+        this.taskid = taskid;
     }
 
     public void setSmallTask(SmallTask smallTask) {

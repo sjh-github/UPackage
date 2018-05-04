@@ -37,6 +37,13 @@
                 <a href="login.html" th:href="@{/web/logout}" class="last"><i class="fa fa-power-off"></i>退出登录</a>
               </div>
             </li>
+            <li>
+              <td th:if="${signInTime != null}"><span th:text="|签到:${signInTime}|" style="color:#F00">12:47:00</span></td>
+              <td th:unless="${signInTime != null}"><a href="#" th:href="@{/web/signIn}">签到</a></td>
+              <span>&nbsp;</span>
+              <td th:if="${signOutTime != null}"><a href="#" th:href="@{/web/signOut}" th:text="|签退:${signOutTime}|" style="color:#F00">签退</a></td>
+              <td th:unless="${signOutTime != null}"><a href="#" th:href="@{/web/signOut}">签退</a></td>
+            </li>
             <li><a href="#">帮助中心</a></li>
             <li><a href="#">联系我们</a></li>
           </ul>
@@ -77,8 +84,11 @@
         </ul>
       </div>
       <div class="search">
-        <input type="text" class="ipt-sea" placeholder="请输入任务名称" />
-        <a href="javascript:">搜索</a>
+        <form action="#" th:action="@{/web/search/smallTaskName}">
+          <input type="text" class="ipt-sea" placeholder="请输入任务名称" name="smallTaskName"/>
+          <input type="submit" value="搜索" style="width:100px; height:44px; background:#c80000; color:#fff; text-align:center; font-size:16px; line-height:44px; position:absolute; right:-2px; top:-2px;"/>
+        </form>
+        <!--<a href="javascript:;">搜索</a>-->
       </div>
       <div class="num">
         <span>接包人员：<em th:text="${numOfReceiveTaskPersonal}">7,657</em>人</span>
@@ -159,21 +169,22 @@
                 <th class="olist3">时间</th>
                 <th class="olist4">操作</th>
               </tr>
-              <tr>
+              <tr th:each="information : ${informations}">
                 <td>
                   <label>
                   <input type="checkbox"/>
                   </label>
                 </td>
-                <td><em>系统</em></td>
+                <td><em th:text="${information.sendname}">系统</em></td>
                 <td>
                   <div class="xiaoxi-txt">
-                    你的个人信息已审核成功
+                    <span th:text="${information.content}">你的个人信息已审核成功</span>
                   </div>
                 </td>
-                <td>2018/03/18 20:30</td>
-                <td><a href="#">删除</a></td>
+                <td th:text="${information.time}">2018/03/18 20:30</td>
+                <td><a href="#" th:href="@{/web/systemNoticePage/delete(informationID = ${information.inforid})}">删除</a></td>
               </tr>
+
               </tbody>
             </table>
           </div>

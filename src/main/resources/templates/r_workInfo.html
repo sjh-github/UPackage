@@ -147,8 +147,11 @@
             </ul>
           </div>
           <div class="search">
-            <input type="text" class="ipt-sea" placeholder="请输入任务名称" />
-            <a href="javascript:;">搜索</a>
+            <form action="#" th:action="@{/web/search/provideTaskPerson/smallTaskName}">
+              <input type="text" class="ipt-sea" placeholder="请输入任务名称" name="smallTaskName"/>
+              <input type="submit" value="搜索" style="width:100px; height:44px; background:#c80000; color:#fff; text-align:center; font-size:16px; line-height:44px; position:absolute; right:-2px; top:-2px;"/>
+            </form>
+            <!--<a href="javascript:;">搜索</a>-->
           </div>
           <div class="num">
             <span>接包人员：<em th:text="${numOfReceiveTaskPersonal}">7,657</em>人</span>

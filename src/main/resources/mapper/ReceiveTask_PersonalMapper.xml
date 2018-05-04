@@ -28,6 +28,18 @@
   <select id="selectAll" resultMap="BaseResultMap">
     SELECT * from receivetask_personal
   </select>
+  <select id="selectByHaveChecked" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    from receivetask_personal
+    where havechecked = #{haveChecked,jdbcType=VARCHAR}
+  </select>
+  <select id="searchByNameAndHaveChecked" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    from receivetask_personal
+    where havechecked = #{haveChecked,jdbcType=VARCHAR} and name like #{name,jdbcType=VARCHAR}
+  </select>
   <select id="getNumOfAll" resultType="java.lang.Integer">
     SELECT count(*) from receivetask_personal
   </select>

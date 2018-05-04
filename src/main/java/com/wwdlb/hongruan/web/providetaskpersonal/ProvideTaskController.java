@@ -9,6 +9,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -46,7 +47,7 @@ public class ProvideTaskController {
 	@PostMapping(value = "/web/task")
 	public String provideTask(@RequestParam String taskName, @RequestParam(required = false) String taskDetail, @RequestParam Integer safetyGrade, @RequestParam Integer priority,
 							@RequestParam String startTime, @RequestParam String endTime) {
-		if(provideTaskServiceImpl.provideTask(taskName, taskDetail, safetyGrade, priority, startTime, endTime) != null) {
+        if(provideTaskServiceImpl.provideTask(taskName, taskDetail, safetyGrade, priority, startTime, endTime) != null) {
 			return "redirect:/web/taskPage?result=true";
 		} else {
 			return "redirect:/web/taskPage?result=false";

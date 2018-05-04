@@ -2,6 +2,7 @@ package com.wwdlb.hongruan.service.serviceImpl.providetaskpersonal;
 
 import com.wwdlb.hongruan.mapper.*;
 import com.wwdlb.hongruan.model.*;
+import com.wwdlb.hongruan.service.serviceImpl.InformationServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,6 +45,9 @@ public class ProvideSmallTaskServiceImpl /*implements ProvideSmallTaskService*/ 
     @Autowired
     private SmallTaskAndProvidePersonEmailMapper smallTaskAndProvidePersonEmailMapper;
 
+    @Autowired
+    private InformationServiceImpl informationServiceImpl;
+
     /**
      * 发布外包小任务
      * @param taskName 任务名称
@@ -60,6 +64,8 @@ public class ProvideSmallTaskServiceImpl /*implements ProvideSmallTaskService*/ 
                                     Integer numberProgress, ArrayList<String> customProgressArrayList) {
         Integer taskID = taskMapper.selectIDByTaskName(taskName);
         if (taskID == null || taskID <= 0 || email == null) {
+            System.out.println("taskID:" + taskID);
+            System.out.println("email:" + email);
             return null;
         }
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -98,6 +104,9 @@ public class ProvideSmallTaskServiceImpl /*implements ProvideSmallTaskService*/ 
         //创建小任务与发包人关联
         SmallTaskAndProvidePersonEmail smallTaskAndProvidePersonEmail = new SmallTaskAndProvidePersonEmail(email, smallTaskID);
         smallTaskAndProvidePersonEmailMapper.insert(smallTaskAndProvidePersonEmail);
+
+        //添加消息通知
+        informationServiceImpl.insert("系统", email, "您有一个新的任务：" + smallTaskName);
         return smallTaskID;
     }
 }

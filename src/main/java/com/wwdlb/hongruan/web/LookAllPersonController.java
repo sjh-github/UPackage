@@ -1,4 +1,4 @@
-package com.wwdlb.hongruan.web.personaladministrator;
+package com.wwdlb.hongruan.web;
 
 import com.github.pagehelper.PageInfo;
 import com.wwdlb.hongruan.model.ReceiveTask_Personal;

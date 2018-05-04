@@ -39,14 +39,21 @@ public class ProvideTaskServiceImpl {
         if (priority <= 0) {
             return null;
         }
+
+        Integer taskID = taskMapper.selectIDByTaskName(taskName);
+        if (taskID != null) {
+            return null;
+        }
         if (startTime == null) {
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             Date date = new Date();
             startTime = simpleDateFormat.format(date);
         }
+
         Task task = new Task(taskName, taskDetail, safetyGrade, priority, startTime, endTime);
+        task.setProgress(0.0);
         taskMapper.insert(task);
-        Integer taskID = task.getTaskid();
+        taskID = task.getTaskid();
         return taskID;
     }
 }

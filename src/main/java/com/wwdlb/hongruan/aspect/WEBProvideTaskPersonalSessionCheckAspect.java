@@ -34,11 +34,11 @@ public class WEBProvideTaskPersonalSessionCheckAspect {
         response.setDateHeader("Expires", 0); //使缓存过期
         try {
             String role = (String) httpSession.getAttribute("role");
-            if (!role.equals(LoginServiceImpl.ProvideTaskPersonal)) {
-                response.sendRedirect("loginPage");
+            if (role == null) {
+                response.sendRedirect("http://115.159.71.92/hongruan/web/loginPage");
             }
         } catch (Exception e) {
-            response.sendRedirect("loginPage");
+            response.sendRedirect("http://115.159.71.92/hongruan/web/loginPage");
         }
     }
 }

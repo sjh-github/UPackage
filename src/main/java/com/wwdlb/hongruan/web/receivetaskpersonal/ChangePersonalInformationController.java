@@ -3,10 +3,7 @@ package com.wwdlb.hongruan.web.receivetaskpersonal;
 import com.wwdlb.hongruan.Info.Info;
 import com.wwdlb.hongruan.model.ReceiveTask_Personal;
 import com.wwdlb.hongruan.service.serviceImpl.GetNameByEmailServiceImpl;
-import com.wwdlb.hongruan.service.serviceImpl.receivetaskpersonal.ChangePasswordServiceImpl;
-import com.wwdlb.hongruan.service.serviceImpl.receivetaskpersonal.ChangePhoneServiceImpl;
-import com.wwdlb.hongruan.service.serviceImpl.receivetaskpersonal.GetReceiveTaskPersonalServiceImpl;
-import com.wwdlb.hongruan.service.serviceImpl.receivetaskpersonal.NumOfIndexPageServiceImpl;
+import com.wwdlb.hongruan.service.serviceImpl.receivetaskpersonal.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -37,6 +34,9 @@ public class ChangePersonalInformationController {
     @Autowired
     private ChangePhoneServiceImpl changePhoneServiceImpl;
 
+    @Autowired
+    private GetSignTimeServiceImpl getSignTimeServiceImpl;
+
     /**
      * 修改个人信息界面映射
      * @return 修改个人信息界面
@@ -62,6 +62,8 @@ public class ChangePersonalInformationController {
         modelMap.addAttribute("numOfReceiveTaskCompany", numOfIndexPageServiceImpl.getNumOfReceiveTaskCompany());
         modelMap.addAttribute("numOfHaveFinishedSmallTask", numOfIndexPageServiceImpl.getNumOfFinishedSmallTask());
         modelMap.addAttribute("numOfSmallTask", numOfIndexPageServiceImpl.getNumOfSmallTask());
+        modelMap.addAttribute("signInTime", getSignTimeServiceImpl.getSignInTime(email));
+        modelMap.addAttribute("signOutTime", getSignTimeServiceImpl.getSignOutTime(email));
         return "u_ziliao";
     }
 
@@ -90,6 +92,8 @@ public class ChangePersonalInformationController {
         if (updateResult != null) {
             modelMap.addAttribute("updateResult", updateResult);
         }
+        modelMap.addAttribute("signInTime", getSignTimeServiceImpl.getSignInTime(email));
+        modelMap.addAttribute("signOutTime", getSignTimeServiceImpl.getSignOutTime(email));
         return "u_change_psw";
     }
 
@@ -136,6 +140,8 @@ public class ChangePersonalInformationController {
         if (phone != null) {
             modelMap.addAttribute("phone", phone);
         }
+        modelMap.addAttribute("signInTime", getSignTimeServiceImpl.getSignInTime(email));
+        modelMap.addAttribute("signOutTime", getSignTimeServiceImpl.getSignOutTime(email));
         return "u_change_phone";
     }
 

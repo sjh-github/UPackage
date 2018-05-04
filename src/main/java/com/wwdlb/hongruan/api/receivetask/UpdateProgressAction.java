@@ -1,6 +1,5 @@
 package com.wwdlb.hongruan.api.receivetask;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.wwdlb.hongruan.pojo.CustomProgressIDAndResultPojo;

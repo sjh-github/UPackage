@@ -17,7 +17,7 @@ public interface TaskMapper {
 
     int updateByPrimaryKey(Task record);
 
-    int selectIDByTaskName(String taskName);
+    Integer selectIDByTaskName(String taskName);
 
     ArrayList<Task> getAllTask();
 }

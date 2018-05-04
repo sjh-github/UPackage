@@ -64,7 +64,6 @@ public class AttendanceManageServiceImpl {
         if (noSignInPersonEmail == null) {
             return null;
         }
-
         return getReceivePersonAndSignNumPojo(noSignInPersonEmail);
     }
 

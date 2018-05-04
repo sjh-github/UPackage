@@ -33,11 +33,11 @@ public class WEBReceiveTaskCompanySessionCheckAspect {
             response.setDateHeader("Expires", 0); //使缓存过期
             response.setHeader("Pragma","no-cache"); //HTTP 1.0 向后兼容
             String role = (String) httpSession.getAttribute("role");
-            if (!role.equals(LoginServiceImpl.ReceiveTaskCompany)) {
-                response.sendRedirect("loginPage");
+            if (role == null) {
+                response.sendRedirect("http://115.159.71.92/hongruan/web/loginPage");
             }
         } catch (Exception e) {
-            response.sendRedirect("loginPage");
+            response.sendRedirect("http://115.159.71.92/hongruan/web/loginPage");
         }
     }
 }

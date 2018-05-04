@@ -71,4 +71,16 @@ public class SmallTask {
         this.havefinished = havefinished;
         this.finishtime = finishtime;
     }
+
+    @Override
+    public String toString() {
+        return "SmallTask{" +
+                "smalltaskid=" + smalltaskid +
+                ", smalltaskname='" + smalltaskname + '\'' +
+                ", smalltaskdetail='" + smalltaskdetail + '\'' +
+                ", endtime='" + endtime + '\'' +
+                ", havefinished='" + havefinished + '\'' +
+                ", finishtime='" + finishtime + '\'' +
+                '}';
+    }
 }

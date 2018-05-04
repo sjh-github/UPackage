@@ -19,4 +19,6 @@ public interface SmallTaskMapper {
 
     int getNumOfSmallTaskByState(String haveFinished);
 
+    ArrayList<SmallTask> searchBySmallTaskName(String smallTaskName);
+
 }

@@ -18,8 +18,38 @@
     <script type="text/javascript" src="../static/js/jquery.step.js" th:src="@{/js/jquery.step.js}"></script>
     <link href="../static/css/jquery.bxslider.css" th:href="@{/css/jquery.bxslider.css}" rel="stylesheet" type="text/css"/>
     <link href="../static/css/font-awesome.min.css" th:href="@{/css/font-awesome.min.css}" rel="stylesheet" type="text/css"/>
+  <style>
+    table {
+      border-collapse: collapse;
+      font-family: Futura, Arial, sans-serif;
+    }
+    caption {
+      font-size: larger;
+      margin: 1em auto;
+    }
+    th,td {
+      padding: .65em;
+    }
+    th {
+      background: #555 nonerepeat scroll 0 0;
+      border: 1px solid #777;
+      color: #fff;
+    }
+    td {
+      border: 1px solid#777;
+    }
+    tbody tr:nth-child(odd) {
+      background: #ccc;
+    }
+  </style>
   </head>
   <body>
+  <script th:if="${result eq 'true'}">
+      alert("上传成功");
+  </script>
+  <script th:if="${result eq 'false'}">
+      alert("上传失败");
+  </script>
     <!--header-->
     <div class="header">
       <div class="topper">
@@ -41,6 +71,13 @@
                   <a href="login.html" th:href="@{/web/logout}" class="last"><i class="fa fa-power-off"></i>退出登录</a>
                 </div>
               </li>
+              <li>
+                <td th:if="${signInTime != null}"><span th:text="|签到:${signInTime}|" style="color:#F00">12:47:00</span></td>
+                <td th:unless="${signInTime != null}"><a href="#" th:href="@{/web/signIn}">签到</a></td>
+                <span>&nbsp;</span>
+                <td th:if="${signOutTime != null}"><a href="#" th:href="@{/web/signOut}" th:text="|签退:${signOutTime}|" style="color:#F00">签退</a></td>
+                <td th:unless="${signOutTime != null}"><a href="#" th:href="@{/web/signOut}">签退</a></td>
+              </li>
               <li><a href="#">帮助中心</a></li>
               <li><a href="#">联系我们</a></li>
             </ul>
@@ -59,8 +96,11 @@
               </ul>
             </div>
             <div class="search">
-              <input type="text" class="ipt-sea" placeholder="请输入任务名称" />
-              <a href="javascript:;">搜索</a>
+              <form action="#" th:action="@{/web/search/smallTaskName}">
+                <input type="text" class="ipt-sea" placeholder="请输入任务名称" name="smallTaskName"/>
+                <input type="submit" value="搜索" style="width:100px; height:44px; background:#c80000; color:#fff; text-align:center; font-size:16px; line-height:44px; position:absolute; right:-2px; top:-2px;"/>
+              </form>
+              <!--<a href="javascript:;">搜索</a>-->
             </div>
             <div class="num">
               <span>接包人员：<em th:text="${numOfReceiveTaskPersonal}">7,657</em>人</span>
@@ -116,6 +156,7 @@
             <div class="work-details">
               <h1>任务细分</h1>
               <div class="info" th:if="${customProgressPojos != null}">
+                <form action="#" th:action="@{/web/upLoad/customProgress/{smallTaskID}(smallTaskID = ${smallTask.smalltaskid})}" method="post">
                   <div class="step-body" id="myStep">
                       <div class="step-header" style="width:80%">
                         <ul th:each="customProgressPojo : ${customProgressPojos}">
@@ -126,30 +167,40 @@
                         <div class="step-list">
                           <em th:text="${customProgressPojo.customProgress.remark}">收集4000张图片</em>
                           <div class="butModel">
-                            <input type="file" accept="image/*" class="nextBtn" />
+                              <input type="file" accept="*" class="nextBtn" required="required" name="file"/>
+                              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                              <input type="submit" value="上传" />
                           </div>
                         </div>
                       </div>
                     </div>
+                </form>
               </div>
-              <div class="info" th:unless="${customProgressPojos != null}">
-                  <table border="1">
+              <br/>
+              <div style="text-align:center" class="info" th:unless="${customProgressPojos != null}">
+                <form action="#" th:action="@{/web/upLoad/numberProgress/{numberProgressID}/{smallTaskID}((numberProgressID = ${numberProgress.id}),smallTaskID = ${smallTask.smalltaskid})}" method="post" enctype="multipart/form-data">
+                  <table border="1" style="text-align: center;margin:auto">
                     <tr>
                       <td th:width="200px" width="200px">数量指标</td>
                       <td width="200px">已完成</td>
                       <td width="200px">更新时间</td>
                     </tr>
                     <tr>
-                      <td th:text="${numberProgress.numberprogress}">10000</td>
-                      <td th:text="${numberProgress.finishednumber}">5000</td>
+                      <td th:text="${numberProgress.numberprogress}">1000</td>
+                      <td><input th:value="${numberProgress.finishednumber}" value="5000" name="haveFinishedNum" type="number"/></td>
                       <td th:text="${numberProgress.updatetime}">2018-01-02 01:00:00</td>
                     </tr>
                   </table>
+                    <div class="butModel">
+                      <input type="file" accept="*" class="nextBtn" required="required" name="file"/>
+                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                      <input type="submit" value="上传" />
+                    </div>
+                </form>
               </div>
             </div>
               <!--<div class="wrk-lab">剩余时间：  <span><em>7</em>天</span></div>-->
           </div>
-
             <div class="work-recommend">
               <div class="tit-rec">相关文档</div>
               <div class="tit-con">

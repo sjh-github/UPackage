@@ -88,11 +88,10 @@ public class ReceiveSmallTaskPersonManageServiceImpl {
 				return arg1.getNum() - (arg0.getNum());
 			}
 		});
-		if(receivePersonAndSmallTaskNumPojoList.size() > 7) {
-			for(int i = 7; i < receivePersonAndSmallTaskNumPojoList.size(); i++) {
-				receivePersonAndSmallTaskNumPojoList.remove(i);
-			}
+		while (receivePersonAndSmallTaskNumPojoList.size() > 10) {
+		    receivePersonAndSmallTaskNumPojoList.remove(10);
 		}
+		System.out.println("receivePersonAndSmallTaskNumPojoList-size:" + receivePersonAndSmallTaskNumPojoList.size());
 		return receivePersonAndSmallTaskNumPojoList;
 	}
 }

@@ -37,9 +37,9 @@ public class LoginController {
         String result = loginServiceImpl.login(email, password);
         switch (result) {
             case LoginServiceImpl.WrongPassword :
-                return "redirect:/web/loginPage";
+                return "redirect:http://115.159.71.92/hongruan/web/loginPage";
             case LoginServiceImpl.HaveNoAccount :
-                return "redirect:/web/loginPage";
+                return "redirect:http://115.159.71.92/hongruan/web/loginPage";
             case LoginServiceImpl.ReceiveTaskPersonal :
                 httpSession = httpServletRequest.getSession();
                 httpSession.setAttribute("role", LoginServiceImpl.ReceiveTaskPersonal);
@@ -59,14 +59,14 @@ public class LoginController {
                 httpSession = httpServletRequest.getSession();
                 httpSession.setAttribute("role", LoginServiceImpl.PersonnelAdministrator);
                 httpSession.setAttribute("email", email);
-                return "redirect:/web/indexPage/personalAdministrator";
+                return "redirect:/web/receiveTaskPersonal/no";
             case LoginServiceImpl.SuperAdministrator :
                 httpSession = httpServletRequest.getSession();
                 httpSession.setAttribute("role", LoginServiceImpl.SuperAdministrator);
                 httpSession.setAttribute("email", email);
                 return "redirect:/web/indexPage/superAdministrator";
             default :
-                return "redirect:/web/loginPage";
+                return "redirect:http://115.159.71.92/hongruan/web/loginPage";
         }
     }
 }

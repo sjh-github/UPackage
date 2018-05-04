@@ -100,6 +100,7 @@ public class SmallTaskManageServiceImpl {
                 if (taskAndSmallTask != null) {
                     task = taskMapper.selectByPrimaryKey(taskAndSmallTask.getTaskid());
                     if (task != null) {
+                        smallTaskDetailAndProgressPojo.setTaskid(taskID);
                         smallTaskDetailAndProgressPojo.setSafetyGrade(task.getSafetygrade());
                         smallTaskDetailAndProgressPojo.setPriority(task.getPriority());
                         Integer progress = smallTaskAndProgressServiceImpl.getProgressBySmallTaskID(smallTaskID);
