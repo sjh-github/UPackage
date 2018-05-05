@@ -1,5 +1,6 @@
 package com.wwdlb.hongruan.service.serviceImpl;
 
+import com.wwdlb.hongruan.Info.Info;
 import com.wwdlb.hongruan.mapper.PersonnelAdministratorMapper;
 import com.wwdlb.hongruan.mapper.ProvideTask_PersonalMapper;
 import com.wwdlb.hongruan.mapper.ReceiveTask_CompanyMapper;
@@ -39,38 +40,43 @@ public class ShowImageServiceImpl {
      * @param email 接包人邮箱
      */
     public void showReceiveTaskPersonalPhoto(HttpServletResponse httpServletResponse, String email) {
+        File file;
         BufferedInputStream bis = null;
         int length;
-        String userPhoto = "";
-        try {
-            ReceiveTask_Personal receiveTask_personal = receiveTask_personalMapper.selectByPrimaryKey(email);
-			//存在该接包人
-            if (receiveTask_personal != null) {
-                userPhoto = receiveTask_personal.getIdfile();
-                if (userPhoto == null || userPhoto.equals("")) {
-					//显示默认照片
-					userPhoto = defaultPhotoImageAddress;
-                } else {
-                    File file = new File(userPhoto);
-                    if (!file.exists()) {
+        String userPhoto;
+        if (email == null) {
+            userPhoto = Info.basePhotoAddress;
+        } else {
+            try {
+                ReceiveTask_Personal receiveTask_personal = receiveTask_personalMapper.selectByPrimaryKey(email);
+                //存在该接包人
+                if (receiveTask_personal != null) {
+                    userPhoto = receiveTask_personal.getIdfile();
+                    if (userPhoto == null || userPhoto.equals("")) {
+                        //显示默认照片
                         userPhoto = defaultPhotoImageAddress;
+                    } else {
+                        file = new File(userPhoto);
+                        if (!file.exists()) {
+                            userPhoto = defaultPhotoImageAddress;
+                        }
                     }
+                } else {
+                    userPhoto = Info.basePhotoAddress;
                 }
-            } else {
-				return;
-			}
-            bis = new BufferedInputStream(new FileInputStream(new File(userPhoto)));
-            byte[] bytes = new byte[1024*1024];
-            ByteArrayOutputStream out = new ByteArrayOutputStream(1024*1024);
-            while((length = bis.read(bytes))!=-1){
-                out.write(bytes,0,length);
+                bis = new BufferedInputStream(new FileInputStream(new File(userPhoto)));
+                byte[] bytes = new byte[1024*1024];
+                ByteArrayOutputStream out = new ByteArrayOutputStream(1024*1024);
+                while((length = bis.read(bytes))!=-1){
+                    out.write(bytes,0,length);
+                }
+                bis.close();
+                ServletOutputStream sevletOutputStream = httpServletResponse.getOutputStream();
+                out.writeTo(sevletOutputStream);
+                out.flush();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-            bis.close();
-            ServletOutputStream sevletOutputStream = httpServletResponse.getOutputStream();
-            out.writeTo(sevletOutputStream);
-            out.flush();
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 
@@ -82,35 +88,39 @@ public class ShowImageServiceImpl {
     public void showProvideTaskPersonalPhoto(HttpServletResponse httpServletResponse, String email) {
         BufferedInputStream bis = null;
         int length;
-        String userPhoto = "";
-        try {
-            ProvideTask_Personal provideTask_personal = provideTask_personalMapper.selectByPrimaryKey(email);
-            if (provideTask_personal != null) {
-                userPhoto = provideTask_personal.getIdfile();
-				//显示默认照片
-                if (userPhoto == null || userPhoto.equals("")) {
-                    userPhoto = defaultPhotoImageAddress;
-                } else {
-                    File file = new File(userPhoto);
-                    if (!file.exists()) {
+        String userPhoto;
+        if (email == null) {
+            userPhoto = Info.basePhotoAddress;
+        } else {
+            try {
+                ProvideTask_Personal provideTask_personal = provideTask_personalMapper.selectByPrimaryKey(email);
+                if (provideTask_personal != null) {
+                    userPhoto = provideTask_personal.getIdfile();
+                    //显示默认照片
+                    if (userPhoto == null || userPhoto.equals("")) {
                         userPhoto = defaultPhotoImageAddress;
+                    } else {
+                        File file = new File(userPhoto);
+                        if (!file.exists()) {
+                            userPhoto = defaultPhotoImageAddress;
+                        }
                     }
+                } else {
+                    userPhoto = Info.basePhotoAddress;
                 }
-            } else {
-				return;
-			}
-            bis = new BufferedInputStream(new FileInputStream(new File(userPhoto)));
-            byte[] bytes = new byte[1024*1024];
-            ByteArrayOutputStream out = new ByteArrayOutputStream(1024*1024);
-            while((length = bis.read(bytes))!=-1){
-                out.write(bytes,0,length);
+                bis = new BufferedInputStream(new FileInputStream(new File(userPhoto)));
+                byte[] bytes = new byte[1024*1024];
+                ByteArrayOutputStream out = new ByteArrayOutputStream(1024*1024);
+                while((length = bis.read(bytes))!=-1){
+                    out.write(bytes,0,length);
+                }
+                bis.close();
+                ServletOutputStream sevletOutputStream = httpServletResponse.getOutputStream();
+                out.writeTo(sevletOutputStream);
+                out.flush();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-            bis.close();
-            ServletOutputStream sevletOutputStream = httpServletResponse.getOutputStream();
-            out.writeTo(sevletOutputStream);
-            out.flush();
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 	
@@ -122,44 +132,45 @@ public class ShowImageServiceImpl {
     public void showPersonnelAdministratorPhoto(HttpServletResponse httpServletResponse, String email) {
         BufferedInputStream bis = null;
         int length;
-        String userPhoto = "";
-        try {
-            PersonnelAdministrator personnelAdministrator = personnelAdministratorMapper.selectByPrimaryKey(email);
-            if (personnelAdministrator != null) {
-                userPhoto = personnelAdministrator.getIdfile();
-				//显示默认照片
-                if (userPhoto == null || userPhoto.equals("")) {
-                    System.out.println("默认照片");
-                    userPhoto = defaultPhotoImageAddress;
-                } else {
-                    System.out.println("照片：" + userPhoto);
-                    File file = new File(userPhoto);
-                    if (!file.exists()) {
+        String userPhoto;
+        if (email == null) {
+            userPhoto = Info.basePhotoAddress;
+        } else {
+            try {
+                PersonnelAdministrator personnelAdministrator = personnelAdministratorMapper.selectByPrimaryKey(email);
+                if (personnelAdministrator != null) {
+                    userPhoto = personnelAdministrator.getIdfile();
+                    //显示默认照片
+                    if (userPhoto == null || userPhoto.equals("")) {
                         userPhoto = defaultPhotoImageAddress;
+                    } else {
+                        System.out.println("照片：" + userPhoto);
+                        File file = new File(userPhoto);
+                        if (!file.exists()) {
+                            userPhoto = defaultPhotoImageAddress;
+                        }
                     }
+                } else {
+                    userPhoto = Info.basePhotoAddress;
                 }
-            } else {
-				return;
-			}
-            bis = new BufferedInputStream(new FileInputStream(new File(userPhoto)));
-            byte[] bytes = new byte[1024*1024];
-            ByteArrayOutputStream out = new ByteArrayOutputStream(1024*1024);
-            while((length = bis.read(bytes))!=-1){
-                out.write(bytes,0,length);
+                bis = new BufferedInputStream(new FileInputStream(new File(userPhoto)));
+                byte[] bytes = new byte[1024*1024];
+                ByteArrayOutputStream out = new ByteArrayOutputStream(1024*1024);
+                while((length = bis.read(bytes))!=-1){
+                    out.write(bytes,0,length);
+                }
+                bis.close();
+                ServletOutputStream sevletOutputStream = httpServletResponse.getOutputStream();
+                out.writeTo(sevletOutputStream);
+                out.flush();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-            bis.close();
-            ServletOutputStream sevletOutputStream = httpServletResponse.getOutputStream();
-            out.writeTo(sevletOutputStream);
-            out.flush();
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 
     /**
      * 显示接包公司照片
-     * @param httpServletResponse response
-     * @param email 接包公司邮箱
      *//*
     public void showReceiveTaskCompanyPhoto(HttpServletResponse httpServletResponse, String email) {
         BufferedInputStream bis = null;
@@ -197,11 +208,14 @@ public class ShowImageServiceImpl {
     }*/
 
     public void showImage(HttpServletResponse httpServletResponse, String address) throws IOException {
+            if (address == null) {
+                address = Info.basePhotoAddress;
+            }
             BufferedInputStream bis = null;
             int length;
             File file = new File(address);
             if (!file.exists()) {
-                return;
+                file = new File(Info.basePhotoAddress);
             }
             try {
                 bis = new BufferedInputStream(new FileInputStream(file));

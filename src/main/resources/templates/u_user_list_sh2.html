@@ -142,7 +142,7 @@
 		<div class="deslist-box" th:each="noCheckPerson : ${noCheckPersonList}">
           <ul>
             <li>
-              <a href="#" class="des-img"><img src="../static/images/logo.jpg" th:src="@{/web/receiveSmallTaskPersonalImage(email=${noCheckPerson.email})}"/></a>
+              <a href="#" th:href="@{/web/receiveTaskPersonal/detail(email = ${noCheckPerson.email})}" class="des-img"><img src="../static/images/logo.jpg" th:src="@{/web/receiveSmallTaskPersonalImage(email=${noCheckPerson.email})}"/></a>
               <div class="pull-left">
                 <div class="leixing">
                   姓名：

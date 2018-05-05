@@ -4,4 +4,5 @@ public class Info {
     public static String checkCode;
     public static String upLoadAddress = "/usr/java/resource/hongruan/";
     public static String receiveTaskPersonPhotoBaseAddress = "/usr/java/resource/hongruan/receiveTaskPersonal/";
+    public static String basePhotoAddress = "/usr/java/resource/hongruan/logo.jpg";
 }
