@@ -195,4 +195,27 @@ public class ShowImageServiceImpl {
             e.printStackTrace();
         }
     }*/
+
+    public void showImage(HttpServletResponse httpServletResponse, String address) throws IOException {
+            BufferedInputStream bis = null;
+            int length;
+            File file = new File(address);
+            if (!file.exists()) {
+                return;
+            }
+            try {
+                bis = new BufferedInputStream(new FileInputStream(file));
+            } catch (FileNotFoundException e1) {
+                e1.printStackTrace();
+            }
+            byte[] bytes = new byte[1024*1024];
+            ByteArrayOutputStream out = new ByteArrayOutputStream(1024*1024);
+            while((length = bis.read(bytes))!=-1){
+                out.write(bytes,0,length);
+            }
+            bis.close();
+            ServletOutputStream sevletOutputStream = httpServletResponse.getOutputStream();
+            out.writeTo(sevletOutputStream);
+            out.flush();
+    }
 }

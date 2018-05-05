@@ -34,7 +34,7 @@ public class ReceiveSmallTaskPersonManageServiceImpl {
      * @return 接包人员列表及其正在进行的小任务数量/NULL:无接包人员列表
      */
     public ArrayList<ReceivePersonAndSmallTaskNumPojo> receiveSmallTaskSurvey() {
-        List<ReceiveTask_Personal> receiveTaskPersonalList = receiveTask_personalMapper.selectAll();
+        List<ReceiveTask_Personal> receiveTaskPersonalList = receiveTask_personalMapper.selectByHaveChecked("T");
         //暂无接包人员列表
         if (receiveTaskPersonalList == null) {
             return null;

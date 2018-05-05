@@ -56,7 +56,7 @@ public class U_IndexController {
             int nowyear = Integer.parseInt(simpleDateFormat.format(date));
             int birthyear = receiveTask_personal.getBirthyear();
             modelMap.addAttribute("age", nowyear - birthyear);
-            if (receiveTask_personal.getHavechecked().equals("F")) {
+            if (receiveTask_personal.getHavechecked().equals("F") || receiveTask_personal.getHavechecked().equals("N")) {
                 modelMap.addAttribute("haveChecked",false);
             } else {
                 modelMap.addAttribute("haveChecked",true);

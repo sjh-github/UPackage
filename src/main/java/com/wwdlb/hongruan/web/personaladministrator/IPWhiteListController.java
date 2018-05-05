@@ -29,7 +29,7 @@ public class IPWhiteListController {
      */
     @GetMapping(value = "/web/IPWhiteList")
     public String IPWhiteListPage(@RequestParam(required = false) String result, ModelMap modelMap, @RequestParam(required = false)String updateResult,
-                                  HttpServletRequest request) {
+                                  HttpServletRequest request, @RequestParam(required = false)String insertResult) {
         httpSession = request.getSession();
         String email = (String)httpSession.getAttribute("email");
         modelMap.addAttribute("email", email);
@@ -41,6 +41,9 @@ public class IPWhiteListController {
             modelMap.addAttribute("updateResult", updateResult);
         }
         modelMap.addAttribute("ipWhiteList", ipWhiteListServiceImpl.getAllIPWhiteList());
+        if (insertResult != null) {
+            modelMap.addAttribute("insertResult", insertResult);
+        }
         return "IPWhiteList";
     }
 
@@ -73,5 +76,25 @@ public class IPWhiteListController {
             return "redirect:/web/IPWhiteList?result=true";
         }
         return "redirect:/web/IPWhiteList?result=false";
+    }
+
+    /**
+     * 新增IP白名单界面
+     */
+    @GetMapping(value = "/web/insert/IPWhileListPage")
+    public String insertWhiteListPage(HttpServletRequest request, ModelMap modelMap) {
+        httpSession = request.getSession();
+        String email = (String)httpSession.getAttribute("email");
+        modelMap.addAttribute("email", email);
+        modelMap.addAttribute("name", getNameByEmailServiceImpl.getPersonalAdministratorNameByEmail(email));
+        return "IPWhiteListAdd";
+    }
+
+    @PostMapping(value = "/web/insert/IPWhiteList")
+    public String insertWhiteList(@RequestParam String startAddress, @RequestParam String endAddress, @RequestParam String remark) {
+        if(ipWhiteListServiceImpl.insertIPWhiltList(startAddress, endAddress, remark)) {
+            return "redirect:/web/IPWhiteList";
+        }
+        return "redirect:/web/IPWhiteList?insertResult=false";
     }
 }

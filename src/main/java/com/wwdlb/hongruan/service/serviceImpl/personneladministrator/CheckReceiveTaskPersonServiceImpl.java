@@ -41,7 +41,8 @@ public class CheckReceiveTaskPersonServiceImpl {
     public boolean noPassReceiveTaskPerson(String email) {
         ReceiveTask_Personal receiveTask_personal = receiveTask_personalMapper.selectByPrimaryKey(email);
         if (receiveTask_personal != null) {
-            receiveTask_personalMapper.deleteByPrimaryKey(email);
+            receiveTask_personal.setHavechecked("N");
+            receiveTask_personalMapper.updateByPrimaryKeySelective(receiveTask_personal);
             informationServiceImpl.insert("系统", email, "您的个人信息审核失败");
             return true;
         }

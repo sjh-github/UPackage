@@ -18,8 +18,8 @@ public class ReceiveTaskPersonManageServiceImpl {
     private ReceiveTask_PersonalMapper receiveTask_personalMapper;
 
     /**
-     * 未核对人员
-     * @return 未核对人员名单
+     * 未审核人员
+     * @return 未审核人员名单
      */
     public PageInfo<ReceiveTask_Personal> noCheckReceiveTaskPerson(int page, int per_page) {
         PageHelper.startPage(page, per_page);
@@ -27,8 +27,8 @@ public class ReceiveTaskPersonManageServiceImpl {
     }
 
     /**
-     * 已核对人员
-     * @return 已核对人员名单
+     * 已审核通过人员
+     * @return 已审核通过人员名单
      */
     public PageInfo<ReceiveTask_Personal> yesCheckReceiveTaskPerson(int page, int per_page) {
         PageHelper.startPage(page, per_page);

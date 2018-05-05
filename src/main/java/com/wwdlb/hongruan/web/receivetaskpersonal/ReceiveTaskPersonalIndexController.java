@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -33,7 +34,7 @@ public class ReceiveTaskPersonalIndexController {
     private GetSignTimeServiceImpl getSignTimeServiceImpl;
 
     @GetMapping(value = "/web/indexPage/receiveTaskPersonal")
-    public String receiveTaskPersonalIndexPage(HttpServletRequest httpServletRequest, ModelMap modelMap) {
+    public String receiveTaskPersonalIndexPage(HttpServletRequest httpServletRequest, ModelMap modelMap, @RequestParam(required = false)String inIPWhiteList) {
         httpSession = httpServletRequest.getSession();
         try {
                 String email = (String) httpSession.getAttribute("email");
@@ -49,6 +50,10 @@ public class ReceiveTaskPersonalIndexController {
                 modelMap.addAttribute("AllSmallTasks", lookSmallTaskServiceImpl.findRunningSmallTask(allSmallTasks));
                 modelMap.addAttribute("signInTime", getSignTimeServiceImpl.getSignInTime(email));
                 modelMap.addAttribute("signOutTime", getSignTimeServiceImpl.getSignOutTime(email));
+
+                if (inIPWhiteList != null) {
+                    modelMap.addAttribute("inIPWhiteList", inIPWhiteList);
+                }
                 return "receiveTaskPersonalIndex";
         } catch (Exception e) {
             return "redirect:http://115.159.71.92/hongruan/web/loginPage";

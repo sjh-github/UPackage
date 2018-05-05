@@ -16,6 +16,12 @@
   <link href="../static/css/font-awesome.min.css" th:href="@{/css/font-awesome.min.css}" rel="stylesheet" type="text/css"/>
 </head>
   <body>
+  <script th:if="${result eq 'true'}">
+      alert("提交成功");
+  </script>
+  <script th:if="${result eq 'false'}">
+      alert("提交失败");
+  </script>
     <div class="topper">
       <div class="wrap cl">
         <div class="t-left">您好，欢迎来到虹软外包管理平台！</div>
@@ -159,62 +165,64 @@
                 <ul>
                   <li>1. 我们将对您的个人信息绝对保密</li>
                   <li>2. 认证后才可进行任务</li>
-                  <li>3. 认证成功后不可修改</li>
+                  <!--<li>3. 认证成功后不可修改</li>-->
                 </ul>
               </div>
-              <div class="public_m4">
-                <p>
-                  <em>真实姓名：</em>
-                  <label>
-                    <input type="text" class="u-ipt-txt" required="required"/>
-                  </label>
-                </p>
-                <p>
-                  <em>身份证号：</em>
-                  <label>
-                    <input type="text" class="u-ipt-txt" required="required"/>
-                  </label>
-                </p>
-                <p>
-                  <em>上传身份证正面：</em>
-                  <span class="fla-upload-btn">
-                    <input type="file" id="file1" name=""/>
-                    <div id="idcard1" style="background:#CCCCCC; float:left;">
-                      <img src="../static/images/touxiang.png" th:href="@{/images/touxiang.png}" onload='if (this.width>200 || this.height>250) if (this.width/this.height>200/250) this.width=200; else this.height=250;' />
-                    </div>
-                   </span>
-                </p>
-                <script>
-                    document.getElementById('file1').onchange = function() {
-                        var imgFile = this.files[0];
-                        var fr = new FileReader();
-                        fr.onload = function() {
-                            document.getElementById('idcard1').getElementsByTagName('img')[0].src = fr.result;
-                        };
-                        fr.readAsDataURL(imgFile);
-                    };
-                </script>
-                <p>
-                  <em>上传身份证反面：</em>
-                  <span class="fla-upload-btn">
-                    <input type="file" id="file2" name=""/>
-                    <div id="idcard2" style="background:#CCCCCC; float:left;">
-                      <img src="../static/images/touxiang.png" th:href="@{/images/touxiang.png}" onload='if (this.width>200 || this.height>250) if (this.width/this.height>200/250) this.width=200; else this.height=250;' />
-                    </div>
-                   </span>
-                </p>
-                <script>
-                    document.getElementById('file2').onchange = function() {
-                        var imgFile = this.files[0];
-                        var fr = new FileReader();
-                        fr.onload = function() {
-                            document.getElementById('idcard2').getElementsByTagName('img')[0].src = fr.result;
-                        };
-                        fr.readAsDataURL(imgFile);
-                    };
-                </script>
-                <input type="submit" value="提交认证" class="public_m3" onclick="shenhe()"/>
-              </div>
+              <form action="#" th:action="@{/web/personalIdentityConfim}" method="post" enctype="multipart/form-data">
+                <div class="public_m4">
+                  <p>
+                    <em>真实姓名：</em>
+                    <label>
+                      <input type="text" name="name" class="u-ipt-txt" required="required" th:value="${name}"/>
+                    </label>
+                  </p>
+                  <p>
+                    <em>身份证号：</em>
+                    <label>
+                      <input type="text" name="idCard" class="u-ipt-txt" required="required" maxlength="18" th:value="${idCard}"/>
+                    </label>
+                  </p>
+                  <p>
+                    <em>上传身份证正面：</em>
+                    <span class="fla-upload-btn">
+                      <input type="file" id="file1" name="topIDFile" required="required"/>
+                      <div id="idcard1" style="background:#CCCCCC; float:left;">
+                        <img src="../static/images/touxiang.png" th:src="@{/web/image(address=${topIDFile})}" onload='if (this.width>200 || this.height>250) if (this.width/this.height>200/250) this.width=200; else this.height=250;'/>
+                      </div>
+                     </span>
+                  </p>
+                  <script>
+                      document.getElementById('file1').onchange = function() {
+                          var imgFile = this.files[0];
+                          var fr = new FileReader();
+                          fr.onload = function() {
+                              document.getElementById('idcard1').getElementsByTagName('img')[0].src = fr.result;
+                          };
+                          fr.readAsDataURL(imgFile);
+                      };
+                  </script>
+                  <p>
+                    <em>上传身份证反面：</em>
+                    <span class="fla-upload-btn">
+                      <input type="file" id="file2" name="downIDFile" required="required"/>
+                      <div id="idcard2" style="background:#CCCCCC; float:left;">
+                        <img src="../static/images/touxiang.png" th:src="@{/web/image(address=${downIDFile})}" onload='if (this.width>200 || this.height>250) if (this.width/this.height>200/250) this.width=200; else this.height=250;'/>
+                      </div>
+                     </span>
+                  </p>
+                  <script>
+                      document.getElementById('file2').onchange = function() {
+                          var imgFile = this.files[0];
+                          var fr = new FileReader();
+                          fr.onload = function() {
+                              document.getElementById('idcard2').getElementsByTagName('img')[0].src = fr.result;
+                          };
+                          fr.readAsDataURL(imgFile);
+                      };
+                  </script>
+                  <input type="submit" value="提交认证" class="public_m3"/>
+                </div>
+              </form>
             </div>
 
           </div>

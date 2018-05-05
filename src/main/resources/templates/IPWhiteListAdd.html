@@ -45,7 +45,7 @@
 <body>
 <!--<script  th:if="${result eq 'true'}">
     alert("删除成功");
-</script>-->
+</script>
 <script  th:if="${result eq 'false'}">
     alert("删除失败");
 </script>
@@ -53,11 +53,8 @@
     alert("更新成功");
 </script>
 <script  th:if="${updateResult eq 'false'}">
-    alert("更新失败，请保证符合标准");
-</script>
-<script  th:if="${insertResult eq 'false'}">
-    alert("新增失败，请保证符合标准");
-</script>
+    alert("更新失败");
+</script>-->
 <div class="topper">
   <div class="wrap cl">
     <div class="t-left">您好，欢迎来到虹软外包管理平台！</div>
@@ -85,7 +82,7 @@
     $(function () {
         var setTime;
         $(".user-list").hover(function () {
-			var _this = $(this); 
+			var _this = $(this);
             setTime = setTimeout(function () {
 				_this.addClass("hover");
 				$(".top-user i").removeClass("fa-caret-down").addClass("fa-caret-up");
@@ -146,51 +143,36 @@
 	})
 </script>
   <!--right-->
-
   <div class="centers_mr">
     <div class="centers_r_items">
-      <div style="text-align: right">
-        <a href="IPWhiteListAdd.html" th:href="@{/web/insert/IPWhileListPage}" style="text-align:right;font-size: large; line-height:50px;" class="button border-blue">新增</a>
-      </div>
-
-      <div class="tip_notem" align="center">
-        <ul>
-          <li>1. 请保证IP终止地址始终大于等于起始地址</li>
-          <li>2. 请保证IP地址格式为十进制</li>
-          <!--<li>3. 认证成功后不可修改</li>-->
-        </ul>
-      </div>
-      <div class="items-con">
-        <table class="hovertable">
-          <tr>
-            <th>序号</th>
-            <th>IP起始地址</th>
-            <th>IP终止地址</th>
-            <th>备注</th>
-            <th colspan="2">操作</th>
-          </tr>
-          <tbody>
-          <tr th:each="user,iterStat : ${ipWhiteList}" class="tr-link">
-            <form action="IPWhiteList.html" th:action="@{/web/update/IPWhiteList/{ipWhiteListID}(ipWhiteListID=${user.ipwhitelistid})}" method="get">
-                <td th:text="${iterStat.count}">1</td>
-                <td><input th:value="${user.startaddress}" value="开始地址" name="startstartaddress"/></td>
-                <td><input th:value="${user.endaddress}" value="终止地址" name="endaddress"/></td>
-                <td><input th:value="${user.remark}" value="备注" name="remark"/></td>
-                <td>
-                  <div class="button-group">
-                    <input class="icon-edit" type="submit" value="更新"/><!--<span class="icon-edit">更新</span>-->
-                    <!--<a th:href="@{/web/update/IPWhiteList(userID = ${user.userno})}"></a>-->
-                  </div>
-                </td>
+        <div class="items-con">
+          <br/><br/>
+          <div class="tip_notem" align="center">
+            <ul>
+              <li>1. 请保证IP终止地址始终大于等于起始地址</li>
+              <li>2. 请保证IP地址格式为十进制</li>
+              <!--<li>3. 认证成功后不可修改</li>-->
+            </ul>
+          </div>
+          <br/><br/>
+            <form action="#" th:action="@{/web/insert/IPWhiteList}" method="post" class="bordered">
+              <table border="1">
+                <tr>
+                  <th>IP起始地址</th>
+                  <td><input type="text" name="startAddress" required="required" style="text-align: center" placeholder="请输入IP起始地址" /></td>
+                </tr>
+                <tr>
+                  <th>IP终止地址</th>
+                  <td><input type="text" name="endAddress" required="required" style="text-align: center" placeholder="请输入IP终止地址"/></td>
+                </tr>
+                <tr>
+                  <th>备注</th>
+                  <td><input type="text" name="remark" required="required" style="text-align: center" placeholder="请输入备注"/></td>
+                </tr>
+              </table>
+              <br/><br/><br/><br/><br/>
+              <input type="submit" style="margin-left: 85%;margin-top: -10%" class="button border-green" value="新增"/>
             </form>
-            <td>
-              <div class="button-group">
-                <a th:href="@{/web/delete/IPWhiteList(ipWhiteListID = ${user.ipwhitelistid})}" href="IPWhiteList.html"><span class="icon-trash-o">删除</span></a>
-              </div>
-            </td>
-          </tr>
-          </tbody>
-        </table>
         </div>
       </div>
     </div>

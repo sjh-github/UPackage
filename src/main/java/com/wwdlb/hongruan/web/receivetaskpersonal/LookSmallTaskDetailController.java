@@ -5,10 +5,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.wwdlb.hongruan.model.*;
 import com.wwdlb.hongruan.pojo.CustomProgressPojo;
-import com.wwdlb.hongruan.service.serviceImpl.GetNameByEmailServiceImpl;
-import com.wwdlb.hongruan.service.serviceImpl.GetSmallTaskByIDServiceImpl;
-import com.wwdlb.hongruan.service.serviceImpl.SmallTaskAndProgressServiceImpl;
-import com.wwdlb.hongruan.service.serviceImpl.SmallTaskAndTaskServiceImpl;
+import com.wwdlb.hongruan.service.serviceImpl.*;
 import com.wwdlb.hongruan.service.serviceImpl.receivetaskpersonal.GetReceiveTaskPersonalServiceImpl;
 import com.wwdlb.hongruan.service.serviceImpl.receivetaskpersonal.GetSignTimeServiceImpl;
 import com.wwdlb.hongruan.service.serviceImpl.receivetaskpersonal.LookSmallTaskServiceImpl;
@@ -58,6 +55,9 @@ public class LookSmallTaskDetailController {
     @Autowired
     private GetSignTimeServiceImpl getSignTimeServiceImpl;
 
+    @Autowired
+    private IPCheckServiceImpl ipCheckServiceImpl;
+
     /**
      * 查看小任务详情界面
      * @return 小任务详情界面
@@ -65,46 +65,56 @@ public class LookSmallTaskDetailController {
     @GetMapping(value = "/web/receiveTaskPerson/smallTaskDetailPage")
     public String lookSmallTaskDetailPage(HttpServletRequest request, ModelMap modelMap, @RequestParam Integer smallTaskID,
                                           @RequestParam(required = false)String result) {
-        httpSession = request.getSession();
-        String email = (String) httpSession.getAttribute("email");
-        if (result != null) {
-            modelMap.addAttribute("result", result);
-        }
-        ReceiveTask_Personal receiveTask_personal = getReceiveTaskPersonalServiceImpl.getReceiveTaskPersonalByEmail(email);
-        if (receiveTask_personal != null) {
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy");
-            Date date = new Date();
-            int nowyear = Integer.parseInt(simpleDateFormat.format(date));
-            int birthyear = receiveTask_personal.getBirthyear();
-            modelMap.addAttribute("age", nowyear - birthyear);
-        }
-        modelMap.addAttribute("email", email);
-        modelMap.addAttribute("name", getNameByEmailServiceImpl.getReceiveTaskPersonalNameByEmail(email));
-        modelMap.addAttribute("numOfReceiveTaskPersonal", numOfIndexPageServiceImpl.getNumOfReceiveTaskPersonal());
-        modelMap.addAttribute("numOfReceiveTaskCompany", numOfIndexPageServiceImpl.getNumOfReceiveTaskCompany());
-        modelMap.addAttribute("numOfHaveFinishedSmallTask", numOfIndexPageServiceImpl.getNumOfFinishedSmallTask());
-        modelMap.addAttribute("numOfSmallTask", numOfIndexPageServiceImpl.getNumOfSmallTask());
+            Task task = smallTaskAndTaskServiceImpl.getTaskBySmallTaskID(smallTaskID);
+            if (task != null) {
+                if (task.getSafetygrade() == 2 || task.getSafetygrade() == 4) {
+                    //IP检测
+                    String ipAddress = request.getRemoteAddr();
+                    if (!ipCheckServiceImpl.isInWhiteList(ipAddress)) {
+                        return "redirect:/web/indexPage/receiveTaskPersonal?inIPWhiteList=false";
+                    }
+                }
+                modelMap.addAttribute("safeGrade", task.getSafetygrade());
+                modelMap.addAttribute("priority", task.getPriority());
+                modelMap.addAttribute("startTime", task.getStarttime());
+            } else {
+                return "redirect:/web/indexPage/receiveTaskPersonal?inIPWhiteList=false";
+            }
+            httpSession = request.getSession();
+            String email = (String) httpSession.getAttribute("email");
+            if (result != null) {
+                modelMap.addAttribute("result", result);
+            }
+            ReceiveTask_Personal receiveTask_personal = getReceiveTaskPersonalServiceImpl.getReceiveTaskPersonalByEmail(email);
+            if (receiveTask_personal != null) {
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy");
+                Date date = new Date();
+                int nowyear = Integer.parseInt(simpleDateFormat.format(date));
+                int birthyear = receiveTask_personal.getBirthyear();
+                modelMap.addAttribute("age", nowyear - birthyear);
+            }
+            modelMap.addAttribute("email", email);
+            modelMap.addAttribute("name", getNameByEmailServiceImpl.getReceiveTaskPersonalNameByEmail(email));
+            modelMap.addAttribute("numOfReceiveTaskPersonal", numOfIndexPageServiceImpl.getNumOfReceiveTaskPersonal());
+            modelMap.addAttribute("numOfReceiveTaskCompany", numOfIndexPageServiceImpl.getNumOfReceiveTaskCompany());
+            modelMap.addAttribute("numOfHaveFinishedSmallTask", numOfIndexPageServiceImpl.getNumOfFinishedSmallTask());
+            modelMap.addAttribute("numOfSmallTask", numOfIndexPageServiceImpl.getNumOfSmallTask());
 
-        //任务详情
-        modelMap.addAttribute("smallTask", getSmallTaskByIDServiceImpl.getSmallTaskByID(smallTaskID));
-        Task task = smallTaskAndTaskServiceImpl.getTaskBySmallTaskID(smallTaskID);
-        if (task != null) {
-            modelMap.addAttribute("safeGrade", task.getSafetygrade());
-            modelMap.addAttribute("priority", task.getPriority());
-            modelMap.addAttribute("startTime", task.getStarttime());
-        }
-        SmallTaskAndNumberProgress smallTaskAndNumberProgress = smallTaskAndProgressServiceImpl.getSmallTaskAndNumberProgressBySmallTaskID(smallTaskID);
-        if (smallTaskAndNumberProgress == null) {
-            //自定义指标
-            ArrayList<CustomProgressPojo> customProgressPojos = smallTaskAndProgressServiceImpl.getSmallTaskAndCustomProgressBySmallTaskID(smallTaskID);
-            modelMap.addAttribute("customProgressPojos", customProgressPojos);
-        } else {
-            //数量指标
-            modelMap.addAttribute("numberProgress", smallTaskAndNumberProgress);
-        }
-        modelMap.addAttribute("signInTime", getSignTimeServiceImpl.getSignInTime(email));
-        modelMap.addAttribute("signOutTime", getSignTimeServiceImpl.getSignOutTime(email));
-        return "workInfo";
+            //任务详情
+            modelMap.addAttribute("smallTask", getSmallTaskByIDServiceImpl.getSmallTaskByID(smallTaskID));
+
+            SmallTaskAndNumberProgress smallTaskAndNumberProgress = smallTaskAndProgressServiceImpl.getSmallTaskAndNumberProgressBySmallTaskID(smallTaskID);
+            if (smallTaskAndNumberProgress == null) {
+                //自定义指标
+                ArrayList<CustomProgressPojo> customProgressPojos = smallTaskAndProgressServiceImpl.getSmallTaskAndCustomProgressBySmallTaskID(smallTaskID);
+                modelMap.addAttribute("customProgressPojos", customProgressPojos);
+            } else {
+                //数量指标
+                modelMap.addAttribute("numberProgress", smallTaskAndNumberProgress);
+            }
+            modelMap.addAttribute("signInTime", getSignTimeServiceImpl.getSignInTime(email));
+            modelMap.addAttribute("signOutTime", getSignTimeServiceImpl.getSignOutTime(email));
+            return "workInfo";
     }
 
     /**

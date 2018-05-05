@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 
 @Controller
 public class ShowImageController {
@@ -75,11 +76,18 @@ public class ShowImageController {
 
     /**
      * 显示接包公司照片
-     * @param httpServletResponse response
-     * @param email 接包公司email
      */
    /* @GetMapping("/web/receiveTaskCompany")
     public void showPersonnelAdministratorPhotoImage(HttpServletResponse httpServletResponse, @RequestParam String email) {
         showImageServiceImpl.showPersonnelAdministratorPhoto(httpServletResponse, email);
     }*/
+
+   @GetMapping(value = "/web/image")
+    public void showImage(HttpServletResponse response, @RequestParam String address) {
+       try {
+           showImageServiceImpl.showImage(response, address);
+       } catch (IOException e) {
+           e.printStackTrace();
+       }
+   }
 }

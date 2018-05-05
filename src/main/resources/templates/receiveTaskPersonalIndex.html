@@ -19,6 +19,9 @@
     <link href="../static/css/font-awesome.min.css" th:href="@{/css/font-awesome.min.css}" rel="stylesheet" type="text/css"/>
   </head>
   <body>
+  <script th:if="${inIPWhiteList eq 'false'}">
+      alert("您的IP地址不合法，无法访问");
+  </script>
     <div class="header">
       <div class="topper">
         <div class="wrap cl">
