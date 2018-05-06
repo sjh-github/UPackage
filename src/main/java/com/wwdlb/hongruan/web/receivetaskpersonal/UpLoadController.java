@@ -29,6 +29,7 @@ public class UpLoadController {
 
     @PostMapping(value = "/web/upLoad/customProgress/{smallTaskID}")
     public String upLoadCustomProgress(@PathVariable Integer smallTaskID) {
-        return "redirect:/web/receiveTaskPerson/smallTaskDetailPage?smallTaskID=" + smallTaskID + "&result=true";
+        /*return "redirect:/web/receiveTaskPerson/smallTaskDetailPage?smallTaskID=" + smallTaskID + "&result=true";*/
+        return "redirect:/web/smallTaskAllPage";
     }
 }

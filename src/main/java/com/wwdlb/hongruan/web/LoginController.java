@@ -44,7 +44,8 @@ public class LoginController {
                 httpSession = httpServletRequest.getSession();
                 httpSession.setAttribute("role", LoginServiceImpl.ReceiveTaskPersonal);
                 httpSession.setAttribute("email", email);
-                return "redirect:/web/indexPage/receiveTaskPersonal";
+                return "redirect:/web/faceCheckPage";
+               /* return "redirect:/web/indexPage/receiveTaskPersonal";*/
             case LoginServiceImpl.ProvideTaskPersonal :
                 httpSession = httpServletRequest.getSession();
                 httpSession.setAttribute("role", LoginServiceImpl.ProvideTaskPersonal);
