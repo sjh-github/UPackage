@@ -63,12 +63,45 @@
           });
       });
   </script>
+  <script language="JavaScript">
+      function enlargeImage1(){
+          wb = document.getElementById("wb");
+          image1 = document.getElementById("image1");
+          wb.style.visibility="hidden";
+          image1.height="340";
+          image1.width="340";
+          image1.style.marginLeft="-55%";
 
+      }
+      function dropImage1(){
+          wb = document.getElementById("wb");
+          image1 = document.getElementById("image1");
+          wb.style.visibility="visible";
+          image1.height="170";
+          image1.width="170";
+          image1.style.margin="auto"
+      }
+/*      function hidDiv() {
+          imgDiv = document.getElementById("dialog_large_image");
+          imgDiv.style.width="0";
+          imgDiv.style.height="0";
+      }*/
+  </script>
+<!--  <script type="text/javascript">
+      $(function () {
+          $("img.dialog").click(function() {
+              var large_image = '<img src= ' + $(this).attr("src") + '></img>';
+              $('#dialog_large_image').html($(large_image).animate({ height: '50%', width: '50%' }, 500));
+          });
+      });
+  </script>-->
   <div class="deshome-top">
     <div class="img">
-      <img src="../static/images/logo.jpg" th:src="@{/web/image(address=${receiveTask_personal.idfile})}"/>
-      <div class="lab lx"><span><i class="fa fa-mortar-board"></i></span>外包人员</div>
+      <img id="image1" width="170" height="170" name="image1" ondblclick="enlargeImage1()" onclick="dropImage1()" src="../static/images/logo.jpg" th:src="@{/web/image(address=${receiveTask_personal.idfile})}"/>
+      <!--<img class="dialog"  width="170" height="170" src="../static/images/logo.jpg" th:src="@{/web/image(address=${receiveTask_personal.idfile})}"/>-->
+      <div id="wb" class="lab lx"><span><i class="fa fa-mortar-board"></i></span>外包人员</div>
     </div>
+    <!--<div id="dialog_large_image" style="margin-left: 33%; width: auto; height: auto" onclick="hidDiv()"></div>-->
     <div class="name" th:text="${receiveTask_personal.name}">王尼玛</div>
   <!--  <div class="qianming">UU外包公司</div>
     <div class="area"><span>山东</span>，<span>青岛</span></div>-->
