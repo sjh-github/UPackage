@@ -22,6 +22,9 @@
   <script th:if="${inIPWhiteList eq 'false'}">
       alert("您的IP地址不合法，无法访问");
   </script>
+  <script th:if="${havePermission eq 'false'}">
+      alert("您没有该任务的权限，无法访问");
+  </script>
     <div class="header">
       <div class="topper">
         <div class="wrap cl">

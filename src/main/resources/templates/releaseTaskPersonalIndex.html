@@ -115,7 +115,7 @@
   <div class="ind-con cl ind-designers">
     <ul>
       <li>
-      <a href="desHome.html" class="big hover">
+      <a href="desHome.html" th:href="@{/web/receiveTaskPersonal/detail(email=${bigReceivePersonAndSmallTaskNumPojos.email})}" class="big hover">
         <img src="../static/images/logo.jpg" th:src="@{/web/receiveSmallTaskPersonalImage(email=${bigReceivePersonAndSmallTaskNumPojos.email})}"/>
         <span class="tit" th:text="|专家顾问:${bigReceivePersonAndSmallTaskNumPojos.name}|">专家顾问：丁小勇</span>
       </a>
@@ -123,7 +123,7 @@
     </ul>
     <ul>
       <li th:each="middleReceivePerson : ${middleReceivePersonAndSmallTaskNumPojos}">
-        <a href="desHome.html" class="midde">
+        <a href="desHome.html" th:href="@{/web/receiveTaskPersonal/detail(email=${middleReceivePerson.email})}" class="midde">
           <img src="../static/images/logo.jpg" th:src="@{/web/receiveSmallTaskPersonalImage(email=${middleReceivePerson.email})}"/>
           <span class="tit" th:text="|接包人员:${middleReceivePerson.name}|">接包人员：胡连山</span>
         </a>
@@ -131,7 +131,7 @@
     </ul>
     <ul>
       <li th:each="smallReceivePerson : ${smallReceivePersonAndSmallTaskNumPojos}">
-        <a href="desHome.html" class="small fl">
+        <a href="desHome.html" th:href="@{/web/receiveTaskPersonal/detail(email=${smallReceivePerson.email})}" class="small fl">
           <img src="../static/images/logo.jpg" th:src="@{/web/receiveSmallTaskPersonalImage(email=${smallReceivePerson.email})}"/>
           <span class="tit" th:text="|接包人员:${smallReceivePerson.name}|">接包人员：胡连山</span>
         </a>

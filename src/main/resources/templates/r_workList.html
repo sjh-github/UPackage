@@ -21,7 +21,9 @@
     <link href="../static/css/font-awesome.min.css" th:href="@{/css/font-awesome.min.css}" rel="stylesheet" type="text/css"/>
   </head>
   <body>
-
+    <script th:if="${havePermission eq 'false'}">
+        alert("您没有该任务的权限，无法访问");
+    </script>
     <!--header-->
     <div class="header">
       <div class="topper">

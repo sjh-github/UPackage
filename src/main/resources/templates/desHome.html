@@ -25,7 +25,8 @@
           <ul class="cl">
             <li class="user-list">
               <div class="top-user">
-                <a href="u_user_list_sh.html" th:href="@{/web/receiveTaskPersonal/no}"><img src="../static/images/logo.jpg" th:src="@{/web/image(address=${receiveTask_personal.idfile})}"/></a>
+                <a th:if="${isPersonalAdministrator eq 'true'}" href="u_user_list_sh.html" th:href="@{/web/receiveTaskPersonal/no}"><img src="../static/images/logo.jpg" th:src="@{/web/image(address=${receiveTask_personal.idfile})}"/></a>
+                <a th:if="${isProvideTaskPerson eq 'true'}" href="releaseTaskPersonalIndex.html" th:href="@{/web/indexPage/provideTaskPersonal}"><img src="../static/images/logo.jpg" th:src="@{/web/image(address=${receiveTask_personal.idfile})}"/></a>
                 <span th:text="${receiveTask_personal.name}">飞翔的土豆</span>
                 <i class="fa fa-caret-down"></i>
               </div>
@@ -106,7 +107,8 @@
   <!--  <div class="qianming">UU外包公司</div>
     <div class="area"><span>山东</span>，<span>青岛</span></div>-->
     <div class="des-mutual">
-      <a  class="gz" th:if="${receiveTask_personal.gender == 1}"><i class="fa fa-plus"></i>女</a><a  class="gz" th:if="${receiveTask_personal.gender == 0}"><i class="fa fa-plus"></i>男</a>
+      <a  class="gz" th:if="${receiveTask_personal.gender == 1}"><i class="fa fa-plus"></i>女</a>
+      <a  class="gz" th:if="${receiveTask_personal.gender == 0}"><i class="fa fa-plus"></i>男</a>
       <a  class="lx" th:text="${receiveTask_personal.phone}"><i class="fa fa-phone"></i>15467830984</a>
       <a  class="ly" th:text="${receiveTask_personal.email}"><i class="fa fa-envelope"></i>123@163.com</a>
     </div>
@@ -145,7 +147,7 @@
           </div>
         </div>
       </div>
-      <div class="listPage pbl">
+      <div class="listPage pbl" th:if="${isPersonalAdministrator eq 'true'}">
         <a href="#" class="jz" th:href="@{/web/receivePerson/check/no(email=${receiveTask_personal.email})}">不通过</a>
         <a href="#" th:href="@{/web/receivePerson/check/yes(email=${receiveTask_personal.email})}">通过</a>
       </div>

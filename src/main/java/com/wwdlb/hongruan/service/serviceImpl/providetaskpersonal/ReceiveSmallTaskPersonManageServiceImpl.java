@@ -91,7 +91,6 @@ public class ReceiveSmallTaskPersonManageServiceImpl {
 		while (receivePersonAndSmallTaskNumPojoList.size() > 10) {
 		    receivePersonAndSmallTaskNumPojoList.remove(10);
 		}
-		System.out.println("receivePersonAndSmallTaskNumPojoList-size:" + receivePersonAndSmallTaskNumPojoList.size());
 		return receivePersonAndSmallTaskNumPojoList;
 	}
 }

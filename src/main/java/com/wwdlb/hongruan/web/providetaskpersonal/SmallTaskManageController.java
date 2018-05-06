@@ -2,15 +2,13 @@ package com.wwdlb.hongruan.web.providetaskpersonal;
 
 import com.github.pagehelper.PageInfo;
 import com.sun.org.apache.regexp.internal.RE;
+import com.wwdlb.hongruan.Info.Info;
 import com.wwdlb.hongruan.model.ReceiveTask_Personal;
 import com.wwdlb.hongruan.model.SmallTask;
 import com.wwdlb.hongruan.model.SmallTaskAndNumberProgress;
 import com.wwdlb.hongruan.model.Task;
 import com.wwdlb.hongruan.pojo.CustomProgressPojo;
-import com.wwdlb.hongruan.service.serviceImpl.GetNameByEmailServiceImpl;
-import com.wwdlb.hongruan.service.serviceImpl.GetSmallTaskByIDServiceImpl;
-import com.wwdlb.hongruan.service.serviceImpl.SmallTaskAndProgressServiceImpl;
-import com.wwdlb.hongruan.service.serviceImpl.SmallTaskAndTaskServiceImpl;
+import com.wwdlb.hongruan.service.serviceImpl.*;
 import com.wwdlb.hongruan.service.serviceImpl.providetaskpersonal.ShowSmallTaskByProvidePersonEmailServiceImpl;
 import com.wwdlb.hongruan.service.serviceImpl.receivetaskpersonal.GetReceiveTaskPersonalServiceImpl;
 import com.wwdlb.hongruan.service.serviceImpl.receivetaskpersonal.NumOfIndexPageServiceImpl;
@@ -57,6 +55,9 @@ public class SmallTaskManageController {
     @Autowired
     private SmallTaskAndProgressServiceImpl smallTaskAndProgressServiceImpl;
 
+    @Autowired
+    private PermissionCheckServiceImpl permissionCheckServiceImpl;
+
     /**
      * 查看小任务详情界面
      * @return 小任务详情界面
@@ -65,6 +66,10 @@ public class SmallTaskManageController {
     public String lookSmallTaskDetailPage(HttpServletRequest request, ModelMap modelMap, @RequestParam Integer smallTaskID) {
         httpSession = request.getSession();
         String email = (String) httpSession.getAttribute("email");
+        //权限检测
+        if (!permissionCheckServiceImpl.havePermission(email, smallTaskID, Info.provideSmallTaskPermission)) {
+            return "redirect:/web/provideTaskPersonal/SmallTask/All?havePermission=false";
+        }
         ReceiveTask_Personal receiveTask_personal = getReceiveTaskPersonalServiceImpl.getReceiveTaskPersonalByEmail(email);
         if (receiveTask_personal != null) {
             Date date = new Date();
@@ -109,7 +114,7 @@ public class SmallTaskManageController {
      * @return 所有小任务界面
      */
     @GetMapping(value = "/web/provideTaskPersonal/SmallTask/All")
-    public String allSmallTaskPage(HttpServletRequest request, ModelMap modelMap, @RequestParam(required = false)Integer page) {
+    public String allSmallTaskPage(HttpServletRequest request, ModelMap modelMap, @RequestParam(required = false)Integer page, @RequestParam(required = false)String havePermission) {
         if (page == null || page < 1) {
             page = 1;
         }
@@ -137,6 +142,10 @@ public class SmallTaskManageController {
         }
         modelMap.addAttribute("finishedSmallTaskNum", finishedSmallTaskNum);
         modelMap.addAttribute("runningSmallTaskNum", allSmallTaskNum - finishedSmallTaskNum);
+
+        if (havePermission != null) {
+            modelMap.addAttribute("havePermission", havePermission);
+        }
         return "r_workList";
     }
 

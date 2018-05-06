@@ -2,6 +2,7 @@ package com.wwdlb.hongruan.web.personaladministrator;
 
 import com.wwdlb.hongruan.model.ReceiveTask_Personal;
 import com.wwdlb.hongruan.service.serviceImpl.GetNameByEmailServiceImpl;
+import com.wwdlb.hongruan.service.serviceImpl.LoginServiceImpl;
 import com.wwdlb.hongruan.service.serviceImpl.receivetaskpersonal.GetReceiveTaskPersonalServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -37,6 +38,11 @@ public class LookReceivePersonDetailController {
             }
             modelMap.addAttribute("topIDFile", topIDFile);
             modelMap.addAttribute("downIDFile", downIDFile);
+            if (httpSession.getAttribute("role").equals(LoginServiceImpl.PersonnelAdministrator)) {
+                modelMap.addAttribute("isPersonalAdministrator", "true");
+            } else if (httpSession.getAttribute("role").equals(LoginServiceImpl.ProvideTaskPersonal)) {
+                modelMap.addAttribute("isProvideTaskPerson", "true");
+            }
             return "desHome";
         } else {
             return "redirect:/web/receiveTaskPersonal/no";

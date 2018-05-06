@@ -34,7 +34,8 @@ public class ReceiveTaskPersonalIndexController {
     private GetSignTimeServiceImpl getSignTimeServiceImpl;
 
     @GetMapping(value = "/web/indexPage/receiveTaskPersonal")
-    public String receiveTaskPersonalIndexPage(HttpServletRequest httpServletRequest, ModelMap modelMap, @RequestParam(required = false)String inIPWhiteList) {
+    public String receiveTaskPersonalIndexPage(HttpServletRequest httpServletRequest, ModelMap modelMap, @RequestParam(required = false)String inIPWhiteList,
+                                               @RequestParam(required = false)String havePermission) {
         httpSession = httpServletRequest.getSession();
         try {
                 String email = (String) httpSession.getAttribute("email");
@@ -53,6 +54,9 @@ public class ReceiveTaskPersonalIndexController {
 
                 if (inIPWhiteList != null) {
                     modelMap.addAttribute("inIPWhiteList", inIPWhiteList);
+                }
+                if (havePermission != null) {
+                    modelMap.addAttribute("havePermission", havePermission);
                 }
                 return "receiveTaskPersonalIndex";
         } catch (Exception e) {

@@ -3,6 +3,7 @@ package com.wwdlb.hongruan.web.receivetaskpersonal;
 import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.wwdlb.hongruan.Info.Info;
 import com.wwdlb.hongruan.model.*;
 import com.wwdlb.hongruan.pojo.CustomProgressPojo;
 import com.wwdlb.hongruan.service.serviceImpl.*;
@@ -58,6 +59,9 @@ public class LookSmallTaskDetailController {
     @Autowired
     private IPCheckServiceImpl ipCheckServiceImpl;
 
+    @Autowired
+    private PermissionCheckServiceImpl permissionCheckServiceImpl;
+
     /**
      * 查看小任务详情界面
      * @return 小任务详情界面
@@ -65,6 +69,12 @@ public class LookSmallTaskDetailController {
     @GetMapping(value = "/web/receiveTaskPerson/smallTaskDetailPage")
     public String lookSmallTaskDetailPage(HttpServletRequest request, ModelMap modelMap, @RequestParam Integer smallTaskID,
                                           @RequestParam(required = false)String result) {
+            httpSession = request.getSession();
+            String email = (String) httpSession.getAttribute("email");
+            //权限检测
+            if (!permissionCheckServiceImpl.havePermission(email, smallTaskID, Info.receiveSmallaTaskPermission)) {
+                return "redirect:/web/indexPage/receiveTaskPersonal?havePermission=false";
+            }
             Task task = smallTaskAndTaskServiceImpl.getTaskBySmallTaskID(smallTaskID);
             if (task != null) {
                 if (task.getSafetygrade() == 2 || task.getSafetygrade() == 4) {
@@ -80,8 +90,6 @@ public class LookSmallTaskDetailController {
             } else {
                 return "redirect:/web/indexPage/receiveTaskPersonal?inIPWhiteList=false";
             }
-            httpSession = request.getSession();
-            String email = (String) httpSession.getAttribute("email");
             if (result != null) {
                 modelMap.addAttribute("result", result);
             }

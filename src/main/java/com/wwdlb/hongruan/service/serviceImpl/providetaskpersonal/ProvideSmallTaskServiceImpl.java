@@ -1,5 +1,6 @@
 package com.wwdlb.hongruan.service.serviceImpl.providetaskpersonal;
 
+import com.wwdlb.hongruan.Info.Info;
 import com.wwdlb.hongruan.mapper.*;
 import com.wwdlb.hongruan.model.*;
 import com.wwdlb.hongruan.service.serviceImpl.InformationServiceImpl;
@@ -48,8 +49,12 @@ public class ProvideSmallTaskServiceImpl /*implements ProvideSmallTaskService*/ 
     @Autowired
     private InformationServiceImpl informationServiceImpl;
 
+    @Autowired
+    private PermissionAndPersonAndTaskMapper permissionAndPersonAndTaskMapper;
+
     /**
      * 发布外包小任务
+     * @param email 发包人邮箱
      * @param taskName 任务名称
      * @param smallTaskName 小任务名称
      * @param smallTaskDetail 小任务详情
@@ -64,8 +69,6 @@ public class ProvideSmallTaskServiceImpl /*implements ProvideSmallTaskService*/ 
                                     Integer numberProgress, ArrayList<String> customProgressArrayList) {
         Integer taskID = taskMapper.selectIDByTaskName(taskName);
         if (taskID == null || taskID <= 0 || email == null) {
-            System.out.println("taskID:" + taskID);
-            System.out.println("email:" + email);
             return null;
         }
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -106,7 +109,21 @@ public class ProvideSmallTaskServiceImpl /*implements ProvideSmallTaskService*/ 
         smallTaskAndProvidePersonEmailMapper.insert(smallTaskAndProvidePersonEmail);
 
         //添加消息通知
-        informationServiceImpl.insert("系统", email, "您有一个新的任务：" + smallTaskName);
+        informationServiceImpl.insert("系统", receiveSmallTaskEmail, "您有一个新的任务：" + smallTaskName);
+
+        //添加接包人权限
+        PermissionAndPersonAndTask receiveSmallTaskPermission = new PermissionAndPersonAndTask();
+        receiveSmallTaskPermission.setEmail(receiveSmallTaskEmail);
+        receiveSmallTaskPermission.setTaskid(smallTaskID);
+        receiveSmallTaskPermission.setPermissionid(Info.receiveSmallaTaskPermission);
+        permissionAndPersonAndTaskMapper.insert(receiveSmallTaskPermission);
+
+        //添加发包人权限
+        PermissionAndPersonAndTask provideSmallTaskPermission = new PermissionAndPersonAndTask();
+        provideSmallTaskPermission.setEmail(email);
+        provideSmallTaskPermission.setTaskid(smallTaskID);
+        provideSmallTaskPermission.setPermissionid(Info.provideSmallTaskPermission);
+        permissionAndPersonAndTaskMapper.insert(provideSmallTaskPermission);
         return smallTaskID;
     }
 }
