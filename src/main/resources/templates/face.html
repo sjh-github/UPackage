@@ -22,7 +22,9 @@
                 </div>
                 <img class="icon animation" src="../static/images/prompt.png" th:src="@{/images/prompt.png}"/>
                 <br/>
-                <!--<div>请上传一张照片（png、jpg） <input type="file" id="uploadfile"/></div>-->
+                <div>请上传一张照片（png、jpg）
+                    <input type="file" id="uploadfile"/>
+                </div>
                 <canvas id="canvas_l" width="300" height="300" style="margin-top: 50%"></canvas>
             </div>
         </div>
@@ -36,7 +38,7 @@
             <video id="video"></video>
             <br/>
             <br/>
-            <div style="display: none;">
+            <div>
                 精准度调节：<input type="number" id="accuracy" value="90" max="100" min="80"/>
             </div>
         </div>

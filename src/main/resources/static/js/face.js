@@ -129,9 +129,11 @@ function scanFace() {
 
     // 瑙嗛娴佽В鐮侊紝鐢╲ideo灞曠ず鍑烘潵 file  blob
     var oCanvas = Util._$('canvas_l');
+   /* var oCanvas2 = Util._$('canvas_2');*/
     var ctx = oCanvas.getContext('2d');
     ctx.drawImage(video, 0, 0, 300, 230); // 瀹為檯涓婃槸瀵硅棰戞埅灞�
     var faceData = Util._$('facedata').src;
+    console.log("faceData:" + faceData);
     var load = new Loading();
     load.show();
     $.ajax({
@@ -139,6 +141,7 @@ function scanFace() {
         url: 'http://aiface.linxins.com/scanface',
         data: {
             faceData: /^data:image\/(\w*);base64,/.test(faceData) ? faceData : null,
+            /*faceData: oCanvas2.toDataURL(),*/
             scanData: oCanvas.toDataURL()
         },
         success: function (res) {
@@ -146,6 +149,8 @@ function scanFace() {
 
             load.hide();
             res.score > (!isNaN(Number(accuracy)) ? accuracy : 70) ? changeStatus('success') : changeStatus('error');
+            console.log("相似度:" + res.score);
+            alert(res.score);
             window.location.href="http://115.159.71.92/hongruan/web/faceCheck?checkResult=" + res.score + "&accuracy=" + accuracy;
         },
         error: function (res) {
@@ -185,7 +190,7 @@ function closeCamera() {
  * @returns {boolean}
  */
 Util._$('uploadfile').onchange = function () {
-    var file = this.files && this.files[0];
+    var file = this.files && this.files[0]/*document.getElementById("uploadfile")*/;
     //鍒ゆ柇鏄惁鏄浘鐗囩被鍨�
     if(!/image\/(png|jpg|jpeg)/.test(file.type)){
         this.value = null;
@@ -196,6 +201,47 @@ Util._$('uploadfile').onchange = function () {
     reader.readAsDataURL(file);
     reader.onload = function(e){
         Util._$('facedata').src = this.result;
+    }
+}
+
+/*window.onload = function(){
+   /!* var url="http://localhost/hongruan/images/787015807@qq.com.png";
+    getBase64(url)
+        .then(function(base64){
+            console.log(base64);//处理成功打印在控制台
+            Util._$('facedata').src = base64;
+        },function(err){
+            console.log(err);//打印异常信息
+        });*!/
+    var oCanvas2 = Util._$('canvas_2');
+    var ctx = oCanvas2.getContext('2d');
+    var pic = new Image();
+    pic.src = "http://localhost/hongruan/images/787015807@qq.com.jpg";
+    ctx.drawImage(pic, 100, 100, 300, 300); // 瀹為檯涓婃槸瀵硅棰戞埅灞�
+}*/
+
+
+//实现将项目的图片转化成base64
+function getBase64(img){
+    function getBase64Image(img,width,height) {//width、height调用时传入具体像素值，控制大小 ,不传则默认图像大小
+        var canvas = document.createElement("canvas");
+        canvas.width = width ? width : img.width;
+        canvas.height = height ? height : img.height;
+
+        var ctx = canvas.getContext("2d");
+        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+        var dataURL = canvas.toDataURL();
+        return dataURL;
+    }
+    var image = new Image();
+    image.crossOrigin = '';
+    image.src = img;
+    var deferred=$.Deferred();
+    if(img){
+        image.onload =function (){
+            deferred.resolve(getBase64Image(image));//将base64传给done上传处理
+        }
+        return deferred.promise();//问题要让onload完成后再return sessionStorage['imgTest']
     }
 }
 

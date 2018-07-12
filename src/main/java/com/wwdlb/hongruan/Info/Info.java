@@ -9,5 +9,6 @@ public class Info {
     public static Integer provideSmallTaskPermission = 3;
     public static Integer personalAdministratorPermission = 2;
     public static Integer allPermission = 1;
-    public static Double accuracy = 70.0;
+    public static Double accuracy = 55.0;
+    public static String basePhotoUrl = "http://localhost/hongruan/images/";
 }

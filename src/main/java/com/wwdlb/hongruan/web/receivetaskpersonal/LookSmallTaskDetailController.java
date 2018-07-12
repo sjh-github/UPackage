@@ -122,7 +122,8 @@ public class LookSmallTaskDetailController {
             }
             modelMap.addAttribute("signInTime", getSignTimeServiceImpl.getSignInTime(email));
             modelMap.addAttribute("signOutTime", getSignTimeServiceImpl.getSignOutTime(email));
-            return "workInfo2";
+            modelMap.addAttribute("curPage", 2);
+            return "workInfo";
     }
 
     /**

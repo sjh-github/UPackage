@@ -225,8 +225,9 @@
                 <div id="employDetail">
 
                 </div>
+                <input id="curPage" value="1" th:value="${curPage}"/>
               </div>
-              <!--<div style="text-align:center" class="info" th:unless="${customProgressPojos != null}">
+              <div style="text-align:center" class="info" th:unless="${customProgressPojos != null}">
                 <form action="#" th:action="@{/web/upLoad/numberProgress/{numberProgressID}/{smallTaskID}((numberProgressID = ${numberProgress.id}),smallTaskID = ${smallTask.smalltaskid})}" method="post" enctype="multipart/form-data">
                   <table border="1" style="text-align: center;margin:auto">
                     <tr>
@@ -246,7 +247,7 @@
                       <input type="submit" value="上传" />
                     </div>
                 </form>
-              </div>-->
+              </div>
             </div>
               <!--<div class="wrk-lab">剩余时间：  <span><em>7</em>天</span></div>-->
           </div>

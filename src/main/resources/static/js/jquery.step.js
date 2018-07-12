@@ -4,11 +4,11 @@
     var step= $("#myStep").step();
 
     $(".nextBtn").click(function(event) {
-      var yes=step.nextStep();
+      var yes=step.nex tStep();
 
     });
     $(".goBtn").click(function(event) {
-			var yes=step.goStep(5);//到指定步
+			var yes=step.goStep(initPage);//到指定步
 		});
   });
 
@@ -35,6 +35,9 @@
       var opts = $.extend({}, $.fn.step.defaults, options);
       var size=this.find(".step-header li").length;
       var barWidth=opts.initStep<size?100/(2*size)+100*(opts.initStep-1)/size : 100;
+      /*var curPageNum = document.getElementById("curPage").value;
+      alert("curPageNum：" + curPageNum);
+      var curPage = 1;*/
       var curPage=opts.initStep;
 
       this.find(".step-header").prepend("<div class=\"step-bar\"><div class=\"step-bar-active\"></div></div>");
@@ -63,6 +66,7 @@
     });
 
       this.nextStep=function() {
+          alert("curPage:" + curPage);
         if (curPage>=size) {
           return false;
         }
@@ -110,7 +114,7 @@
   $.fn.step.defaults = {
       animate:true,
       speed:500,
-    initStep:1,
+    initStep:$("#curPage").val(),
     scrollTop:true
   };
 
