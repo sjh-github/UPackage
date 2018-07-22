@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+  <title>个人详细资料</title>
+  <meta content="虹软外包" name="keywords"/>
+  <meta content="虹软外包" name="description"/>
+  <meta name="apple-mobile-web-app-capable" content="yes"/>
+  <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+  <meta name="format-detection" content="telephone=no"/>
+  <link href="../static/css/basestyle.css" th:href="@{/css/basestyle.css}" rel="stylesheet" type="text/css" />
+  <link href="../static/css/mc.css" th:href="@{/css/mc.css}" rel="stylesheet" type="text/css" />
+  <link href="../static/css/user_center.css" th:href="@{/css/user_center.css}" rel="stylesheet" type="text/css" />
+  <script src="../static/js/jquery-1.8.3.min.js" th:href="@{/js/jquery-1.8.3.min.js}" ></script>
+  <link href="../static/css/font-awesome.min.css" th:href="@{/css/font-awesome.min.css}" rel="stylesheet" type="text/css"/>
+</head>
+  <body>
+  <!--header-->
+  <div class="header">
+    <div class="topper">
+      <div class="wrap cl">
+        <div class="t-left">您好，欢迎来到虹软外包管理平台</div>
+        <div class="t-right">
+          <ul class="cl">
+            <li class="user-list">
+              <div class="top-user">
+                <a th:if="${isPersonalAdministrator eq 'true'}" href="u_user_list_sh.html" th:href="@{/web/receiveTaskPersonal/no}"><img src="../static/images/logo.jpg" th:src="@{/web/image(address=${receiveTask_personal.idfile})}"/></a>
+                <a th:if="${isProvideTaskPerson eq 'true'}" href="releaseTaskPersonalIndex.html" th:href="@{/web/indexPage/provideTaskPersonal}"><img src="../static/images/logo.jpg" th:src="@{/web/image(address=${receiveTask_personal.idfile})}"/></a>
+                <span th:text="${receiveTask_personal.name}">飞翔的土豆</span>
+                <i class="fa fa-caret-down"></i>
+              </div>
+              <div class="pop-dwon">
+                <a href="login.html" th:href="@{/web/logout}" class="last">
+                  <i class="fa fa-power-off"></i>退出登录
+                </a>
+              </div>
+            </li>
+            <li><a href="#">帮助中心</a></li>
+            <li><a href="#">联系我们</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script type="text/javascript">
+      $(function () {
+          var setTime;
+          $(".user-list").hover(function () {
+              var _this = $(this);
+              setTime = setTimeout(function () {
+                  _this.addClass("hover");
+                  $(".top-user i").removeClass("fa-caret-down").addClass("fa-caret-up");
+                  $(".user-list .pop-dwon").slideDown(300);
+              }, 300);
+          }, function () {
+              var _this = $(this);
+              if (setTime) {
+                  clearTimeout(setTime);
+              }
+              $(".user-list .pop-dwon").hide();
+              _this.removeClass("hover");
+              $(".top-user i").removeClass("fa-caret-up").addClass("fa-caret-down");
+          });
+      });
+  </script>
+  <script language="JavaScript">
+      function enlargeImage1(){
+          wb = document.getElementById("wb");
+          image1 = document.getElementById("image1");
+          wb.style.visibility="hidden";
+          image1.height="340";
+          image1.width="340";
+          image1.style.marginLeft="-55%";
+
+      }
+      function dropImage1(){
+          wb = document.getElementById("wb");
+          image1 = document.getElementById("image1");
+          wb.style.visibility="visible";
+          image1.height="170";
+          image1.width="170";
+          image1.style.margin="auto"
+      }
+/*      function hidDiv() {
+          imgDiv = document.getElementById("dialog_large_image");
+          imgDiv.style.width="0";
+          imgDiv.style.height="0";
+      }*/
+  </script>
+<!--  <script type="text/javascript">
+      $(function () {
+          $("img.dialog").click(function() {
+              var large_image = '<img src= ' + $(this).attr("src") + '></img>';
+              $('#dialog_large_image').html($(large_image).animate({ height: '50%', width: '50%' }, 500));
+          });
+      });
+  </script>-->
+  <div class="deshome-top">
+    <div class="img">
+      <img id="image1" width="170" height="170" name="image1" ondblclick="enlargeImage1()" onclick="dropImage1()" src="../static/images/logo.jpg" th:src="@{/web/image(address=${receiveTask_personal.idfile})}"/>
+      <!--<img class="dialog"  width="170" height="170" src="../static/images/logo.jpg" th:src="@{/web/image(address=${receiveTask_personal.idfile})}"/>-->
+      <div id="wb" class="lab lx"><span><i class="fa fa-mortar-board"></i></span>外包人员</div>
+    </div>
+    <!--<div id="dialog_large_image" style="margin-left: 33%; width: auto; height: auto" onclick="hidDiv()"></div>-->
+    <div class="name" th:text="${receiveTask_personal.name}">王尼玛</div>
+  <!--  <div class="qianming">UU外包公司</div>
+    <div class="area"><span>山东</span>，<span>青岛</span></div>-->
+    <div class="des-mutual">
+      <a  class="gz" th:if="${receiveTask_personal.gender == 1}"><i class="fa fa-plus"></i>女</a>
+      <a  class="gz" th:if="${receiveTask_personal.gender == 0}"><i class="fa fa-plus"></i>男</a>
+      <a  class="lx" th:text="${receiveTask_personal.phone}"><i class="fa fa-phone"></i>15467830984</a>
+      <a  class="ly" th:text="${receiveTask_personal.email}"><i class="fa fa-envelope"></i>123@163.com</a>
+    </div>
+  </div>
+
+  <div class="deshome-work-tit">
+    <div class="title"><span>身份信息</span></div>
+
+  </div>
+  <div class="container">
+      <div class="wrap hide">
+        <div class="work-container">
+          <div class="work-details">
+            <h1 style="color: #423e33">真实姓名：<em th:text="${receiveTask_personal.name}">王三三</em></h1>
+            <h1 style="color: #423e33">性别：<em th:if="${receiveTask_personal.gender==1}">女</em><em th:if="${receiveTask_personal.gender==0}">男</em></h1>
+            <h1 style="color: #423e33">出生日期：<em th:text="|${receiveTask_personal.birthyear}-${receiveTask_personal.birthmonth}-${receiveTask_personal.birthday}|">1986-03-12</em></h1>
+            <h1 style="color: #423e33">联络电话：<em th:text="${receiveTask_personal.phone}">15467830984</em></h1>
+            <h1 style="color: #423e33">电子邮箱：<em th:text="${receiveTask_personal.email}">123@163.com</em></h1>
+          </div>
+          <div class="work-recommend">
+            <div class="tit-rec">相关信息</div>
+            <div class="tit-con">
+              <div class="bt"><span>正面身份证</span><i>证件</i></div>
+              <div class="tk-xx">
+                <a href="#" th:href="@{/web/image(address=${topIDFile})}" download="正面身份证.jpg"><img src="../static/images/logo.jpg" th:src="@{/web/image(address=${topIDFile})}"/><span>正面身份证</span></a>
+                <!--<em>2018-01-23</em>-->
+              </div>
+            </div>
+            <div class="tit-con">
+              <div class="bt"><span>背面身份证</span><i>证件</i></div>
+              <div class="tk-xx">
+                <a href="#" th:href="@{/web/image(address=${downIDFile})}" download="背面身份证.jpg"><img src="../static/images/logo.jpg" th:src="@{/web/image(address=${topIDFile})}"/><span>背面身份证</span></a>
+                <!--<em>2018-01-23</em>-->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="listPage pbl" th:if="${isPersonalAdministrator eq 'true'}">
+        <a href="#" class="jz" th:href="@{/web/receivePerson/check/no(email=${receiveTask_personal.email})}">不通过</a>
+        <a href="#" th:href="@{/web/receivePerson/check/yes(email=${receiveTask_personal.email})}">通过</a>
+      </div>
+  </div>
+    <!--footer-->
+
+    <script>
+        (function($) {
+            $.extend({
+                tipsBox: function(options) {
+                    options = $.extend({
+                        obj: null,  //jq对象，要在那个html标签上显示
+                        str: "+1",  //字符串，要显示的内容;也可以传一段html，如: "<b style='font-family:Microsoft YaHei;'>+1</b>"
+                        startSize: "12px",  //动画开始的文字大小
+                        endSize: "12px",    //动画结束的文字大小
+                        interval:500,  //动画时间间隔
+                        color: "red",    //文字颜色
+                        callback: function() {}    //回调函数
+                    }, options);
+                    $("body").append("<span class='count'>"+ options.str +"</span>");
+                    var box = $(".count");
+                    var left = options.obj.offset().left + options.obj.width() / 2;
+                    var top = options.obj.offset().top - options.obj.height();
+                    box.css({
+                        "position": "absolute",
+                        "left": left + "px",
+                        "top": top + "px",
+                        "z-index": 9999,
+                        "font-size": options.startSize,
+                        "line-height": options.endSize,
+                        "color": options.color
+                    });
+                    box.animate({
+                        "font-size": options.endSize,
+                        "opacity": "0",
+                        "top": top - parseInt(options.endSize) + "px"
+                    }, options.interval , function() {
+                        box.remove();
+                        options.callback();
+                    });
+                }
+            });
+        })(jQuery);
+    </script>
+    <script>
+        $(function() {
+            $(".sc_dz_btn").click(function() {
+                var _this =$(this);
+                $.tipsBox({
+                    obj: _this,
+                    str: "+1",
+                });
+            });
+        });
+    </script>
+    <!--footer-->
+
+    <script src="js/masonry-docs.min.js"></script>
+    <script>
+        $(function() {
+            var $container = $('#lxf-box');
+            $container.imagesLoaded(function() {
+                $container.masonry({
+                    itemSelector: '#lxf-box li',
+                    gutter: 20,
+                    isAnimated: true,
+                });
+            });
+        });
+    </script>
+    <script>
+        (function($) {
+            $.extend({
+                tipsBox: function(options) {
+                    options = $.extend({
+                        obj: null,  //jq对象，要在那个html标签上显示
+                        str: "+1",  //字符串，要显示的内容;也可以传一段html，如: "<b style='font-family:Microsoft YaHei;'>+1</b>"
+                        startSize: "12px",  //动画开始的文字大小
+                        endSize: "12px",    //动画结束的文字大小
+                        interval:500,  //动画时间间隔
+                        color: "red",    //文字颜色
+                        callback: function() {}    //回调函数
+                    }, options);
+                    $("body").append("<span class='count'>"+ options.str +"</span>");
+                    var box = $(".count");
+                    var left = options.obj.offset().left + options.obj.width() / 2;
+                    var top = options.obj.offset().top - options.obj.height();
+                    box.css({
+                        "position": "absolute",
+                        "left": left + "px",
+                        "top": top + "px",
+                        "z-index": 9999,
+                        "font-size": options.startSize,
+                        "line-height": options.endSize,
+                        "color": options.color
+                    });
+                    box.animate({
+                        "font-size": options.endSize,
+                        "opacity": "0",
+                        "top": top - parseInt(options.endSize) + "px"
+                    }, options.interval , function() {
+                        box.remove();
+                        options.callback();
+                    });
+                }
+            });
+        })(jQuery);
+    </script>
+    <script>
+        $(function() {
+            $(".sc_dz_btn").click(function() {
+                var _this =$(this);
+                $.tipsBox({
+                    obj: _this,
+                    str: "+1",
+                });
+            });
+        });
+    </script>
+  <!--footer-->
+
+  <script src="js/masonry-docs.min.js"></script>
+  <script>
+  $(function() {
+      var $container = $('#lxf-box');
+      $container.imagesLoaded(function() {
+          $container.masonry({
+                  itemSelector: '#lxf-box li',
+                  gutter: 20,
+                  isAnimated: true,
+              });
+       });
+  });
+  </script>
+  <script>
+      (function($) {
+          $.extend({
+              tipsBox: function(options) {
+                  options = $.extend({
+                      obj: null,  //jq对象，要在那个html标签上显示
+                      str: "+1",  //字符串，要显示的内容;也可以传一段html，如: "<b style='font-family:Microsoft YaHei;'>+1</b>"
+                      startSize: "12px",  //动画开始的文字大小
+                      endSize: "12px",    //动画结束的文字大小
+                      interval:500,  //动画时间间隔
+                      color: "red",    //文字颜色
+                      callback: function() {}    //回调函数
+                  }, options);
+                  $("body").append("<span class='count'>"+ options.str +"</span>");
+                  var box = $(".count");
+                  var left = options.obj.offset().left + options.obj.width() / 2;
+                  var top = options.obj.offset().top - options.obj.height();
+                  box.css({
+                      "position": "absolute",
+                      "left": left + "px",
+                      "top": top + "px",
+                      "z-index": 9999,
+                      "font-size": options.startSize,
+                      "line-height": options.endSize,
+                      "color": options.color
+                  });
+                  box.animate({
+                      "font-size": options.endSize,
+                      "opacity": "0",
+                      "top": top - parseInt(options.endSize) + "px"
+                  }, options.interval , function() {
+                      box.remove();
+                      options.callback();
+                  });
+              }
+          });
+      })(jQuery);
+  </script>
+  <script>
+      $(function() {
+          $(".sc_dz_btn").click(function() {
+              var _this =$(this);
+              $.tipsBox({
+                  obj: _this,
+                  str: "+1",
+              });
+          });
+      });
+  </script>
+  </body>
+</html>

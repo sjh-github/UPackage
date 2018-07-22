@@ -1,7 +1,9 @@
 package com.wwdlb.hongruan.model;
 
 public class ReceiveTask_Company {
-    private Integer companyid;
+    private String companyemail;
+
+    private String companypassword;
 
     private String companyname;
 
@@ -9,12 +11,20 @@ public class ReceiveTask_Company {
 
     private String havechecked;
 
-    public Integer getCompanyid() {
-        return companyid;
+    public String getCompanyemail() {
+        return companyemail;
     }
 
-    public void setCompanyid(Integer companyid) {
-        this.companyid = companyid;
+    public void setCompanyemail(String companyemail) {
+        this.companyemail = companyemail == null ? null : companyemail.trim();
+    }
+
+    public String getCompanypassword() {
+        return companypassword;
+    }
+
+    public void setCompanypassword(String companypassword) {
+        this.companypassword = companypassword == null ? null : companypassword.trim();
     }
 
     public String getCompanyname() {

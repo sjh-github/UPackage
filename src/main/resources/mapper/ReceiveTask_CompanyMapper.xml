@@ -2,35 +2,42 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.wwdlb.hongruan.mapper.ReceiveTask_CompanyMapper">
   <resultMap id="BaseResultMap" type="com.wwdlb.hongruan.model.ReceiveTask_Company">
-    <id column="CompanyID" jdbcType="INTEGER" property="companyid" />
+    <id column="CompanyEmail" jdbcType="VARCHAR" property="companyemail" />
+    <result column="CompanyPassword" jdbcType="VARCHAR" property="companypassword" />
     <result column="CompanyName" jdbcType="VARCHAR" property="companyname" />
     <result column="CompanySummary" jdbcType="VARCHAR" property="companysummary" />
     <result column="HaveChecked" jdbcType="CHAR" property="havechecked" />
   </resultMap>
   <sql id="Base_Column_List">
-    CompanyID, CompanyName, CompanySummary, HaveChecked
+    CompanyEmail, CompanyPassword, CompanyName, CompanySummary, HaveChecked
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from receivetask_company
-    where CompanyID = #{companyid,jdbcType=INTEGER}
+    where CompanyEmail = #{companyemail,jdbcType=VARCHAR}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+  <select id="getNumOfAll" resultType="java.lang.Integer">
+    SELECT COUNT(*) from receivetask_company
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from receivetask_company
-    where CompanyID = #{companyid,jdbcType=INTEGER}
+    where CompanyEmail = #{companyemail,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="com.wwdlb.hongruan.model.ReceiveTask_Company">
-    insert into receivetask_company (CompanyID, CompanyName, CompanySummary, 
-      HaveChecked)
-    values (#{companyid,jdbcType=INTEGER}, #{companyname,jdbcType=VARCHAR}, #{companysummary,jdbcType=VARCHAR}, 
-      #{havechecked,jdbcType=CHAR})
+    insert into receivetask_company (CompanyEmail, CompanyPassword, CompanyName, 
+      CompanySummary, HaveChecked)
+    values (#{companyemail,jdbcType=VARCHAR}, #{companypassword,jdbcType=VARCHAR}, #{companyname,jdbcType=VARCHAR}, 
+      #{companysummary,jdbcType=VARCHAR}, #{havechecked,jdbcType=CHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.wwdlb.hongruan.model.ReceiveTask_Company">
     insert into receivetask_company
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="companyid != null">
-        CompanyID,
+      <if test="companyemail != null">
+        CompanyEmail,
+      </if>
+      <if test="companypassword != null">
+        CompanyPassword,
       </if>
       <if test="companyname != null">
         CompanyName,
@@ -43,8 +50,11 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="companyid != null">
-        #{companyid,jdbcType=INTEGER},
+      <if test="companyemail != null">
+        #{companyemail,jdbcType=VARCHAR},
+      </if>
+      <if test="companypassword != null">
+        #{companypassword,jdbcType=VARCHAR},
       </if>
       <if test="companyname != null">
         #{companyname,jdbcType=VARCHAR},
@@ -60,6 +70,9 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.wwdlb.hongruan.model.ReceiveTask_Company">
     update receivetask_company
     <set>
+      <if test="companypassword != null">
+        CompanyPassword = #{companypassword,jdbcType=VARCHAR},
+      </if>
       <if test="companyname != null">
         CompanyName = #{companyname,jdbcType=VARCHAR},
       </if>
@@ -70,13 +83,14 @@
         HaveChecked = #{havechecked,jdbcType=CHAR},
       </if>
     </set>
-    where CompanyID = #{companyid,jdbcType=INTEGER}
+    where CompanyEmail = #{companyemail,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.wwdlb.hongruan.model.ReceiveTask_Company">
     update receivetask_company
-    set CompanyName = #{companyname,jdbcType=VARCHAR},
+    set CompanyPassword = #{companypassword,jdbcType=VARCHAR},
+      CompanyName = #{companyname,jdbcType=VARCHAR},
       CompanySummary = #{companysummary,jdbcType=VARCHAR},
       HaveChecked = #{havechecked,jdbcType=CHAR}
-    where CompanyID = #{companyid,jdbcType=INTEGER}
+    where CompanyEmail = #{companyemail,jdbcType=VARCHAR}
   </update>
 </mapper>

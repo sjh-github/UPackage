@@ -19,11 +19,11 @@ public class ReceiveTask_Personal {
 
     private String phone;
 
+    private String photodata;
+
     private String idfile;
 
     private String havechecked;
-
-    private byte[] photodata;
 
     public String getEmail() {
         return email;
@@ -97,6 +97,14 @@ public class ReceiveTask_Personal {
         this.phone = phone == null ? null : phone.trim();
     }
 
+    public String getPhotodata() {
+        return photodata;
+    }
+
+    public void setPhotodata(String photodata) {
+        this.photodata = photodata == null ? null : photodata.trim();
+    }
+
     public String getIdfile() {
         return idfile;
     }
@@ -111,13 +119,5 @@ public class ReceiveTask_Personal {
 
     public void setHavechecked(String havechecked) {
         this.havechecked = havechecked == null ? null : havechecked.trim();
-    }
-
-    public byte[] getPhotodata() {
-        return photodata;
-    }
-
-    public void setPhotodata(byte[] photodata) {
-        this.photodata = photodata;
     }
 }

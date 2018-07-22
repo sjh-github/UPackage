@@ -3,16 +3,16 @@
 <mapper namespace="com.wwdlb.hongruan.mapper.TaskMapper">
   <resultMap id="BaseResultMap" type="com.wwdlb.hongruan.model.Task">
     <id column="TaskID" jdbcType="INTEGER" property="taskid" />
-    <result column="ProjectName" jdbcType="VARCHAR" property="projectname" />
     <result column="TaskName" jdbcType="VARCHAR" property="taskname" />
     <result column="TaskDetail" jdbcType="VARCHAR" property="taskdetail" />
     <result column="SafetyGrade" jdbcType="INTEGER" property="safetygrade" />
     <result column="Priority" jdbcType="INTEGER" property="priority" />
     <result column="StartTime" jdbcType="VARCHAR" property="starttime" />
     <result column="EndTime" jdbcType="VARCHAR" property="endtime" />
+    <result column="Progress" jdbcType="DOUBLE" property="progress" />
   </resultMap>
   <sql id="Base_Column_List">
-    TaskID, ProjectName, TaskName, TaskDetail, SafetyGrade, Priority, StartTime, EndTime
+    TaskID, TaskName, TaskDetail, SafetyGrade, Priority, StartTime, EndTime, Progress
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -20,26 +20,32 @@
     from task
     where TaskID = #{taskid,jdbcType=INTEGER}
   </select>
+  <select id="getAllTask" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from task
+  </select>
+  <select id="selectIDByTaskName" parameterType="java.lang.String" resultType="java.lang.Integer">
+    SELECT taskid from task
+    where TaskName = #{taskname,jdbcType=VARCHAR}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from task
     where TaskID = #{taskid,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.wwdlb.hongruan.model.Task">
-    insert into task (TaskID, ProjectName, TaskName, 
-      TaskDetail, SafetyGrade, Priority, 
-      StartTime, EndTime)
-    values (#{taskid,jdbcType=INTEGER}, #{projectname,jdbcType=VARCHAR}, #{taskname,jdbcType=VARCHAR}, 
-      #{taskdetail,jdbcType=VARCHAR}, #{safetygrade,jdbcType=INTEGER}, #{priority,jdbcType=INTEGER}, 
-      #{starttime,jdbcType=VARCHAR}, #{endtime,jdbcType=VARCHAR})
+  <insert id="insert" parameterType="com.wwdlb.hongruan.model.Task"  useGeneratedKeys="true" keyProperty="taskid">
+    insert into task (TaskID, TaskName, TaskDetail, 
+      SafetyGrade, Priority, StartTime, 
+      EndTime, Progress)
+    values (#{taskid,jdbcType=INTEGER}, #{taskname,jdbcType=VARCHAR}, #{taskdetail,jdbcType=VARCHAR}, 
+      #{safetygrade,jdbcType=INTEGER}, #{priority,jdbcType=INTEGER}, #{starttime,jdbcType=VARCHAR}, 
+      #{endtime,jdbcType=VARCHAR}, #{progress,jdbcType=DOUBLE})
   </insert>
-  <insert id="insertSelective" parameterType="com.wwdlb.hongruan.model.Task">
+  <insert id="insertSelective" parameterType="com.wwdlb.hongruan.model.Task"  useGeneratedKeys="true" keyProperty="taskid">
     insert into task
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="taskid != null">
         TaskID,
-      </if>
-      <if test="projectname != null">
-        ProjectName,
       </if>
       <if test="taskname != null">
         TaskName,
@@ -59,13 +65,13 @@
       <if test="endtime != null">
         EndTime,
       </if>
+      <if test="progress != null">
+        Progress,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="taskid != null">
         #{taskid,jdbcType=INTEGER},
-      </if>
-      <if test="projectname != null">
-        #{projectname,jdbcType=VARCHAR},
       </if>
       <if test="taskname != null">
         #{taskname,jdbcType=VARCHAR},
@@ -85,14 +91,14 @@
       <if test="endtime != null">
         #{endtime,jdbcType=VARCHAR},
       </if>
+      <if test="progress != null">
+        #{progress,jdbcType=DOUBLE},
+      </if>
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.wwdlb.hongruan.model.Task">
     update task
     <set>
-      <if test="projectname != null">
-        ProjectName = #{projectname,jdbcType=VARCHAR},
-      </if>
       <if test="taskname != null">
         TaskName = #{taskname,jdbcType=VARCHAR},
       </if>
@@ -111,18 +117,21 @@
       <if test="endtime != null">
         EndTime = #{endtime,jdbcType=VARCHAR},
       </if>
+      <if test="progress != null">
+        Progress = #{progress,jdbcType=DOUBLE},
+      </if>
     </set>
     where TaskID = #{taskid,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.wwdlb.hongruan.model.Task">
     update task
-    set ProjectName = #{projectname,jdbcType=VARCHAR},
-      TaskName = #{taskname,jdbcType=VARCHAR},
+    set TaskName = #{taskname,jdbcType=VARCHAR},
       TaskDetail = #{taskdetail,jdbcType=VARCHAR},
       SafetyGrade = #{safetygrade,jdbcType=INTEGER},
       Priority = #{priority,jdbcType=INTEGER},
       StartTime = #{starttime,jdbcType=VARCHAR},
-      EndTime = #{endtime,jdbcType=VARCHAR}
+      EndTime = #{endtime,jdbcType=VARCHAR},
+      Progress = #{progress,jdbcType=DOUBLE}
     where TaskID = #{taskid,jdbcType=INTEGER}
   </update>
 </mapper>

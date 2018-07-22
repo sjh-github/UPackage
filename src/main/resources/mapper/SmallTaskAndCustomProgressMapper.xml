@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wwdlb.hongruan.mapper.SmallTaskAndCustomProgressMapper">
+  <resultMap id="BaseResultMap" type="com.wwdlb.hongruan.model.SmallTaskAndCustomProgress">
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="SmallTaskID" jdbcType="INTEGER" property="smalltaskid" />
+    <result column="CustomProgressID" jdbcType="INTEGER" property="customprogressid" />
+    <result column="ProgressOrder" jdbcType="INTEGER" property="progressorder" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, SmallTaskID, CustomProgressID, ProgressOrder
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from smalltaskandcustomprogress
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectByCustomID" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from smalltaskandcustomprogress
+    where customprogressid = #{customProgressID,jdbcType=INTEGER}
+  </select>
+  <select id="getSmallTaskAndCustomProgressBySmallTaskID" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from smalltaskandcustomprogress
+    where smalltaskid = #{smalltaskid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from smalltaskandcustomprogress
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.wwdlb.hongruan.model.SmallTaskAndCustomProgress">
+    insert into smalltaskandcustomprogress (ID, SmallTaskID, CustomProgressID, 
+      ProgressOrder)
+    values (#{id,jdbcType=INTEGER}, #{smalltaskid,jdbcType=INTEGER}, #{customprogressid,jdbcType=INTEGER}, 
+      #{progressorder,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.wwdlb.hongruan.model.SmallTaskAndCustomProgress">
+    insert into smalltaskandcustomprogress
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="smalltaskid != null">
+        SmallTaskID,
+      </if>
+      <if test="customprogressid != null">
+        CustomProgressID,
+      </if>
+      <if test="progressorder != null">
+        ProgressOrder,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="smalltaskid != null">
+        #{smalltaskid,jdbcType=INTEGER},
+      </if>
+      <if test="customprogressid != null">
+        #{customprogressid,jdbcType=INTEGER},
+      </if>
+      <if test="progressorder != null">
+        #{progressorder,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wwdlb.hongruan.model.SmallTaskAndCustomProgress">
+    update smalltaskandcustomprogress
+    <set>
+      <if test="smalltaskid != null">
+        SmallTaskID = #{smalltaskid,jdbcType=INTEGER},
+      </if>
+      <if test="customprogressid != null">
+        CustomProgressID = #{customprogressid,jdbcType=INTEGER},
+      </if>
+      <if test="progressorder != null">
+        ProgressOrder = #{progressorder,jdbcType=INTEGER},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wwdlb.hongruan.model.SmallTaskAndCustomProgress">
+    update smalltaskandcustomprogress
+    set SmallTaskID = #{smalltaskid,jdbcType=INTEGER},
+      CustomProgressID = #{customprogressid,jdbcType=INTEGER},
+      ProgressOrder = #{progressorder,jdbcType=INTEGER}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wwdlb.hongruan.mapper.SmallTaskMapper">
+  <resultMap id="BaseResultMap" type="com.wwdlb.hongruan.model.SmallTask">
+    <id column="SmallTaskID" jdbcType="INTEGER" property="smalltaskid" />
+    <result column="SmallTaskName" jdbcType="VARCHAR" property="smalltaskname" />
+    <result column="SmallTaskDetail" jdbcType="VARCHAR" property="smalltaskdetail" />
+    <result column="EndTime" jdbcType="VARCHAR" property="endtime" />
+    <result column="HaveFinished" jdbcType="CHAR" property="havefinished" />
+    <result column="FinishTime" jdbcType="VARCHAR" property="finishtime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    SmallTaskID, SmallTaskName, SmallTaskDetail, EndTime, HaveFinished, FinishTime
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from smalltask
+    where SmallTaskID = #{smalltaskid,jdbcType=INTEGER}
+  </select>
+  <select id="searchBySmallTaskName" parameterType="java.lang.String" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    from smalltask
+    where smalltaskname LIKE #{smallTaskName,jdbcType=VARCHAR}
+  </select>
+  <select id="getNumOfSmallTaskByState" resultType="java.lang.Integer" parameterType="java.lang.String">
+    SELECT count(*) from smalltask where HaveFinished = #{haveFinished}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from smalltask
+    where SmallTaskID = #{smalltaskid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.wwdlb.hongruan.model.SmallTask" useGeneratedKeys="true" keyProperty="smalltaskid">
+    insert into smalltask (SmallTaskID, SmallTaskName, SmallTaskDetail, 
+      EndTime, HaveFinished, FinishTime
+      )
+    values (#{smalltaskid,jdbcType=INTEGER}, #{smalltaskname,jdbcType=VARCHAR}, #{smalltaskdetail,jdbcType=VARCHAR}, 
+      #{endtime,jdbcType=VARCHAR}, #{havefinished,jdbcType=CHAR}, #{finishtime,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.wwdlb.hongruan.model.SmallTask" useGeneratedKeys="true" keyProperty="smalltaskid">
+    insert into smalltask
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="smalltaskid != null">
+        SmallTaskID,
+      </if>
+      <if test="smalltaskname != null">
+        SmallTaskName,
+      </if>
+      <if test="smalltaskdetail != null">
+        SmallTaskDetail,
+      </if>
+      <if test="endtime != null">
+        EndTime,
+      </if>
+      <if test="havefinished != null">
+        HaveFinished,
+      </if>
+      <if test="finishtime != null">
+        FinishTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="smalltaskid != null">
+        #{smalltaskid,jdbcType=INTEGER},
+      </if>
+      <if test="smalltaskname != null">
+        #{smalltaskname,jdbcType=VARCHAR},
+      </if>
+      <if test="smalltaskdetail != null">
+        #{smalltaskdetail,jdbcType=VARCHAR},
+      </if>
+      <if test="endtime != null">
+        #{endtime,jdbcType=VARCHAR},
+      </if>
+      <if test="havefinished != null">
+        #{havefinished,jdbcType=CHAR},
+      </if>
+      <if test="finishtime != null">
+        #{finishtime,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wwdlb.hongruan.model.SmallTask">
+    update smalltask
+    <set>
+      <if test="smalltaskname != null">
+        SmallTaskName = #{smalltaskname,jdbcType=VARCHAR},
+      </if>
+      <if test="smalltaskdetail != null">
+        SmallTaskDetail = #{smalltaskdetail,jdbcType=VARCHAR},
+      </if>
+      <if test="endtime != null">
+        EndTime = #{endtime,jdbcType=VARCHAR},
+      </if>
+      <if test="havefinished != null">
+        HaveFinished = #{havefinished,jdbcType=CHAR},
+      </if>
+      <if test="finishtime != null">
+        FinishTime = #{finishtime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where SmallTaskID = #{smalltaskid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wwdlb.hongruan.model.SmallTask">
+    update smalltask
+    set SmallTaskName = #{smalltaskname,jdbcType=VARCHAR},
+      SmallTaskDetail = #{smalltaskdetail,jdbcType=VARCHAR},
+      EndTime = #{endtime,jdbcType=VARCHAR},
+      HaveFinished = #{havefinished,jdbcType=CHAR},
+      FinishTime = #{finishtime,jdbcType=VARCHAR}
+    where SmallTaskID = #{smalltaskid,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+      <title>找回密码</title>
+      <meta content="虹软外包" name="keywords"/>
+      <meta content="虹软外包" name="description"/>
+      <meta http-equiv="Cache-Control" content="max-age=180"/>
+      <meta name="apple-mobile-web-app-capable" content="yes"/>
+      <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+      <meta name="format-detection" content="telephone=no"/>
+      <meta http-equiv="x-dns-prefetch-control" content="on"/>
+      <link href="../static/css/basestyle.css" th:href="@{/css/basestyle.css}" rel="stylesheet" type="text/css" />
+      <link href="../static/css/mc.css" th:href="@{/css/mc.css}" rel="stylesheet" type="text/css" />
+      <link href="../static/css/user_center.css" th:href="@{/css/user_center.css}" rel="stylesheet" type="text/css" />
+      <script src="../static/js/jquery-1.8.3.min.js" th:href="@{/js/jquery-1.8.3.min.js}" ></script>
+      <link href="../static/css/font-awesome.min.css" th:href="@{/css/font-awesome.min.css}" rel="stylesheet" type="text/css"/>
+    </head>
+    <body>
+        <div class="topper">
+          <div class="wrap cl">
+            <div class="t-left">您好，欢迎来到虹软外包管理平台！</div>
+          </div>
+        </div>
+        <div class="user-header">
+          <div class="u-main">
+            <div class="u-logo"></div>
+          </div>
+        </div>
+
+        <div class="centers_m">
+          <!--right-->
+          <div class="centers_mr" style="float:none; margin:0 auto; min-height:400px; overflow:hidden;">
+            <form role="form" action="login.html" method="post">
+                <div class="centers_r_items">
+                  <div class="items-con">
+                    <div class="public_m1">
+                        <div class="public_m2">找回密码</div>
+                        <div class="public_m4">
+                            <p>
+                                <em>邮箱：</em>
+                                <input type="text" class="u-ipt-txt" />
+                                <input type="button" id="btnsj" class="btn_mfyzm" value="获取验证码" style=" border:1px solid #c8c8c8; height:29px; margin-left:6px"/>
+                            </p>
+                            <p>
+                                <em>验证码：</em>
+                                <input type="text" class="u-ipt-txt" style="width:80px;"/>
+                                <!--<span class="error-ts">验证码错误</span>-->
+                            </p>
+                            <p>
+                                <em>新的密码：</em>
+                                <input type="text" class="u-ipt-txt"/>
+                            </p>
+                            <p>
+                                <em>确认密码：</em>
+                                <input type="text" class="u-ipt-txt"/>
+                            </p>
+                            <input type="submit" class="public_m3" style=" margin-left:127px;" value="确认修改"/>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+            </form>
+          </div>
+        </div>
+    </body>
+</html>

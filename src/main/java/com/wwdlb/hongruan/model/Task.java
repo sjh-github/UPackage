@@ -3,8 +3,6 @@ package com.wwdlb.hongruan.model;
 public class Task {
     private Integer taskid;
 
-    private String projectname;
-
     private String taskname;
 
     private String taskdetail;
@@ -17,20 +15,14 @@ public class Task {
 
     private String endtime;
 
+    private Double progress;
+
     public Integer getTaskid() {
         return taskid;
     }
 
     public void setTaskid(Integer taskid) {
         this.taskid = taskid;
-    }
-
-    public String getProjectname() {
-        return projectname;
-    }
-
-    public void setProjectname(String projectname) {
-        this.projectname = projectname == null ? null : projectname.trim();
     }
 
     public String getTaskname() {
@@ -79,5 +71,26 @@ public class Task {
 
     public void setEndtime(String endtime) {
         this.endtime = endtime == null ? null : endtime.trim();
+    }
+
+    public Double getProgress() {
+        return progress;
+    }
+
+    public void setProgress(Double progress) {
+        this.progress = progress;
+    }
+
+    public Task(String taskname, String taskdetail, Integer safetygrade, Integer priority, String starttime, String endtime) {
+        this.taskid = taskid;
+        this.taskname = taskname;
+        this.taskdetail = taskdetail;
+        this.safetygrade = safetygrade;
+        this.priority = priority;
+        this.starttime = starttime;
+        this.endtime = endtime;
+    }
+
+    public Task() {
     }
 }

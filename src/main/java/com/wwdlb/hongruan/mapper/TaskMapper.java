@@ -2,6 +2,8 @@ package com.wwdlb.hongruan.mapper;
 
 import com.wwdlb.hongruan.model.Task;
 
+import java.util.ArrayList;
+
 public interface TaskMapper {
     int deleteByPrimaryKey(Integer taskid);
 
@@ -14,4 +16,8 @@ public interface TaskMapper {
     int updateByPrimaryKeySelective(Task record);
 
     int updateByPrimaryKey(Task record);
+
+    Integer selectIDByTaskName(String taskName);
+
+    ArrayList<Task> getAllTask();
 }

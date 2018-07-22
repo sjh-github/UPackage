@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <title>任务列表</title>
+    <meta content="虹软外包" name="keywords"/>
+    <meta content="虹软外包" name="description"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <link href="../static/css/basestyle.css" th:href="@{/css/basestyle.css}" rel="stylesheet" type="text/css" />
+    <link href="../static/css/mc.css" th:href="@{/css/mc.css}" rel="stylesheet" type="text/css" />
+    <script src="../static/js/jquery-1.8.3.min.js" th:src="@{/js/jquery-1.8.3.min.js}"></script>
+    <script src="../static/js/jquery-ui.js" th:src="@{/js/jquery-ui.js}"></script>
+    <script src="../static/js/fwslider.js" th:src="@{/js/fwslider.js}"></script>
+    <link href="../static/css/jquery.bxslider.css" th:href="@{/css/jquery.bxslider.css}" rel="stylesheet" type="text/css"/>
+    <link href="../static/css/font-awesome.min.css" th:href="@{/css/font-awesome.min.css}" rel="stylesheet" type="text/css"/>
+  </head>
+
+  <body>
+    <!--header-->
+    <div class="header">
+      <div class="topper">
+        <div class="wrap cl">
+          <div class="t-left">您好，欢迎来到虹软外包管理平台！</div>
+          <div class="t-right">
+            <ul class="cl">
+              <li class="user-list">
+                <div class="top-user">
+                  <a href="u_index.html" th:href="@{/web/uIndexPage}">
+                    <img src="../static/images/logo.jpg" th:src="@{/web/receiveTaskPersonalImage}"/>
+                    <span th:text="${name}">飞翔的土豆</span>
+                    <i class="fa fa-caret-down"></i>
+                  </a>
+                </div>
+                <div class="pop-dwon">
+                  <a href="u_index.html" th:href="@{/web/uIndexPage}"><i class="fa fa-user-o"></i>个人主页</a>
+                  <a href="u_xiaoxi.html" th:href="@{/web/systemNoticePage}"><i class="fa fa-commenting-o"></i>我的消息</a>
+                  <a href="login.html" th:href="@{/web/logout}" class="last"><i class="fa fa-power-off"></i>退出登录</a>
+                </div>
+              </li>
+              <li>
+                <td th:if="${signInTime != null}"><span th:text="|签到:${signInTime}|" style="color:#F00">12:47:00</span></td>
+                <td th:unless="${signInTime != null}"><a href="#" th:href="@{/web/signIn}">签到</a></td>
+                <span>&nbsp;</span>
+                <td th:if="${signOutTime != null}"><a href="#" th:href="@{/web/signOut}" th:text="|签退:${signOutTime}|" style="color:#F00">签退</a></td>
+                <td th:unless="${signOutTime != null}"><a href="#" th:href="@{/web/signOut}">签退</a></td>
+              </li>
+              <li><a href="#">帮助中心</a></li>
+              <li><a href="#">联系我们</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="head">
+        <div class="wrap cl">
+          <div class="logo"><a href="workList1.html" th:href="@{/web/smallTaskRunningPage}"></a></div>
+          <div class="hd-r">
+            <div class="menu">
+              <ul class="cl">
+                <li><a href="u_index.html" th:href="@{/web/uIndexPage}">个人中心<p>U-Center</p></a></li>
+                <li class="active"><a href="workList.html" th:href="@{/web/smallTaskAllPage}">任务<p>Task</p></a></li>
+                <li><a href="receiveTaskPersonalIndex.html" th:href="@{/web/indexPage/receiveTaskPersonal}">首页<p>Index</p></a></li>
+              </ul>
+            </div>
+            <div class="search">
+              <form action="#" th:action="@{/web/search/smallTaskName}">
+                <input type="text" class="ipt-sea" placeholder="请输入任务名称" name="smallTaskName"/>
+                <input type="submit" value="搜索" style="width:100px; height:44px; background:#c80000; color:#fff; text-align:center; font-size:16px; line-height:44px; position:absolute; right:-2px; top:-2px;"/>
+              </form>
+              <!--<a href="javascript:;">搜索</a>-->
+            </div>
+            <div class="num">
+              <span>接包人员：<em th:text="${numOfReceiveTaskPersonal}">7,657</em>人</span>
+              <span>接包公司：<em th:text="${numOfReceiveTaskCompany}">524</em>家</span>
+              <span>已完成项目：<em th:text="${numOfHaveFinishedSmallTask}">15,517</em>项</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script type="text/javascript">
+        $(function () {
+            var setTime;
+            $(".user-list").hover(function () {
+                var _this = $(this);
+                setTime = setTimeout(function () {
+                    _this.addClass("hover");
+                    $(".top-user i").removeClass("fa-caret-down").addClass("fa-caret-up");
+                    $(".user-list .pop-dwon").slideDown(300);
+                }, 300);
+            }, function () {
+                var _this = $(this);
+                if (setTime) {
+                    clearTimeout(setTime);
+                }
+                $(".user-list .pop-dwon").hide();
+                _this.removeClass("hover");
+                $(".top-user i").removeClass("fa-caret-up").addClass("fa-caret-down");
+            });
+        });
+    </script>
+
+    <!--任务列表-->
+    <div class="container">
+      <div class="filterbox wrap">
+        <div class="filterlist">
+          <div class="filter-crumbs-nav">
+            <a href="javascript:;" class="back" th:href="@{/web/indexPage/receiveTaskPersonal}">
+              <i class="fa fa-arrow-circle-o-left"></i>
+            </a>
+            <a href="receiveTaskPersonalIndex.html" th:href="@{/web/indexPage/receiveTaskPersonal}">首页</a>
+            <span> > </span>
+            <span>任务</span>
+          </div>
+          <div class="filter-pbl" th:unless="${showNum == false}">
+            <a href="workList.html" th:href="@{/web/smallTaskAllPage}" class="active"><span>ALL</span><em th:text="${numOfSmallTask}">8</em></a>
+            <a href="workList1.html" th:href="@{/web/smallTaskRunningPage}"><span>进行中</span><em th:text="${numOfRunningSmallTask}">5</em></a>
+            <a href="workList2.html" th:href="@{/web/smallTaskFinishedPage}"><span>已完成</span><em th:text="${numOfHaveFinishedSmallTask}">3</em></a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+        $(document).ready(function(){
+            $(".ui-select").selectWidget({
+                change       : function (changes) {
+                    return changes;
+                },
+                effect       : "slide",
+                keyControl   : true,
+                speed        : 200,
+                scrollHeight : 200
+            });
+
+        });
+    </script>
+    <div class="wrap hide">
+      <div class="ind-con cl ind-tuku">
+        <ul>
+          <li th:each="smallTask, iterStat : ${AllSmallTasks.list}">
+            <div>
+              <a href="workInfo.html" th:href="@{/web/receiveTaskPerson/smallTaskDetailPage(smallTaskID=${smallTask.smalltaskid})}">
+                <input type="text" th:value="|${smallTask.havefinished} - ${smallTask.smalltaskid}|" disabled="disabled" style="background: #D3D3D3;height: 280px;width: 380px;font-family: 微软雅黑;font-size: 50px;text-align: center" value="Ⅲ级-Ⅰ级-1"/>
+              </a>
+            </div>
+            <div class="info">
+              <div class="name" th:text="${smallTask.smalltaskname}">收集水果图片</div>
+              <div class="sort"><div class="sc" th:text="|截止日期：${smallTask.endtime}|">截止日期：2018年5月1日！</div></div>
+              <div class="author">
+                <img src="../static/images/logo.jpg" th:src="@{/images/logo.jpg}"/>虹软研发部
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="listPage">
+        <div class="pageBtn">
+          <a href="#" th:href="@{/web/smallTaskAllPage(page=${nowPage}-1)}"><i class="fa fa-caret-left"></i>上一页</a>
+          <span class="current" th:text="${nowPage}">1</span>
+          <a href="#" th:href="@{/web/smallTaskAllPage(page=${nowPage}+1)}">下一页<i class="fa fa-caret-right"></i></a>
+        </div>
+      </div>
+    </div>
+
+    <!--footer-->
+    <div class="footer">
+      <div class="ft-menu">
+        <div class="wrap hide">
+          <dl>
+            <dt><i class="fa fa-compass"></i>虹软技术</dt>
+            <dd>
+              <a href="#">防抖技术</a>
+              <a href="#">人脸技术</a>
+              <a href="#">HDR技术</a>
+              <a href="#">手势识别技术</a>
+              <a href="#">全景技术</a>
+            </dd>
+          </dl>
+          <dl>
+            <dt><i class="fa fa-mortar-board"></i>接包人员</dt>
+            <dd>
+              <a href="#">上传作品</a>
+              <a href="#">查看需求</a>
+              <a href="#">立即加入</a>
+            </dd>
+          </dl>
+          <dl>
+            <dt><i class="fa fa-institution"></i>接包公司</dt>
+            <dd>
+              <a href="#">查看需求</a>
+              <a href="#">发布作品</a>
+              <a href="#">公司简介</a>
+              <a href="#">立即加入</a>
+            </dd>
+          </dl>
+          <dl>
+            <dt><i class="fa fa-get-pocket"></i>虹软官网</dt>
+            <dd>
+              <a href="http://www.arcsoft.com.cn/">虹软中国</a>
+              <a href="#">英文官网</a>
+              <a href="#">虹软微博</a>
+            </dd>
+          </dl>
+        </div>
+      </div>
+
+      <div class="ft-cop">
+        <p>2018 虹软版权所有 <a href="#">浙ICP备11037259号-3</a> 联系电话：0527-88390110  邮箱：110@hongruan.com</p>
+      </div>
+    </div>
+
+    <script>
+        (function($) {
+            $.extend({
+                tipsBox: function(options) {
+                    options = $.extend({
+                        obj: null,  //jq对象，要在那个html标签上显示
+                        str: "+1",  //字符串，要显示的内容;也可以传一段html，如: "<b style='font-family:Microsoft YaHei;'>+1</b>"
+                        startSize: "12px",  //动画开始的文字大小
+                        endSize: "12px",    //动画结束的文字大小
+                        interval:500,  //动画时间间隔
+                        color: "red",    //文字颜色
+                        callback: function() {}    //回调函数
+                    }, options);
+                    $("body").append("<span class='count'>"+ options.str +"</span>");
+                    var box = $(".count");
+                    var left = options.obj.offset().left + options.obj.width() / 2;
+                    var top = options.obj.offset().top - options.obj.height();
+                    box.css({
+                        "position": "absolute",
+                        "left": left + "px",
+                        "top": top + "px",
+                        "z-index": 9999,
+                        "font-size": options.startSize,
+                        "line-height": options.endSize,
+                        "color": options.color
+                    });
+                    box.animate({
+                        "font-size": options.endSize,
+                        "opacity": "0",
+                        "top": top - parseInt(options.endSize) + "px"
+                    }, options.interval , function() {
+                        box.remove();
+                        options.callback();
+                    });
+                }
+            });
+        })(jQuery);
+    </script>
+    <script>
+        $(function() {
+            $(".sc_dz_btn").click(function() {
+                var _this =$(this);
+                $.tipsBox({
+                    obj: _this,
+                    str: "+1"
+                });
+            });
+        });
+    </script>
+  </body>
+</html>

@@ -58,13 +58,18 @@
         <!-- 配置表信息 -->
         <!-- schema即为数据库名 tableName为对应的数据库表 domainObjectName是要生成的实体类 enable*ByExample
         是否生成 example类 -->
-        <table schema="hongruan" tableName="CompanyAndPersonAndTask"
-               domainObjectName="CompanyAndPersonAndTask" enableCountByExample="false"
+       <!-- <table schema="hongruan" tableName="Attendance"
+               domainObjectName="Attendance" enableCountByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               enableUpdateByExample="false">
+        </table>-->
+<!--        <table schema="hongruan" tableName="SmallTaskAndNumberProgress"
+               domainObjectName="SmallTaskAndNumberProgress" enableCountByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false"
                enableUpdateByExample="false">
         </table>
-        <table schema="hongruan" tableName="CompanyAndTaskAndInvitationCode"
-               domainObjectName="CompanyAndTaskAndInvitationCode" enableCountByExample="false"
+        <table schema="hongruan" tableName="CompanyAndPerson"
+               domainObjectName="CompanyAndPerson" enableCountByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false"
                enableUpdateByExample="false">
         </table>
@@ -93,8 +98,8 @@
                enableDeleteByExample="false" enableSelectByExample="false"
                enableUpdateByExample="false">
         </table>
-        <table schema="hongruan" tableName="PersonAndTask"
-               domainObjectName="PersonAndTask" enableCountByExample="false"
+        <table schema="hongruan" tableName="PersonAndSmallTask"
+               domainObjectName="PersonAndSmallTask" enableCountByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false"
                enableUpdateByExample="false">
         </table>
@@ -103,8 +108,8 @@
                enableDeleteByExample="false" enableSelectByExample="false"
                enableUpdateByExample="false">
         </table>
-        <table schema="hongruan" tableName="PhasePlan"
-               domainObjectName="PhasePlan" enableCountByExample="false"
+        <table schema="hongruan" tableName="TaskAndSmallTask"
+               domainObjectName="TaskAndSmallTask" enableCountByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false"
                enableUpdateByExample="false">
         </table>
@@ -122,13 +127,13 @@
                domainObjectName="ReceiveTask_Company" enableCountByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false"
                enableUpdateByExample="false">
-        </table>
-        <table schema="hongruan" tableName="ReceiveTask_Personal"
+        </table>-->
+       <!-- <table schema="hongruan" tableName="ReceiveTask_Personal"
                domainObjectName="ReceiveTask_Personal" enableCountByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false"
                enableUpdateByExample="false">
-        </table>
-        <table schema="hongruan" tableName="SuperAdministrator"
+        </table>-->
+      <!--  <table schema="hongruan" tableName="SuperAdministrator"
                domainObjectName="SuperAdministrator" enableCountByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false"
                enableUpdateByExample="false">
@@ -138,11 +143,36 @@
                enableDeleteByExample="false" enableSelectByExample="false"
                enableUpdateByExample="false">
         </table>
-        <table schema="hongruan" tableName="TaskAndPhasePlan"
-               domainObjectName="TaskAndPhasePlan" enableCountByExample="false"
+        <table schema="hongruan" tableName="SmallTask"
+               domainObjectName="SmallTask" enableCountByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false"
                enableUpdateByExample="false">
         </table>
+        <table schema="hongruan" tableName="IPWhitelist"
+               domainObjectName="IPWhitelist" enableCountByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               enableUpdateByExample="false">
+        </table>
+        <table schema="hongruan" tableName="CustomProgress"
+               domainObjectName="CustomProgress" enableCountByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               enableUpdateByExample="false">
+        </table>-->
+        <!--<table schema="hongruan" tableName="SmallTaskAndCustomProgress"
+               domainObjectName="SmallTaskAndCustomProgress" enableCountByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               enableUpdateByExample="false">
+        </table>-->
+        <!--<table schema="hongruan" tableName="SmallTaskAndProvidePersonEmail"
+               domainObjectName="SmallTaskAndProvidePersonEmail" enableCountByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               enableUpdateByExample="false">
+        </table>-->
+<!--        <table schema="hongruan" tableName="Information"
+               domainObjectName="Information" enableCountByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               enableUpdateByExample="false">
+        </table>-->
     </context>
 </generatorConfiguration>
 

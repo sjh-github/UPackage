@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wwdlb.hongruan.mapper.AttendanceMapper">
+  <resultMap id="BaseResultMap" type="com.wwdlb.hongruan.model.Attendance">
+    <id column="AttendanceID" jdbcType="INTEGER" property="attendanceid" />
+    <result column="Email" jdbcType="VARCHAR" property="email" />
+    <result column="SignInTime" jdbcType="VARCHAR" property="signintime" />
+    <result column="SignOutTime" jdbcType="VARCHAR" property="signouttime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    AttendanceID, Email, signInTime, SignOutTime
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from attendance
+    where AttendanceID = #{attendanceid,jdbcType=INTEGER}
+  </select>
+  <select id="selectByEmail" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from attendance
+    where Email = #{email} and signInTime like #{nowTime}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from attendance
+    where AttendanceID = #{attendanceid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.wwdlb.hongruan.model.Attendance">
+    insert into attendance (AttendanceID, Email, signInTime, 
+      SignOutTime)
+    values (#{attendanceid,jdbcType=INTEGER}, #{email,jdbcType=VARCHAR}, #{signintime,jdbcType=VARCHAR}, 
+      #{signouttime,jdbcType=VARCHAR})
+  </insert>
+  <select id="getSignDayNumOfMonth" resultType="java.lang.Integer">
+    select COUNT(*) from attendance
+    where email = #{email} and signInTime like #{nowTime}
+  </select>
+  <select id="selectHaveRunningTaskEmailTodayHaveSigned" resultType="java.lang.String">
+    select email from attendance
+    where signintime like #{nowTime} and email in
+    <foreach collection="haveRunningSmallTaskPersonEmailList" index="index" item="item" open="(" separator="," close=")">
+      #{item}
+    </foreach>
+  </select>
+  <insert id="insertSelective" parameterType="com.wwdlb.hongruan.model.Attendance">
+    insert into attendance
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="attendanceid != null">
+        AttendanceID,
+      </if>
+      <if test="email != null">
+        Email,
+      </if>
+      <if test="signintime != null">
+        signInTime,
+      </if>
+      <if test="signouttime != null">
+        SignOutTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="attendanceid != null">
+        #{attendanceid,jdbcType=INTEGER},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="signintime != null">
+        #{signintime,jdbcType=VARCHAR},
+      </if>
+      <if test="signouttime != null">
+        #{signouttime,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wwdlb.hongruan.model.Attendance">
+    update attendance
+    <set>
+      <if test="email != null">
+        Email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="signintime != null">
+        signInTime = #{signintime,jdbcType=VARCHAR},
+      </if>
+      <if test="signouttime != null">
+        SignOutTime = #{signouttime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where AttendanceID = #{attendanceid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wwdlb.hongruan.model.Attendance">
+    update attendance
+    set Email = #{email,jdbcType=VARCHAR},
+      signInTime = #{signintime,jdbcType=VARCHAR},
+      SignOutTime = #{signouttime,jdbcType=VARCHAR}
+    where AttendanceID = #{attendanceid,jdbcType=INTEGER}
+  </update>
+</mapper>
